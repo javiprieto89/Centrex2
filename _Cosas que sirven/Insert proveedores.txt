@@ -1,0 +1,14 @@
+SET IDENTITY_INSERT proveedores ON
+
+Alter Table proveedores
+    NOCHECK Constraint All
+	
+
+INSERT INTO proveedores (id_proveedor, dni, nombre, telefono, direccion, activo)
+SELECT * FROM [DROilTest].[dbo].[proveedores] AS kk
+
+Alter Table proveedores
+    CHECK Constraint All
+
+	SET IDENTITY_INSERT proveedores OFF
+

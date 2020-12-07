@@ -1,0 +1,14 @@
+SET IDENTITY_INSERT items ON
+
+Alter Table items
+    NOCHECK Constraint All
+	
+
+INSERT INTO items (id_item, item, descript, cantidad, costo, precio_lista, id_tipo, id_marca, id_proveedor, wega, fram, mann, id_rosca, factor, activo)
+SELECT * FROM [DROilTest].[dbo].items AS kk
+
+Alter Table items
+    CHECK Constraint All
+
+	SET IDENTITY_INSERT items OFF
+

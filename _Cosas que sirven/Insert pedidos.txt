@@ -1,0 +1,13 @@
+SET IDENTITY_INSERT pedidos ON
+
+Alter Table pedidos
+    NOCHECK Constraint All
+	
+
+INSERT INTO pedidos (id_pedido, fecha, id_cliente, cliente, total, activo)
+SELECT * FROM [DROilTest].[dbo].pedidos AS kk
+
+Alter Table pedidos
+    CHECK Constraint All
+
+	SET IDENTITY_INSERT pedidos OFF

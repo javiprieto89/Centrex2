@@ -1,0 +1,7 @@
+CREATE TRIGGER Regresar_StockP
+   ON pedidos_items
+   FOR DELETE
+   AS
+   UPDATE p SET p.cantidad = p.cantidad + d.cantidad
+   FROM items AS p
+   INNER JOIN deleted AS d ON d.id_item = p.id_item

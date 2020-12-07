@@ -1,0 +1,3 @@
+INSERT INTO cambios (cambio) VALUES ('Agregada la posibilidad de facturar productos agregados manualmente al momento de generar un pedido (Productos que no son guardados)')
+INSERT INTO cambios (cambio) VALUES ('Corrección de bugs, mejorando la performance')
+INSERT INTO cambios (cambio) VALUES ('Agregado el módulo de configuración, ahora permite elegir los datos de acceso al servidor y la ruta en la que se guardará el backup de la base de datos del sistema')

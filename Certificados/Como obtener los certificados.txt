@@ -1,0 +1,10 @@
+Certificado de prueba: https://sites.google.com/site/facturaelectronicax/Home/version-full/como-usar/certificado-digital/certificados-resumen/certificado-fiscal-afip-de-prueba
+Asociación certificado-PC: http://www.afip.gov.ar/eFactura/documentos/WSFEProcedimientohabilitacionservicios070319a.pdf
+Conversión p12 a pfx: https://sites.google.com/site/facturaelectronicax/Home/version-full/como-usar/certificado-digital/certificados-resumen/certificado-propio/certificado-convetir-p12-pfx
+Seguridad en certificados: https://sites.google.com/site/facturaelectronicax/Home/version-full/como-usar/certificado-digital/certificados-resumen/seguridad-en-certificados-digitales
+
+
+openssl genrsa -out privada 2048
+openssl req -new -key privada -subj "/C=AR/O=TOLFO ANGEL/CN=Bruno/serialNumber=CUIT 20100906512" -out pedido
+openssl pkcs12 -export -out certificado.pfx -inkey privada -in Bruno_prueba.crt 
+ 

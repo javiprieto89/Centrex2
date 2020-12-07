@@ -1,0 +1,219 @@
+Consulte el final de este mensaje para obtener más detalles sobre cómo invocar a la depuración 
+Just-In-Time (JIT) en lugar de a este cuadro de diálogo.
+
+************** Texto de la excepción **************
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en System.Windows.Forms.DataGridViewRow.GetPreferredHeight(Int32 rowIndex, DataGridViewAutoSizeRowMode autoSizeRowMode, Boolean fixedWidth)
+   en System.Windows.Forms.DataGridView.AutoResizeRowInternal(Int32 rowIndex, DataGridViewAutoSizeRowMode autoSizeRowMode, Boolean fixedWidth, Boolean internalAutosizing)
+   en System.Windows.Forms.DataGridView.PaintRows(Graphics g, Rectangle boundingRect, Rectangle clipRect, Boolean singleHorizontalBorderAdded)
+   en System.Windows.Forms.DataGridView.PaintGrid(Graphics g, Rectangle gridBounds, Rectangle clipRect, Boolean singleVerticalBorderAdded, Boolean singleHorizontalBorderAdded)
+   en System.Windows.Forms.DataGridView.OnPaint(PaintEventArgs e)
+   en System.Windows.Forms.Control.PaintWithErrorHandling(PaintEventArgs e, Int16 layer)
+   en System.Windows.Forms.Control.WmPaint(Message& m)
+   en System.Windows.Forms.Control.WndProc(Message& m)
+   en System.Windows.Forms.DataGridView.WndProc(Message& m)
+   en System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   en System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   en System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+
+************** Ensamblados cargados **************
+mscorlib
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll
+----------------------------------------
+Centrex
+    Versión del ensamblado: 2.0.5792.38828
+    Versión Win32: 2.0.5792.38828
+    Código base: file:///D:/Dropbox/Centrex%201.0/bin/Debug/Centrex.exe
+----------------------------------------
+Microsoft.VisualBasic
+    Versión del ensamblado: 10.0.0.0
+    Versión Win32: 12.0.51209.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/Microsoft.VisualBasic/v4.0_10.0.0.0__b03f5f7f11d50a3a/Microsoft.VisualBasic.dll
+----------------------------------------
+System
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34238 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System/v4.0_4.0.0.0__b77a5c561934e089/System.dll
+----------------------------------------
+System.Core
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Core/v4.0_4.0.0.0__b77a5c561934e089/System.Core.dll
+----------------------------------------
+System.Windows.Forms
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34251 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms/v4.0_4.0.0.0__b77a5c561934e089/System.Windows.Forms.dll
+----------------------------------------
+System.Drawing
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34270 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Drawing/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Drawing.dll
+----------------------------------------
+System.Configuration
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Configuration/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Configuration.dll
+----------------------------------------
+System.Xml
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+System.Runtime.Remoting
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34245 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Runtime.Remoting/v4.0_4.0.0.0__b77a5c561934e089/System.Runtime.Remoting.dll
+----------------------------------------
+System.Windows.Forms.resources
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms.resources/v4.0_4.0.0.0_es_b77a5c561934e089/System.Windows.Forms.resources.dll
+----------------------------------------
+System.Data
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Data/v4.0_4.0.0.0__b77a5c561934e089/System.Data.dll
+----------------------------------------
+System.Transactions
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Transactions/v4.0_4.0.0.0__b77a5c561934e089/System.Transactions.dll
+----------------------------------------
+System.EnterpriseServices
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.EnterpriseServices/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.EnterpriseServices.dll
+----------------------------------------
+System.Numerics
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Numerics/v4.0_4.0.0.0__b77a5c561934e089/System.Numerics.dll
+----------------------------------------
+System.Data.resources
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Data.resources/v4.0_4.0.0.0_es_b77a5c561934e089/System.Data.resources.dll
+----------------------------------------
+mscorlib.resources
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/mscorlib.resources/v4.0_4.0.0.0_es_b77a5c561934e089/mscorlib.resources.dll
+----------------------------------------
+Microsoft.ReportViewer.WinForms
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 11.0.3442.2 ((SQL11_SP1_RS_Dev12-RTM).140611-0541 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.ReportViewer.WinForms/11.0.0.0__89845dcd8080cc91/Microsoft.ReportViewer.WinForms.dll
+----------------------------------------
+Microsoft.ReportViewer.WinForms.resources
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 11.0.3442.2 ((SQL11_SP1_RS_Dev12-RTM).140611-0541 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.ReportViewer.WinForms.resources/11.0.0.0_es_89845dcd8080cc91/Microsoft.ReportViewer.WinForms.resources.dll
+----------------------------------------
+Microsoft.ReportViewer.Common
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 11.0.3442.2 ((SQL11_SP1_RS_Dev12-RTM).140611-0541 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.ReportViewer.Common/11.0.0.0__89845dcd8080cc91/Microsoft.ReportViewer.Common.dll
+----------------------------------------
+System.Data.DataSetExtensions
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Data.DataSetExtensions/v4.0_4.0.0.0__b77a5c561934e089/System.Data.DataSetExtensions.dll
+----------------------------------------
+Microsoft.ReportViewer.Common.resources
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 11.0.3442.2 ((SQL11_SP1_RS_Dev12-RTM).140611-0541 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.ReportViewer.Common.resources/11.0.0.0_es_89845dcd8080cc91/Microsoft.ReportViewer.Common.resources.dll
+----------------------------------------
+Microsoft.SqlServer.Types
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 2011.0110.3366.016 ((SQL11_SP1_RS_Dev12-RTM).130829-0516 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.SqlServer.Types/11.0.0.0__89845dcd8080cc91/Microsoft.SqlServer.Types.dll
+----------------------------------------
+Microsoft.ReportViewer.ProcessingObjectModel
+    Versión del ensamblado: 11.0.0.0
+    Versión Win32: 11.0.3442.2 ((SQL11_SP1_RS_Dev12-RTM).140611-0541 )
+    Código base: file:///C:/Windows/assembly/GAC_MSIL/Microsoft.ReportViewer.ProcessingObjectModel/11.0.0.0__89845dcd8080cc91/Microsoft.ReportViewer.ProcessingObjectModel.dll
+----------------------------------------
+System.resources
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.resources/v4.0_4.0.0.0_es_b77a5c561934e089/System.resources.dll
+----------------------------------------
+WSAFIPFE
+    Versión del ensamblado: 31.0.0.0
+    Versión Win32: 31.0.0.0
+    Código base: file:///D:/Dropbox/Centrex%201.0/bin/Debug/WSAFIPFE.DLL
+----------------------------------------
+System.Web.Extensions
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34249
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Web.Extensions/v4.0_4.0.0.0__31bf3856ad364e35/System.Web.Extensions.dll
+----------------------------------------
+System.Web
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34249 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Web/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Web.dll
+----------------------------------------
+System.Web.Services
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34209 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Web.Services/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Web.Services.dll
+----------------------------------------
+System.Security
+    Versión del ensamblado: 4.0.0.0
+    Versión Win32: 4.0.30319.34252 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Security/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Security.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+Microsoft.GeneratedCode
+    Versión del ensamblado: 1.0.0.0
+    Versión Win32: 4.0.30319.34234 built by: FX452RTMGDR
+    Código base: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+
+************** Depuración JIT **************
+Para habilitar la depuración Just In Time (JIT), el archivo de configuración de esta
+aplicación o equipo (machine.config) debe tener el
+valor jitDebugging establecido en la sección system.windows.forms.
+La aplicación también se debe compilar con la depuración
+habilitada
+
+Por ejemplo:
+
+<configuration>
+    <system.windows.forms jitDebugging="true" />
+</configuration>
+
+Cuando esté habilitada la depuración JIT, cualquier excepción no controlada
+se enviará al depurador JIT registrado en el equipo
+en lugar de controlarlo mediante el cuadro de diálogo.
+
+

@@ -1,0 +1,16 @@
+CREATE TRIGGER Update_StockC
+   ON casos_items
+   FOR UPDATE
+   AS    
+   IF UPDATE(cantidad)  
+		IF (SELECT cantidad FROM inserted) > (SELECT cantidad FROM deleted)
+			UPDATE p SET p.cantidad = p.cantidad - (i.cantidad - d.cantidad)
+			FROM items AS p
+			INNER JOIN inserted AS i ON i.id_item = p.id_item
+			INNER JOIN deleted AS d ON d.id_item = p.id_item
+		ELSE
+			UPDATE p SET p.cantidad = p.cantidad + (d.cantidad - i.cantidad)
+			FROM items AS p
+			INNER JOIN inserted AS i ON i.id_item = p.id_item
+			INNER JOIN deleted AS d ON d.id_item = p.id_item
+

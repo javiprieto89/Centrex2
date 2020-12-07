@@ -1,0 +1,13 @@
+SET IDENTITY_INSERT casos ON
+
+Alter Table casos
+    NOCHECK Constraint All
+	
+
+INSERT INTO casos (id_caso, fecha, km, proximocambio, notas, id_auto, total, activo)
+SELECT * FROM [DROilTest].[dbo].casos AS kk
+
+Alter Table casos
+    CHECK Constraint All
+
+	SET IDENTITY_INSERT casos OFF

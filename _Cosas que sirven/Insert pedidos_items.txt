@@ -1,0 +1,13 @@
+/*SET IDENTITY_INSERT pedidos_items ON
+
+Alter Table pedidos_items
+    NOCHECK Constraint All*/
+	
+
+INSERT INTO pedidos_items (id_pedido, id_item, cantidad, precio, activo)
+SELECT * FROM [DROilTest].[dbo].pedidos_items AS kk
+
+/*Alter Table pedidos_items
+    CHECK Constraint All
+
+	SET IDENTITY_INSERT pedidos_items OFF*/

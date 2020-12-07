@@ -1,0 +1,13 @@
+CREATE TRIGGER activac
+ON clientes
+FOR UPDATE
+AS 
+	IF UPDATE(activo)
+		UPDATE autos
+		SET activo = (SELECT activo FROM inserted)
+		WHERE id_cliente = (SELECT id_cliente FROM inserted)
+				
+		UPDATE pedidos
+		SET activo = (SELECT activo FROM inserted)
+		WHERE id_cliente = (SELECT id_cliente FROM inserted)
+		AND cerrado = '0'

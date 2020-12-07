@@ -1,0 +1,7 @@
+CREATE TRIGGER Debitar_StockP
+   ON pedidos_items
+   FOR INSERT
+   AS
+   UPDATE p SET p.cantidad = p.cantidad - d.cantidad
+   FROM items AS p
+   INNER JOIN INSERTED AS d ON d.id_item = p.id_item
