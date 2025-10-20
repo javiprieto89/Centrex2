@@ -8,6 +8,7 @@ Public Class ClienteEntity
     Public Property Telefono As String
     Public Property Celular As String
     Public Property Email As String
+    Public Property LimiteCredito As Decimal?
     Public Property IdProvinciaFiscal As Integer?
     Public Property DireccionFiscal As String
     Public Property LocalidadFiscal As String
