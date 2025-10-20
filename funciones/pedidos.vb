@@ -46,9 +46,9 @@ Public Class Pedidos
         Try
             Using context As New CentrexDbContext()
                 ' Incluir los ítems del pedido definitivo y los temporales
-                Dim pedido = context.Pedidos.
-                Include(Function(p) p.PedidoItems).
-                FirstOrDefault(Function(p) p.IdPedido = idPedido)
+                Dim pedido = context.Pedidos _
+                    .Include(Function(p) p.PedidoItems) _
+                    .FirstOrDefault(Function(p) p.IdPedido = idPedido)
 
                 If pedido Is Nothing Then
                     MsgBox("Pedido no encontrado.")
@@ -56,11 +56,11 @@ Public Class Pedidos
                 End If
 
                 ' Obtener ítems temporales activos del usuario
-                Dim itemsTemporales = context.TempPedidosItems.
-                Where(Function(t) t.Activo = True AndAlso
-                                   t.IdUsuario = idUsuario AndAlso
-                                   t.IdUnico = idUnico).
-                ToList()
+                Dim itemsTemporales = context.TmpPedidoItems _
+                    .Where(Function(t) t.Activo = True AndAlso
+                                       t.IdUsuario = idUsuario AndAlso
+                                       t.IdUnico = idUnico) _
+                    .ToList()
 
                 ' --- 1️⃣ Actualizar ítems existentes ---
                 For Each tmp In itemsTemporales
@@ -77,29 +77,31 @@ Public Class Pedidos
                     Dim existe = pedido.PedidoItems.Any(Function(pi) pi.IdItem = tmp.IdItem)
                     If Not existe Then
                         Dim nuevo = New PedidoItemEntity With {
-                        .IdPedido = pedido.IdPedido,
-                        .IdItem = tmp.IdItem,
-                        .Cantidad = tmp.Cantidad,
-                        .Precio = tmp.Precio,
-                        .Descript = tmp.Descript
-                    }
-                        context.PedidoItems.Add(nuevo)
+                            .IdPedido = pedido.IdPedido,
+                            .IdItem = tmp.IdItem,
+                            .Cantidad = tmp.Cantidad,
+                            .Precio = tmp.Precio,
+                            .Descript = tmp.Descript
+                        }
+                        context.PedidosItems.Add(nuevo)
                     End If
                 Next
 
                 ' --- 3️⃣ Eliminar ítems inactivos ---
-                Dim itemsInactivos = context.TempPedidosItems.
-                Where(Function(t) t.Activo = False AndAlso
-                                   t.IdUsuario = idUsuario AndAlso
-                                   t.IdUnico = idUnico).
-                Select(Function(t) t.IdItem).ToList()
+                Dim itemsInactivos = context.TmpPedidoItems _
+                    .Where(Function(t) t.Activo = False AndAlso
+                                       t.IdUsuario = idUsuario AndAlso
+                                       t.IdUnico = idUnico) _
+                    .Select(Function(t) t.IdItem) _
+                    .ToList()
 
                 If itemsInactivos.Any() Then
-                    Dim aEliminar = pedido.PedidoItems.
-                    Where(Function(pi) itemsInactivos.Contains(pi.IdItem)).ToList()
+                    Dim aEliminar = pedido.PedidoItems _
+                        .Where(Function(pi) itemsInactivos.Contains(pi.IdItem)) _
+                        .ToList()
 
                     If aEliminar.Any() Then
-                        context.PedidoItems.RemoveRange(aEliminar)
+                        context.PedidosItems.RemoveRange(aEliminar)
                     End If
                 End If
 
@@ -186,7 +188,7 @@ Public Class Pedidos
     ''' </summary>
     Public Function GetItemsPedido(idPedido As Integer) As List(Of PedidoItemEntity)
         Using context As New CentrexDbContext()
-            Return context.PedidoItems _
+            Return context.PedidosItems _
                 .Include(Function(i) i.Item) _
                 .Where(Function(i) i.IdPedido = idPedido) _
                 .ToList()
@@ -200,7 +202,7 @@ Public Class Pedidos
         Try
             Using context As New CentrexDbContext()
                 nuevoItem.IdPedido = idPedido
-                context.PedidoItems.Add(nuevoItem)
+                context.PedidosItems.Add(nuevoItem)
                 context.SaveChanges()
                 Return True
             End Using
@@ -216,9 +218,9 @@ Public Class Pedidos
     Public Function DeleteItemPedido(idPedidoItem As Integer) As Boolean
         Try
             Using context As New CentrexDbContext()
-                Dim item = context.PedidoItems.FirstOrDefault(Function(i) i.IdPedidoItem = idPedidoItem)
+                Dim item = context.PedidosItems.FirstOrDefault(Function(i) i.IdPedidoItem = idPedidoItem)
                 If item Is Nothing Then Return False
-                context.PedidoItems.Remove(item)
+                context.PedidosItems.Remove(item)
                 context.SaveChanges()
                 Return True
             End Using
@@ -299,11 +301,11 @@ Public Class Pedidos
                 ' Buscar si existe el registro temporal
                 Dim tmpItem As TmpPedidoItemEntity = Nothing
                 If id_tmpPedidoItem > 0 Then
-                    tmpItem = context.TempPedidosItems.FirstOrDefault(
-                    Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem AndAlso
-                                t.IdUsuario = _idUsuario AndAlso
-                                t.IdUnico = _idUnico AndAlso
-                                t.IdPedido = _idPedido)
+                    tmpItem = context.TmpPedidoItems.FirstOrDefault(
+                        Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem AndAlso
+                                    t.IdUsuario = _idUsuario AndAlso
+                                    t.IdUnico = _idUnico AndAlso
+                                    t.IdPedido = _idPedido)
                 End If
 
                 ' Si existe, actualizar
@@ -327,7 +329,7 @@ Public Class Pedidos
                     .IdUnico = _idUnico,
                     .Activo = True
                 }
-                    context.TempPedidosItems.Add(tmpItem)
+                    context.TmpPedidoItems.Add(tmpItem)
                 End If
 
                 ' Guardar cambios
@@ -345,10 +347,10 @@ Public Class Pedidos
         Try
             Using context As New CentrexDbContext()
                 ' Buscar el primer registro temporal que tenga ese id_item
-                Dim tmpItem = context.TempPedidosItems.
-                Where(Function(t) t.IdItem = id_item).
-                Select(Function(t) t.IdTmpPedidoItem).
-                FirstOrDefault()
+                Dim tmpItem = context.TmpPedidoItems _
+                    .Where(Function(t) t.IdItem = id_item) _
+                    .Select(Function(t) t.IdTmpPedidoItem) _
+                    .FirstOrDefault()
 
                 ' Si no se encuentra nada, FirstOrDefault devuelve 0
                 If tmpItem = 0 Then
@@ -368,11 +370,11 @@ Public Class Pedidos
     Public Shared Function IdItemMarkupPedido(ByVal id_pedido As Integer) As Integer
         Try
             Using context As New CentrexDbContext()
-                Dim id_item As Integer = context.PedidoItems _
-                .Include(Function(pi) pi.Item) _
-                .Where(Function(pi) pi.IdPedido = id_pedido AndAlso pi.Item.EsMarkup = True) _
-                .Select(Function(pi) pi.Item.IdItem) _
-                .FirstOrDefault()
+                Dim id_item As Integer = context.PedidosItems _
+                    .Include(Function(pi) pi.Item) _
+                    .Where(Function(pi) pi.IdPedido = id_pedido AndAlso pi.Item.EsMarkup = True) _
+                    .Select(Function(pi) pi.Item.IdItem) _
+                    .FirstOrDefault()
 
                 If id_item = 0 Then Return -1
                 Return id_item
@@ -392,19 +394,19 @@ Public Class Pedidos
 
                 If id_tmpPedidoItem_seleccionado = -1 Then
                     ' Borrar (eliminar físicamente) los inactivos
-                    itemsAfectados = context.TempPedidosItems.Where(Function(t) t.Activo = False)
-                    context.TempPedidosItems.RemoveRange(itemsAfectados)
+                    itemsAfectados = context.TmpPedidoItems.Where(Function(t) t.Activo = False)
+                    context.TmpPedidoItems.RemoveRange(itemsAfectados)
 
                 ElseIf esMarkup Then
                     ' Marcar como inactivo todos los ítems con ese id_item (markup)
-                    itemsAfectados = context.TempPedidosItems.Where(Function(t) t.IdItem = id_tmpPedidoItem_seleccionado)
+                    itemsAfectados = context.TmpPedidoItems.Where(Function(t) t.IdItem = id_tmpPedidoItem_seleccionado)
                     For Each item In itemsAfectados
                         item.Activo = False
                     Next
 
                 Else
                     ' Marcar como inactivo el ítem seleccionado
-                    Dim item = context.TempPedidosItems.FirstOrDefault(Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem_seleccionado)
+                    Dim item = context.TmpPedidoItems.FirstOrDefault(Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem_seleccionado)
                     If item IsNot Nothing Then
                         item.Activo = False
                     End If
@@ -425,9 +427,9 @@ Public Class Pedidos
         Try
             Using context As New CentrexDbContext()
                 ' Obtener los ítems del pedido original
-                Dim pedidoItems = context.PedidoItems.
-                Where(Function(p) p.IdPedido = id_pedido).
-                ToList()
+                Dim pedidoItems = context.PedidosItems _
+                    .Where(Function(p) p.IdPedido = id_pedido) _
+                    .ToList()
 
                 ' Crear una lista temporal de ítems para insertar
                 Dim tmpItems As New List(Of TmpPedidoItemEntity)
@@ -448,7 +450,7 @@ Public Class Pedidos
                 Next
 
                 ' Insertar en la tabla temporal
-                context.TempPedidosItems.AddRange(tmpItems)
+                context.TmpPedidoItems.AddRange(tmpItems)
                 context.SaveChanges()
 
                 Return True
@@ -476,11 +478,11 @@ Public Class Pedidos
         Try
             Using context As New CentrexDbContext()
                 ' === 1. Traer ítems temporales con datos de item ===
-                Dim tmpItems = context.TempPedidosItems.
-                    Include(Function(t) t.ItemEntity).
-                    Where(Function(t) t.IdUsuario = _idUsuario AndAlso t.IdUnico = _idUnico).
-                    OrderBy(Function(t) t.IdTmpPedidoItem).
-                    ToList()
+                Dim tmpItems = context.TmpPedidoItems _
+                    .Include(Function(t) t.ItemEntity) _
+                    .Where(Function(t) t.IdUsuario = _idUsuario AndAlso t.IdUnico = _idUnico) _
+                    .OrderBy(Function(t) t.IdTmpPedidoItem) _
+                    .ToList()
 
                 Dim subtotal As Double = 0
                 Dim descuento As Double = 0

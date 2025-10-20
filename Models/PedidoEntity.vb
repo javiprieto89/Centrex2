@@ -1,3 +1,4 @@
+Imports System.Collections.Generic
 ' Entidad Pedido según db/dbo.pedidos.Table.sql
 Public Class PedidoEntity
     Public Property IdPedido As Integer
@@ -30,5 +31,8 @@ Public Class PedidoEntity
 
     Public Overridable Property Cliente As ClienteEntity
     Public Overridable Property Comprobante As ComprobanteEntity
+    Public Overridable Property TipoComprobante As TipoComprobanteEntity
+    Public Overridable Property Usuario As UsuarioEntity
+    Public Overridable Property PedidoItems As ICollection(Of PedidoItemEntity)
 End Class
 

@@ -1,3 +1,4 @@
+Imports System.Collections.Generic
 ' Entidad Item según db/dbo.items.Table.sql
 Public Class ItemEntity
     Public Property IdItem As Integer
@@ -17,5 +18,6 @@ Public Class ItemEntity
     Public Overridable Property Tipo As TipoItemEntity
     Public Overridable Property Marca As MarcaEntity
     Public Overridable Property Proveedor As ProveedorEntity
+    Public Overridable Property ItemImpuestos As ICollection(Of ItemImpuestoEntity)
 End Class
 

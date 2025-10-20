@@ -1,4 +1,4 @@
-"' Entidad relación Item-Impuesto con clave compuesta (id_item, id_impuesto)
+' Entidad relación Item-Impuesto con clave compuesta (id_item, id_impuesto)
 Public Class ItemImpuestoEntity
     ' Clave compuesta
     Public Property IdItem As Integer
