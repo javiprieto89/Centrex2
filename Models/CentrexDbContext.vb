@@ -19,6 +19,7 @@ Public Class CentrexDbContext
     Public Property Usuarios As DbSet(Of UsuarioEntity)
     Public Property Perfiles As DbSet(Of PerfilEntity)
     Public Property Items As DbSet(Of ItemEntity)
+    Public Property ItemsImpuestos As DbSet(Of ItemImpuestoEntity)
     Public Property Marcas As DbSet(Of MarcaEntity)
     Public Property TiposItems As DbSet(Of TipoItemEntity)
     Public Property Pedidos As DbSet(Of PedidoEntity)
@@ -103,6 +104,21 @@ Public Class CentrexDbContext
         modelBuilder.Entity(Of ItemEntity)().Property(Function(i) i.IdTipo).HasColumnName("id_tipo")
         modelBuilder.Entity(Of ItemEntity)().Property(Function(i) i.IdProveedor).HasColumnName("id_proveedor")
 
+        modelBuilder.Entity(Of ItemEntity)() _
+            .HasMany(Function(i) i.ItemImpuestos) _
+            .WithRequired(Function(ii) ii.Item) _
+            .HasForeignKey(Function(ii) ii.IdItem)
+
+        modelBuilder.Entity(Of ItemImpuestoEntity)().ToTable("items_impuestos").HasKey(Function(ii) New With {ii.IdItem, ii.IdImpuesto})
+        modelBuilder.Entity(Of ItemImpuestoEntity)().Property(Function(ii) ii.IdItem).HasColumnName("id_item")
+        modelBuilder.Entity(Of ItemImpuestoEntity)().Property(Function(ii) ii.IdImpuesto).HasColumnName("id_impuesto")
+        modelBuilder.Entity(Of ItemImpuestoEntity)().Property(Function(ii) ii.Activo).HasColumnName("activo")
+
+        modelBuilder.Entity(Of ItemImpuestoEntity)() _
+            .HasRequired(Function(ii) ii.Impuesto) _
+            .WithMany() _
+            .HasForeignKey(Function(ii) ii.IdImpuesto)
+
         ' Pedidos
         modelBuilder.Entity(Of PedidoEntity)().ToTable("pedidos").HasKey(Function(p) p.IdPedido)
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.IdPedido).HasColumnName("id_pedido")
@@ -111,7 +127,7 @@ Public Class CentrexDbContext
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.IdTipoComprobante).HasColumnName("id_tipoComprobante")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.NumeroComprobante).HasColumnName("numeroComprobante")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.PuntoVenta).HasColumnName("puntoVenta")
-        modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.SubTotal).HasColumnName("subTotal")
+        modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Subtotal).HasColumnName("subTotal")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Iva).HasColumnName("iva")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Total).HasColumnName("total")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Cae).HasColumnName("cae")
@@ -120,6 +136,7 @@ Public Class CentrexDbContext
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.CodigoQR).HasColumnName("codigoQR")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Activo).HasColumnName("activo")
         modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.Cerrado).HasColumnName("cerrado")
+        modelBuilder.Entity(Of PedidoEntity)().Property(Function(p) p.IdUsuario).HasColumnName("id_usuario")
 
         ' Relaciones básicas (si las llaves foráneas existen)
         modelBuilder.Entity(Of PedidoEntity)() _
@@ -136,6 +153,16 @@ Public Class CentrexDbContext
             .HasRequired(Function(p) p.TipoComprobante) _
             .WithMany() _
             .HasForeignKey(Function(p) p.IdTipoComprobante)
+
+        modelBuilder.Entity(Of PedidoEntity)() _
+            .HasOptional(Function(p) p.Usuario) _
+            .WithMany() _
+            .HasForeignKey(Function(p) p.IdUsuario)
+
+        modelBuilder.Entity(Of PedidoEntity)() _
+            .HasMany(Function(p) p.PedidoItems) _
+            .WithOptional(Function(pi) pi.Pedido) _
+            .HasForeignKey(Function(pi) pi.IdPedido)
 
         ' Comprobantes
         modelBuilder.Entity(Of ComprobanteEntity)().ToTable("comprobantes").HasKey(Function(c) c.IdComprobante)
@@ -230,11 +257,18 @@ Public Class CentrexDbContext
 
         ' Pedidos items
         modelBuilder.Entity(Of PedidoItemEntity)().ToTable("pedidos_items").HasKey(Function(pi) pi.IdPedidoItem)
-        modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.IdPedidoItem).HasColumnName("id_pedido_item")
+        modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.IdPedidoItem).HasColumnName("id_pedidoItem")
         modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.IdPedido).HasColumnName("id_pedido")
         modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.IdItem).HasColumnName("id_item")
         modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.Cantidad).HasColumnName("cantidad")
         modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.Precio).HasColumnName("precio")
+        modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.Activo).HasColumnName("activo")
+        modelBuilder.Entity(Of PedidoItemEntity)().Property(Function(pi) pi.Descript).HasColumnName("descript")
+
+        modelBuilder.Entity(Of PedidoItemEntity)() _
+            .HasOptional(Function(pi) pi.Item) _
+            .WithMany() _
+            .HasForeignKey(Function(pi) pi.IdItem)
 
         ' Cobros / Pagos / Impuestos
         modelBuilder.Entity(Of CobroEntity)().ToTable("cobros").HasKey(Function(c) c.IdCobro)
@@ -397,11 +431,21 @@ Public Class CentrexDbContext
         modelBuilder.Entity(Of TmpOrdenCompraItemEntity)().Property(Function(t) t.Precio).HasColumnName("precio")
 
         modelBuilder.Entity(Of TmpPedidoItemEntity)().ToTable("tmppedidos_items").HasKey(Function(t) t.IdTmpPedidoItem)
-        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdTmpPedidoItem).HasColumnName("id_tmppedidos_items")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdTmpPedidoItem).HasColumnName("id_tmpPedidoItem")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdPedidoItem).HasColumnName("id_pedidoItem")
         modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdPedido).HasColumnName("id_pedido")
         modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdItem).HasColumnName("id_item")
         modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.Cantidad).HasColumnName("cantidad")
         modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.Precio).HasColumnName("precio")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.Activo).HasColumnName("activo")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.Descript).HasColumnName("descript")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdUsuario).HasColumnName("id_usuario")
+        modelBuilder.Entity(Of TmpPedidoItemEntity)().Property(Function(t) t.IdUnico).HasColumnName("id_unico")
+
+        modelBuilder.Entity(Of TmpPedidoItemEntity)() _
+            .HasOptional(Function(t) t.ItemEntity) _
+            .WithMany() _
+            .HasForeignKey(Function(t) t.IdItem)
 
         modelBuilder.Entity(Of TmpRegistroStockEntity)().ToTable("tmpregistros_stock").HasKey(Function(t) t.IdTmpRegistroStock)
         modelBuilder.Entity(Of TmpRegistroStockEntity)().Property(Function(t) t.IdTmpRegistroStock).HasColumnName("id_tmpRegistroStock")

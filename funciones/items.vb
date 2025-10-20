@@ -38,7 +38,7 @@ Module mitem
             Using context As New CentrexDbContext()
                 Dim idItemInt As Integer = CInt(_idItem)
 
-                Dim exists = context.TempPedidosItems _
+                Dim exists = context.TmpPedidoItems _
                     .Any(Function(t) t.IdItem = idItemInt AndAlso
                                      t.IdUsuario = _idUsuario AndAlso
                                      t.IdUnico = _idUnico)
