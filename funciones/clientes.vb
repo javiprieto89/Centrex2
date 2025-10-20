@@ -1,101 +1,89 @@
-﻿Imports System.Data
+'Imports System.Data
 Imports System.Data.SqlClient
+'Imports System.Data.Entity
+Imports System.Linq
 
 Module clientes
     ' ************************************ FUNCIONES DE CLIENTES ***************************
     Public Function info_cliente(ByVal id_cliente As String) As cliente
         Dim tmp As New cliente
-        Dim sqlstr As String
-
-        sqlstr = "SELECT c.id_cliente, c.razon_social, c.nombre_fantasia, c.taxNumber, c.contacto, c.telefono, c.celular, c.email, prof.id_pais AS 'id_pais_fiscal', " & _
-                    "c.id_provincia_fiscal, c.direccion_fiscal, c.localidad_fiscal, c.cp_fiscal, " & _
-                    "proe.id_pais AS 'id_pais_entrega', c.id_provincia_entrega, c.direccion_entrega, c.localidad_entrega, c.cp_entrega, c.notas, c.esInscripto, c.activo, c.id_tipoDocumento " & _
-                    "FROM clientes AS c " & _
-                    "INNER JOIN provincias AS prof ON c.id_provincia_fiscal = prof.id_provincia " & _
-                    "INNER JOIN provincias AS proe ON c.id_provincia_entrega = proe.id_provincia " & _
-                    "WHERE c.id_cliente = '" + id_cliente + "'"
-
+        
         Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-            tmp.id_cliente = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            tmp.razon_social = dataset.Tables("tabla").Rows(0).Item(1).ToString
-            tmp.nombre_fantasia = dataset.Tables("tabla").Rows(0).Item(2).ToString
-            tmp.taxNumber = dataset.Tables("tabla").Rows(0).Item(3).ToString
-            tmp.contacto = dataset.Tables("tabla").Rows(0).Item(4).ToString
-            tmp.telefono = dataset.Tables("tabla").Rows(0).Item(5).ToString
-            tmp.celular = dataset.Tables("tabla").Rows(0).Item(6).ToString
-            tmp.email = dataset.Tables("tabla").Rows(0).Item(7).ToString
-            tmp.id_pais_fiscal = dataset.Tables("tabla").Rows(0).Item(8).ToString
-            tmp.id_provincia_fiscal = dataset.Tables("tabla").Rows(0).Item(9).ToString
-            tmp.direccion_fiscal = dataset.Tables("tabla").Rows(0).Item(10).ToString
-            tmp.localidad_fiscal = dataset.Tables("tabla").Rows(0).Item(11).ToString
-            tmp.cp_fiscal = dataset.Tables("tabla").Rows(0).Item(12).ToString
-            tmp.id_pais_entrega = dataset.Tables("tabla").Rows(0).Item(13).ToString
-            tmp.id_provincia_entrega = dataset.Tables("tabla").Rows(0).Item(14).ToString
-            tmp.direccion_entrega = dataset.Tables("tabla").Rows(0).Item(15).ToString
-            tmp.localidad_entrega = dataset.Tables("tabla").Rows(0).Item(16).ToString
-            tmp.cp_entrega = dataset.Tables("tabla").Rows(0).Item(17).ToString
-            tmp.notas = dataset.Tables("tabla").Rows(0).Item(18).ToString
-            tmp.esInscripto = dataset.Tables("tabla").Rows(0).Item(19).ToString
-            tmp.activo = dataset.Tables("tabla").Rows(0).Item(20).ToString
-            tmp.id_tipoDocumento = dataset.Tables("tabla").Rows(0).Item(21).ToString
-            cerrardb()
-            Return tmp
+            Using context As CentrexDbContext = GetDbContext()
+                Dim clienteEntity = context.Clientes.Include(Function(c) c.ProvinciaFiscal) _
+                    .Include(Function(c) c.ProvinciaEntrega) _
+                    .FirstOrDefault(Function(c) c.IdCliente = CInt(id_cliente))
+                
+                If clienteEntity IsNot Nothing Then
+                    tmp.id_cliente = clienteEntity.IdCliente.ToString()
+                    tmp.razon_social = clienteEntity.RazonSocial
+                    tmp.nombre_fantasia = clienteEntity.NombreFantasia
+                    tmp.taxNumber = clienteEntity.TaxNumber
+                    tmp.contacto = clienteEntity.Contacto
+                    tmp.telefono = clienteEntity.Telefono
+                    tmp.celular = clienteEntity.Celular
+                    tmp.email = clienteEntity.Email
+                    tmp.id_pais_fiscal = clienteEntity.IdPaisFiscal
+                    tmp.id_provincia_fiscal = clienteEntity.IdProvinciaFiscal
+                    tmp.direccion_fiscal = clienteEntity.DireccionFiscal
+                    tmp.localidad_fiscal = clienteEntity.LocalidadFiscal
+                    tmp.cp_fiscal = clienteEntity.CpFiscal
+                    tmp.id_pais_entrega = clienteEntity.IdPaisEntrega
+                    tmp.id_provincia_entrega = clienteEntity.IdProvinciaEntrega
+                    tmp.direccion_entrega = clienteEntity.DireccionEntrega
+                    tmp.localidad_entrega = clienteEntity.LocalidadEntrega
+                    tmp.cp_entrega = clienteEntity.CpEntrega
+                    tmp.notas = clienteEntity.Notas
+                    tmp.esInscripto = clienteEntity.EsInscripto
+                    tmp.activo = clienteEntity.Activo
+                    tmp.id_tipoDocumento = clienteEntity.IdTipoDocumento
+                    tmp.id_claseFiscal = clienteEntity.IdClaseFiscal
+                Else
+                    tmp.razon_social = "error"
+                End If
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
             tmp.razon_social = "error"
-            cerrardb()
-            Return tmp
         End Try
+        
+        Return tmp
     End Function
 
     Public Function addcliente(ByVal cl As cliente) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
         Try
-            With cl
-                sqlstr = "INSERT INTO clientes (razon_social, nombre_fantasia, taxNumber, contacto, telefono, celular, email, id_provincia_fiscal, direccion_fiscal, localidad_fiscal, cp_fiscal, " & _
-                        "id_provincia_entrega, direccion_entrega, localidad_entrega, cp_entrega, notas, esInscripto, activo, id_tipoDocumento) " & _
-                        "VALUES ('" + .razon_social + "', '" + .nombre_fantasia + "', '" + .taxNumber + "', '" + .contacto + "', '" + .telefono + "', '" + .celular + "', '" + .email + "', '" + .id_provincia_fiscal.ToString + _
-                        "', '" + .direccion_fiscal + "', '" + .localidad_fiscal + "', '" + cl.cp_fiscal + "', '" + .id_provincia_entrega.ToString + "', '" + .direccion_entrega + "', '" + .localidad_entrega + _
-                        "', '" + .cp_entrega + "', '" + .notas + "', '" + .esInscripto.ToString + "', '" + .activo.ToString + "', '" + .id_tipoDocumento.ToString + "')"
-            End With
-            
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
+            Using context As CentrexDbContext = GetDbContext()
+                Dim clienteEntity As New ClienteEntity()
+                
+                With clienteEntity
+                    .RazonSocial = cl.razon_social
+                    .NombreFantasia = cl.nombre_fantasia
+                    .TaxNumber = cl.taxNumber
+                    .Contacto = cl.contacto
+                    .Telefono = cl.telefono
+                    .Celular = cl.celular
+                    .Email = cl.email
+                    .IdProvinciaFiscal = cl.id_provincia_fiscal
+                    .DireccionFiscal = cl.direccion_fiscal
+                    .LocalidadFiscal = cl.localidad_fiscal
+                    .CpFiscal = cl.cp_fiscal
+                    .IdProvinciaEntrega = cl.id_provincia_entrega
+                    .DireccionEntrega = cl.direccion_entrega
+                    .LocalidadEntrega = cl.localidad_entrega
+                    .CpEntrega = cl.cp_entrega
+                    .Notas = cl.notas
+                    .EsInscripto = cl.esInscripto
+                    .Activo = cl.activo
+                    .IdTipoDocumento = cl.id_tipoDocumento
+                    .IdClaseFiscal = cl.id_claseFiscal
+                End With
+                
+                context.Clientes.Add(clienteEntity)
+                context.SaveChanges()
+                Return True
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message)
-            cerrardb()
             Return False
         End Try
     End Function
@@ -118,7 +106,7 @@ Module clientes
                                                 + .telefono + "', celular = '" + .celular + "', email = '" + .email + "', id_provincia_fiscal = '" + .id_provincia_fiscal.ToString + "', direccion_fiscal = '" _
                                                 + .direccion_fiscal + "', localidad_fiscal = '" + .localidad_fiscal + "', cp_fiscal = '" + .cp_fiscal + "', id_provincia_entrega = '" + .id_provincia_entrega.ToString + "', direccion_entrega = '" _
                                                 + .direccion_entrega + "', localidad_entrega = '" + .localidad_entrega + "', cp_entrega = '" + .cp_entrega + "', notas = '" + .notas + "', esInscripto = '" + .esInscripto.ToString + "', activo = '" _
-                                                + .activo.ToString + "', id_tipoDocumento = '" + .id_tipoDocumento.ToString + "' " _
+                                                + .activo.ToString + "', id_tipoDocumento = '" + .id_tipoDocumento.ToString + "', id_claseFiscal = '" + .id_claseFiscal.ToString + "' " _
                                                 + "WHERE id_cliente = '" + .id_cliente.ToString + "'"
                 End With
             End If

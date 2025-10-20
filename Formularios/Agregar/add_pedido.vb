@@ -1,4 +1,5 @@
-﻿Public Class add_pedido
+﻿Imports Centrex.Pedidos
+Public Class add_pedido
 
     Private emitir As Boolean = False
     Private totalOriginal As Double
@@ -7,12 +8,33 @@
     Private markupOriginal As Double = -1
     Private nPedido As Integer = -1
     Private historico As Boolean
+    Private numeroPedido_anulado As Integer = -1
+    Private idUsuario As Integer
+    Private idUnico As String = ""
 
     'Dim desde As Integer = 0
     'Dim pagina As Integer = 0
     'Dim nRegs As Integer = 0
     'Dim tPaginas As Integer = 0
     Dim orderCol As ColumnClickEventArgs = Nothing
+
+    Public Sub New()
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+
+    End Sub
+
+    Public Sub New(ByVal _idUnico As String)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        idUnico = _idUnico
+    End Sub
 
     Private Sub cmd_add_item_Click(sender As Object, e As EventArgs) Handles cmd_add_item.Click
         If dg_viewPedido.Rows.Count = comprobanteSeleccionado.maxItems Then
@@ -32,7 +54,9 @@
         agregaitem = True
         Me.Enabled = False
 
-        search.ShowDialog()
+        'search.ShowDialog()
+        Dim frm As New search(idUsuario, idUnico)
+        frm.ShowDialog()
         tabla = tmpTabla
         activo = tmpActivo
         agregaitem = False
@@ -58,12 +82,14 @@
         agregaitem = True
         Me.Enabled = False
 
-        search.ShowDialog()
+        Dim s As New search(idUsuario, idUnico)
+        s.ShowDialog()
+        'search.ShowDialog()
         tabla = tmpTabla
         activo = tmpActivo
         agregaitem = False
 
-        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
         '        resaltarColumna(dg_view, 4, Color.Red)
         subTotalOriginal = txt_subTotal.Text
         txt_markup_LostFocus(Nothing, Nothing)
@@ -74,7 +100,8 @@
         Dim pe As New pedido
         edita_pedido = pe
         'borro la tabla temporal
-        borrartbl("tmppedidos_items")
+        'borrartbl("tmppedidos_items")
+        generales_multiUsuario.borrar_tabla_pedidos_temporales(idUsuario, idUnico)
         'restauro los que se borraron porque no se guardaron los cambios
         activaitems("pedidos_items")
         edicion = False
@@ -89,6 +116,9 @@
         Dim sqlstr As String
         Dim cli As New cliente
         form = Me
+
+        If idUnico = "" Then idUnico = Generar_ID_Unico()
+        idUsuario = usuario_logueado.id_usuario
 
         historico = activo
         activo = True
@@ -114,7 +144,7 @@
         checkCustNoTaxNumber(cli)
         cmb_comprobante_SelectionChangeCommitted(Nothing, Nothing)
 
-        RemoveHandler Me.txt_subTotal.TextChanged, New EventHandler(AddressOf Me.txt_subTotal_TextChanged)
+        'RemoveHandler Me.txt_subTotal.TextChanged, New EventHandler(AddressOf Me.txt_subTotal_TextChanged)
         RemoveHandler Me.txt_impuestos.TextChanged, New EventHandler(AddressOf Me.txt_impuestos_TextChanged)
         RemoveHandler Me.txt_total.TextChanged, New EventHandler(AddressOf Me.txt_total_TextChanged)
         RemoveHandler Me.chk_presupuesto.CheckedChanged, New EventHandler(AddressOf Me.chk_presupuesto_CheckedChanged)
@@ -133,7 +163,8 @@
 
             cmb_comprobante.SelectedValue = edita_pedido.id_comprobante
             comprobanteSeleccionado = info_comprobante(edita_pedido.id_comprobante)
-            ' cmb_comprobante_SelectionChangeCommitted(Nothing, Nothing) 'LINEA DUDOSA
+            cmb_comprobante.Text = comprobanteSeleccionado.comprobante
+            'cmb_comprobante_SelectionChangeCommitted(Nothing, Nothing) 'LINEA DUDOSA
 
 
             Dim cl As New cliente
@@ -152,7 +183,10 @@
                    "LEFT JOIN tipos_items AS tim ON i.id_tipo = tim.id_tipo " &
                    "WHERE ti.activo = '1' AND (i.esMarkup = '0' OR ti.id_item IS NULL) " &
                    "ORDER BY id ASC"
-            cargar_datagrid(dg_viewPedido, sqlstr, basedb)
+            Dim nRegs As Integer = 0
+            Dim tPaginas As Integer = 0
+            Dim txtnPage As New TextBox()
+            cargar_datagrid(dg_viewPedido, sqlstr, basedb, 0, nRegs, tPaginas, 1, txtnPage, "tmppedidos_items", "tmppedidos_items")
             'resaltarcolumna(dg_view, 4, Color.Red)
 
             txt_markup.Text = edita_pedido.markup
@@ -162,6 +196,7 @@
             txt_totalO.Text = txt_total.Text
             txt_nota1.Text = edita_pedido.nota1
             txt_nota2.Text = edita_pedido.nota2
+            txt_comprobanteAsociado.Text = edita_pedido.numeroComprobante_anulado
             chk_presupuesto.Checked = edita_pedido.esPresupuesto
             chk_secuencia.Enabled = False
             subTotalOriginal = txt_subTotal.Text
@@ -171,6 +206,23 @@
             lbl_order.Text = edita_pedido.id_pedido
             lbl_pedido.Visible = True
             lbl_order.Visible = True
+
+            If edita_pedido.numeroComprobante_anulado <> 0 Then
+                lbl_avisoAFIP_NC_ND.Visible = True
+                cmb_seleccionarComprobanteAnulación.Visible = True
+                lbl_comprobante.Visible = True
+                lbl_comprobanteAsociado.Visible = True
+                txt_comprobanteAsociado.Visible = True
+                cmb_cliente.Enabled = False
+                cmb_cc.Enabled = False
+                cmb_comprobante.Enabled = False
+                txt_comprobanteAsociado.Text = edita_pedido.numeroComprobante_anulado
+                numeroPedido_anulado = edita_pedido.numeroPedido_anulado
+            End If
+            'If edita_pedido.esDuplicado Then
+            'cmb_comprobante.Enabled = False
+            'pic_searchComprobante.Enabled = False
+            'End If
         Else
             lbl_date.Text = Hoy()
             txt_total.Text = "0,00"
@@ -180,7 +232,7 @@
             Me.ActiveControl = Me.cmb_cliente
         End If
 
-        AddHandler Me.txt_subTotal.TextChanged, New EventHandler(AddressOf Me.txt_subTotal_TextChanged)
+        'AddHandler Me.txt_subTotal.TextChanged, New EventHandler(AddressOf Me.txt_subTotal_TextChanged)
         AddHandler Me.txt_impuestos.TextChanged, New EventHandler(AddressOf Me.txt_impuestos_TextChanged)
         AddHandler Me.txt_total.TextChanged, New EventHandler(AddressOf Me.txt_total_TextChanged)
         AddHandler Me.chk_presupuesto.CheckedChanged, New EventHandler(AddressOf Me.chk_presupuesto_CheckedChanged)
@@ -226,11 +278,11 @@
             cmd_exit.Enabled = False
             Me.Show()
             If MsgBox("¿Está seguro que desea borrar este pedido?", vbYesNo + vbQuestion) = MsgBoxResult.Yes Then
-                If borrarpedido(edita_pedido) = False Then
+                If BorrarPedido(edita_pedido) = False Then
                     If (MsgBox("Ocurrió un error al realizar el borrado del pedido, ¿desea intetar desactivarlo para que no aparezca en la búsqueda?" _
                      , MsgBoxStyle.Question + MsgBoxStyle.YesNo)) = vbYes Then
                         'Realizo un borrado lógico
-                        If updatepedido(edita_pedido, True) = True Then
+                        If UpdatePedido(edita_pedido) = True Then
                             MsgBox("Se ha podido realizar un borrado lógico, pero el pedido no se borró definitivamente." + Chr(13) +
                                 "Esto posiblemente se deba a que el pedido, tiene operaciones realizadas y por lo tanto no podrá borrarse", vbInformation)
                         Else
@@ -250,6 +302,9 @@
 
     Private Sub cmd_ok_Click(sender As Object, e As EventArgs) Handles cmd_ok.Click
         Dim ultimoPedido As pedido = Nothing
+        Dim p As New pedido
+        Dim c As New comprobante
+        'Dim cmpAsociado As New comprobante
 
         If cmb_cliente.Text = "Seleccione un cliente..." Or cmb_cliente.Text = "" Then
             MsgBox("El campo 'Cliente' es obligatorio y está vacio", vbExclamation + vbOKOnly, "Centrex")
@@ -263,10 +318,13 @@
         ElseIf dg_viewPedido.Rows.Count = 0 Then
             MsgBox("No hay items cargados", vbExclamation + vbOKOnly, "Centrex")
             Exit Sub
+            'cmpAsociado = info_nComprobante(txt_comprobanteAsociado.Text
+        ElseIf txt_comprobanteAsociado.Text <> "" And numeroPedido_anulado <> -1 Then
+            If Val(txt_total.Text) > InfoPedido(numeroPedido_anulado).total Then
+                MsgBox("Está emitiendo un comprobante asociado a otro, el monto del comprobante que está queriendo emitir no puede ser superior al comprobante original.", vbExclamation + vbOKOnly, "Centrex")
+                Exit Sub
+            End If
         End If
-
-        Dim p As New pedido
-        Dim c As New comprobante
 
         p.id_comprobante = cmb_comprobante.SelectedValue
         c = info_comprobante(p.id_comprobante)
@@ -282,8 +340,16 @@
         p.activo = True
         p.esPresupuesto = chk_presupuesto.Checked
         If c.esPresupuesto Then p.esPresupuesto = True
+        p.idPresupuesto = 0
         p.esTest = chk_esTest.Checked
         p.id_Cc = cmb_cc.SelectedValue
+        p.id_usuario = idUsuario
+
+        If txt_comprobanteAsociado.Text <> "" Then
+            p.numeroComprobante_anulado = txt_comprobanteAsociado.Text
+            p.numeroPedido_anulado = numeroPedido_anulado
+        End If
+
         'If txt_markup.Text <> 0 And edita_pedido.id_pedido = 0 Then
         If txt_markup.Text <> 0 Then
             'Agrego el descuento que corresponde al Markup
@@ -303,7 +369,7 @@
             '   descuento = Math.Round(100 - ((total / ("1." + txt_markup.Text) * 100) / total), 4)
             'End If
             costo = ((total * descuento) / 100) * -1
-            Dim i As item
+            Dim i As New item
             i = info_itemDesc("Descuento: " + descuento.ToString + "%")
             If i.descript = "error" Then
                 i.activo = True
@@ -322,71 +388,108 @@
                 additem(i)
                 i.id_item = infoItem_lastItem().id_item
             End If
-            Dim id_tmpPedidoItem = existe_Descuento_Markup_Tmp(i.id_item)
+            Dim id_tmpPedidoItem = ExisteDescuentoMarkupTmp(i.id_item)
             If id_tmpPedidoItem = -1 Then
                 'addItemPedidotmp(i.id_item, "1", costo, True)
-                addItemPedidotmp(i, "1", costo)
+                addItemPedidotmp(i, "1", costo, idUsuario, idUnico, -1)
             Else
-                addItemPedidotmp(i, "1", costo, id_tmpPedidoItem)
+                addItemPedidotmp(i, "1", costo, idUsuario, idUnico, id_tmpPedidoItem)
             End If
         End If
 
         If edicion = True Then
             'actualizar cliente
             p.id_pedido = edita_pedido.id_pedido
+
             ultimoPedido = p
             p.fecha_edicion = Format(DateTime.Now, "dd/MM/yyyy")
-            If updatepedido(p) = False Then
+            If UpdatePedido(p) = False Then
                 MsgBox("Hubo un problema al actualizar el pedido.", vbExclamation)
                 closeandupdate(Me)
             End If
             'actualizar pedido (items)            
             'actualizo, agrego y borro los items del pedido
-            guardarPedido(edita_pedido.id_pedido, txt_total.Text)
-            borrartbl("tmppedidos_items")
+            GuardarPedido(idUsuario, idUnico, edita_pedido.id_pedido)
+            generales_multiUsuario.borrar_tabla_pedidos_temporales(idUsuario, idUnico)
+            'borrartbl("tmppedidos_items")
         Else
             'Agrego el pedido
-            If addpedido(p) Then
-                ultimoPedido = info_pedido()
+            If AddPedido(p) Then
+                ultimoPedido = InfoPedido(Info_Ultimo_Pedido_Por_Usuario(idUsuario))
                 'Agrego los items al pedido
-                If Not guardarPedido() Then
+                If Not GuardarPedido(idUsuario, idUnico, ultimoPedido.id_pedido) Then
                     MsgBox("Hubo un problema al agregar el pedido.", vbExclamation)
-                    borrartbl("tmppedidos_items")
+                    generales_multiUsuario.borrar_tabla_pedidos_temporales(idUsuario, idUnico)
                     closeandupdate(Me)
+                    Exit Sub
                 Else
-                    borrartbl("tmppedidos_items")
+                    generales_multiUsuario.borrar_tabla_pedidos_temporales(idUsuario, idUnico)
                 End If
             Else
                 MsgBox("Hubo un problema al agregar el pedido.", vbExclamation)
-                borrartbl("tmppedidos_items")
+                generales_multiUsuario.borrar_tabla_pedidos_temporales(idUsuario, idUnico)
                 closeandupdate(Me)
+                Exit Sub
             End If
             edicion = True
             edita_pedido = ultimoPedido
         End If
 
-        pedido_a_pedidoTmp(edita_pedido.id_pedido)
+        PedidoAPedidoTmp(edita_pedido.id_pedido, idUsuario, idUnico)
 
-        If emitir And Not chk_presupuesto.Checked Then
-            If facturar(ultimoPedido) Then
-                'Si se facturó, lo agrego a la cuenta corriente, RESTANDO
-                Dim ccC As ccCliente
-                ccC = info_ccCliente(cmb_cc.SelectedValue)
-                If ccC.nombre = "error" Then
-                    MsgBox("Ha ocurrido al impactar el saldo en la cuenta corriente del cliente.", vbCritical + vbOKOnly, "Centrex")
+        'If emitir And Not chk_presupuesto.Checked Then
+        If emitir Then 'Ahora los comprobantes se contabilizan si tienen el tilde 24/08/2021
+            If facturar(ultimoPedido) Then 'And c.id_tipoComprobante <> 1011 And c.id_tipoComprobante <> 1012 Then '1011 y 1012 son proformas, no se contabilizan
+                'Si se facturó, lo agrego a la cuenta corriente
+                If c.contabilizar Then
+                    Dim ccC As ccCliente
+                    ccC = info_ccCliente(cmb_cc.SelectedValue)
+                    If ccC.nombre = "error" Then
+                        MsgBox("Ha ocurrido al impactar el saldo en la cuenta corriente del cliente.", vbCritical + vbOKOnly, "Centrex")
+                    End If
+                    Dim tc As New TipoComprobante(c.id_tipoComprobante)
+                    If tc.signoCliente = "+" Then
+                        ccC.saldo += edita_pedido.total
+                    Else
+                        ccC.saldo -= edita_pedido.total
+                    End If
+                    'ccC.saldo -= edita_pedido.total
+                    updateCCCliente(ccC)
+                    'cerrarpedido(InfoPedido(), chk_presupuesto.Checked)
+                    'El pedido ya lo cierra la función facturar
+                    Dim t As New transaccion
+                    p = ultimoPedido
+                    t.fecha = p.fecha
+                    t.id_pedido = p.id_pedido
+                    't.id_tipoComprobante = info_comprobante(p.id_comprobante).id_tipoComprobante
+                    t.id_tipoComprobante = c.id_tipoComprobante
+                    If Not p.esPresupuesto Then
+                        t.numeroComprobante = p.numeroComprobante
+                    Else
+                        t.numeroComprobante = p.idPresupuesto
+                    End If
+                    t.puntoVenta = p.puntoVenta
+                    t.total = p.total
+                    t.id_cc = p.id_Cc
+                    t.id_cliente = p.id_cliente
+                    'Se agrega la operación a la tabla transacciones
+                    If Not Agregar_Transaccion_Desde_Pedido(t) Then
+                        MsgBox("Ha ocurrido un error al agregar la transaccion en el cliente, verifique el mismo o vuelva a intentarlo más tarde ya que puede haber problemas con los servidores de AFIP.", vbExclamation, "Centrex")
+                        Exit Sub
+                    End If
                 End If
-                ccC.saldo -= edita_pedido.total
-                updateCCCliente(ccC)
-                'cerrarpedido(info_pedido(), chk_presupuesto.Checked)
-                'El pedido ya lo cierra la función facturar
-                imprimirFactura(ultimoPedido.id_pedido, 0, chk_remitos.Checked)
+                If c.id_tipoComprobante <> 1000 And c.id_tipoComprobante <> 1001 Then
+                    imprimirFactura(ultimoPedido.id_pedido, 0, chk_remitos.Checked)
+                Else
+                    MsgBox("Se generó un comprobante: """ + c.comprobante + """ por un valor de: $ " + p.total.ToString, vbInformation + vbOKOnly, "Centrex")
+                End If
                 emitir = False
             Else
                 MsgBox("Ha ocurrido un error al facturar el pedido, verifique el mismo o vuelva a intentarlo más tarde ya que puede haber problemas con los servidores de AFIP.", vbExclamation, "Centrex")
                 Exit Sub
             End If
         ElseIf emitir Then
-            cerrarPedido(ultimoPedido, chk_presupuesto.Checked, chk_remitos.Checked)
+            CerrarPedido(ultimoPedido, chk_presupuesto.Checked, chk_remitos.Checked)
             emitir = False
         End If
 
@@ -457,18 +560,18 @@
         seleccionado = dg_viewPedido.CurrentRow.Cells(0).Value.ToString
         edita_item.id_item_temporal = Microsoft.VisualBasic.Left(seleccionado, (InStr(seleccionado, "-") - 1))
 
-
         If edita_item.item = "MANUAL" Then
-            Dim addItemManual As New add_itemManual(edita_item)
-            addItemManual.showdialog()
+            Dim addItemManual As New add_itemManual(edita_item, idUsuario, idUnico)
+            addItemManual.ShowDialog()
         Else
-            infoagregaitem.ShowDialog()
+            Dim infoItemAgregado As New infoagregaitem(idUsuario, idUnico)
+            infoItemAgregado.ShowDialog()
         End If
 
         Dim i As New item
         edita_item = i
 
-        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
         subTotalOriginal = txt_subTotal.Text
         txt_markup_LostFocus(Nothing, Nothing)
         'resaltarColumna(dg_view, 4, Color.Red)
@@ -494,7 +597,7 @@
         'Si se borró algún descuento recalcula los descuentos 
         'updateDescuentos()
 
-        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
         subTotalOriginal = txt_subTotal.Text
         txt_markup_LostFocus(Nothing, Nothing)
         'resaltarcolumna(dg_view, 4, Color.Red)
@@ -514,7 +617,7 @@
                 recargaPrecios(, seleccionado)
             End If
 
-            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
             subTotalOriginal = txt_subTotal.Text
             txt_markup_LostFocus(Nothing, Nothing)
             'resaltarcolumna(dg_view, 4, Color.Red)
@@ -525,14 +628,14 @@
         If Not chk_presupuesto.Checked Then
             txt_impuestos.Enabled = True
 
-            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
             'resaltarcolumna(dg_view, 4, Color.Red)
             cmb_comprobante.SelectedValue = comprobanteSeleccionado.id_comprobante
         Else
             txt_impuestos.Text = "0"
             'txt_subTotal.Text = txt_totalO.Text
             'txt_total.Text = txt_totalO.Text
-            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
             txt_impuestos.Enabled = False
             cmb_comprobante.SelectedValue = comprobantePresupuesto_default
         End If
@@ -568,7 +671,8 @@
             cmd_add_descuento.Enabled = True
         End If
 
-        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+        'Aca calcula totales, subtotales e impuestos
+        updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
 
         subTotalOriginal = txt_subTotal.Text
 
@@ -576,13 +680,13 @@
         If markupOriginal <> -1 And markupOriginal <> txt_markup.Text And edicion = True Then
             markupOriginal = txt_markup.Text
 
-            id_itemMarkup = id_ItemMarkupPedido(edita_pedido.id_pedido)
+            id_itemMarkup = IdItemMarkupPedido(edita_pedido.id_pedido)
             borraritemCargado(id_itemMarkup, True)
 
             'Si se borró algún descuento recalcula los descuentos 
             'updateDescuentos()
 
-            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado)
+            updatePrecios(dg_viewPedido, chk_presupuesto, txt_subTotal, txt_impuestos, txt_total, txt_totalO, txt_markup, txt_totalDescuentos, comprobanteSeleccionado, idUsuario, idUnico)
             'subTotalOriginal = txt_subTotal.Text
             txt_markup_LostFocus(Nothing, Nothing)
             'resaltarcolumna(dg_view, 4, Color.Red)
@@ -629,19 +733,20 @@
         End If
     End Sub
 
-    Private Sub txt_subTotal_TextChanged(sender As Object, e As EventArgs) Handles txt_subTotal.TextChanged
-        If comprobanteSeleccionado.esPresupuesto And chk_presupuesto.Checked Then
-            txt_impuestos.Text = 0
-            txt_total.Text = txt_subTotal.Text
-        Else
-            Select Case comprobanteSeleccionado.id_tipoComprobante
-                Case Is = 6, 7, 8, 9, 64, 40, 61, 49
-                    txt_impuestos_TextChanged(Nothing, Nothing)
-                Case Else
-                    txt_impuestos.Text = Math.Round(txt_subTotal.Text * 0.21, 2)
-            End Select
-        End If
-    End Sub
+    'Private Sub txt_subTotal_TextChanged(sender As Object, e As EventArgs) Handles txt_subTotal.TextChanged
+    '    If comprobanteSeleccionado.esPresupuesto And chk_presupuesto.Checked Then
+    '        txt_impuestos.Text = 0
+    '        txt_total.Text = txt_subTotal.Text
+    '    Else
+    '        Select Case comprobanteSeleccionado.id_tipoComprobante
+    '            'Separo los comprobantes B de los A, a los B no se les hace distinción de los impuestos
+    '            Case Is = 6, 7, 8, 9, 64, 40, 61, 49, 1012
+    '                txt_impuestos_TextChanged(Nothing, Nothing)
+    '            Case Else
+    '                txt_impuestos.Text = 500 'Math.Round(txt_subTotal.Text * 0.21, 2)
+    '        End Select
+    '    End If
+    'End Sub
 
     Private Sub txt_impuestos_TextChanged(sender As Object, e As EventArgs) Handles txt_impuestos.TextChanged
         Dim subtotal As Double
@@ -649,7 +754,10 @@
 
         Double.TryParse(txt_subTotal.Text, subtotal)
         Double.TryParse(txt_impuestos.Text, iva)
-        txt_total.Text = subtotal + iva
+        If comprobanteSeleccionado.id_tipoComprobante <> 6 Then
+            txt_total.Text = subtotal + iva
+        End If
+
     End Sub
 
     Private Sub pic_searchComprobante_Click(sender As Object, e As EventArgs) Handles pic_searchComprobante.Click
@@ -693,12 +801,39 @@
         Else
             'No es un presupuesto
             Select Case comprobanteSeleccionado.id_tipoComprobante
-                Case Is = 2, 3, 7, 8, 4, 5, 9, 10, 63, 64, 34, 65, 39, 40, 60, 61, 12, 13, 15, 49, 52, 53, 54, 199
+                Case Is = 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 15, 34, 39, 40, 49, 52, 53, 54, 60, 61, 63, 64, 199, 2002, 203, 207, 208, 212, 213 'Todo menos facturas
                     chk_remitos.Checked = False
                     chk_remitos.Enabled = False
                 Case Else
                     chk_remitos.Checked = True
                     chk_remitos.Enabled = True
+            End Select
+
+            Select Case comprobanteSeleccionado.id_tipoComprobante
+                Case Is = 2, 3, 7, 8, 12, 13, 52, 53, 202, 203, 207, 208, 212, 213 'Notas de débito y crédito según nueva disposición de AFIP
+                    lbl_avisoAFIP_NC_ND.Visible = True
+                    cmb_seleccionarComprobanteAnulación.Visible = True
+                    lbl_comprobante.Visible = True
+                    lbl_comprobanteAsociado.Visible = True
+                    txt_comprobanteAsociado.Visible = True
+                    dg_viewPedido.Enabled = False
+                    ContextMenuStrip1.Enabled = False
+                    cmd_add_item.Enabled = False
+                    cmd_add_descuento.Enabled = False
+                    cmd_addItemManual.Enabled = False
+                    cmd_emitir.Enabled = False
+                Case Else
+                    lbl_avisoAFIP_NC_ND.Visible = False
+                    cmb_seleccionarComprobanteAnulación.Visible = False
+                    'lbl_comprobante.Visible = False
+                    lbl_comprobanteAsociado.Visible = False
+                    txt_comprobanteAsociado.Visible = False
+                    dg_viewPedido.Enabled = True
+                    ContextMenuStrip1.Enabled = True
+                    cmd_add_item.Enabled = True
+                    cmd_add_descuento.Enabled = True
+                    cmd_addItemManual.Enabled = True
+                    cmd_emitir.Enabled = True
             End Select
 
             chk_presupuesto.Checked = False
@@ -709,7 +844,7 @@
             checkCustNoTaxNumber(c)
             'MOD 21/04/2020
         End If
-
+        txt_markup_LostFocus(Nothing, Nothing)
         'cmb_cliente_SelectionChangeCommitted(Nothing, Nothing) 'MOD 21/04/2020
     End Sub
 
@@ -736,15 +871,18 @@
         If c.id_tipoDocumento = 80 And c.esInscripto Then
             condicion = "IN"
         Else
-            condicion = "Not IN"
+            condicion = "NOT IN"
         End If
 
+
         sqlstr = "SELECT c.id_comprobante AS 'id_comprobante', c.comprobante AS 'comprobante' " &
-                            "FROM comprobantes AS c " &
-                            "WHERE c.activo = '1' AND (c.id_tipoComprobante " + condicion + " (1, 2, 3, 4, 5, 63, 34, 39, 60, 201, 202, 203) OR c.id_tipoComprobante IN (0, 99, 199)) " &
-                            "ORDER BY c.comprobante ASC"
+                    "FROM comprobantes AS c " &
+                    "WHERE c.activo = '1' AND (c.id_tipoComprobante " + condicion + " (1, 2, 3, 4, 5, 63, 34, 39, 60, 201, 202, 203, 1011) OR c.id_tipoComprobante IN (0, 99, 199, 1000, 10001)) " &
+                    "ORDER BY c.comprobante ASC"
+
 
         cargar_combo(cmb_comprobante, sqlstr, basedb, "comprobante", "id_comprobante")
+        '7/7
 
         If estaComprobanteDefault(condicion, comprobanteSeleccionado.id_comprobante) Then
             cmb_comprobante.SelectedValue = comprobanteSeleccionado.id_comprobante
@@ -753,6 +891,8 @@
         Else
             cmb_comprobante.SelectedIndex = 0
         End If
+        cmb_comprobante_SelectionChangeCommitted(Nothing, Nothing)
+
 
         'Cargo el combo con todas las cuentas corrientes del cliente seleccionado
         sqlstr = "SELECT cc.id_cc AS 'id_cc', cc.nombre AS 'nombre' FROM cc_clientes AS cc WHERE cc.id_cliente = '" + cmb_cliente.SelectedValue.ToString + "' AND cc.activo = '1' ORDER BY cc.nombre ASC"
@@ -774,7 +914,7 @@
         End If
         cmb_cc.Enabled = True
         SendKeys.Send("{TAB}")
-
+        txt_markup_LostFocus(Nothing, Nothing)
         'comprobanteSeleccionado = info_comprobante(cmb_comprobante.SelectedValue)
     End Sub
 
@@ -793,7 +933,8 @@
 
     Private Sub cmd_addItemManual_Click(sender As Object, e As EventArgs) Handles cmd_addItemManual.Click
         agregaitem = True
-        add_itemManual.ShowDialog()
+        Dim addItemManual As New add_itemManual(idUsuario, idUnico)
+        addItemManual.ShowDialog()
         agregaitem = False
 
         updateAndCheck()
@@ -840,6 +981,74 @@
         cmb_cliente_SelectionChangeCommitted(Nothing, Nothing)
     End Sub
 
+    Private Sub cmb_seleccionarComprobanteAnulación_Click(sender As Object, e As EventArgs) Handles cmb_seleccionarComprobanteAnulación.Click
+        Dim tmp As String
+        Dim c As cliente
+        Dim cmp As comprobante
+
+        If dg_viewPedido.Rows.Count > 0 Then
+            If MsgBox("Ya tiene items cargados en el pedido, si continua, los perdera." & vbCrLf & "¿Desea continuar?", vbQuestion + vbYesNo, "Centrex") = vbNo Then
+                Exit Sub
+            End If
+        End If
+
+        generales_multiUsuario.borrar_tabla_pedidos_temporales(usuario_logueado.id_usuario)
+        c = info_cliente(cmb_cliente.SelectedValue)
+        cmp = info_comprobante(cmb_comprobante.SelectedValue)
+        tmp = tabla
+        tabla = "anulaComprobanteAFIP"
+        'Me.Enabled = False
+        Dim buscaComprobante As New search(c, cmp)
+        buscaComprobante.ShowDialog()
+        tabla = tmp
+        If id = 0 Then
+            Exit Sub
+        End If
+        numeroPedido_anulado = id
+
+        PedidoAPedidoTmp(numeroPedido_anulado, usuario_logueado.id_usuario, idUnico)
+
+        'Duplicar_Pedido_Para_Anularlo(numeroPedido_anulado)
+        txt_comprobanteAsociado.Text = InfoPedido(numeroPedido_anulado).numeroComprobante
+
+        edicion = True
+        updateAndCheck()
+        'txt_total.Text = edita_pedido.total
+        'txt_subTotal.Text = edita_pedido.subTotal
+        'txt_impuestos.Text = edita_pedido.iva
+        'txt_markup.Text = edita_pedido.markup
+        cmb_cliente.Enabled = False
+        cmb_cc.Enabled = False
+        cmb_comprobante.Enabled = False
+
+        dg_viewPedido.Enabled = True
+        ContextMenuStrip1.Enabled = True
+        cmd_add_item.Enabled = True
+        cmd_add_descuento.Enabled = True
+        cmd_addItemManual.Enabled = True
+        edicion = False
+    End Sub
+
+    Private Sub Duplicar_Pedido_Para_Anularlo(ByVal nPedidoAnulado As Integer)
+        Dim p As New pedido
+        p = InfoPedido(nPedidoAnulado)
+
+        DuplicarPedido(nPedidoAnulado)
+        edita_pedido = InfoPedido()
+        PedidoAPedidoTmp(edita_pedido.id_pedido, idUsuario, idUnico)
+        edita_pedido.numeroComprobante_anulado = p.numeroComprobante
+        edita_pedido.id_Cc = p.id_Cc
+        edita_pedido.numeroPedido_anulado = nPedidoAnulado
+        edita_pedido.id_comprobante = cmb_comprobante.SelectedValue
+        If UpdatePedido(edita_pedido) = False Then
+            MsgBox("Hubo un problema al clonar el pedido.", vbExclamation, "Centrex")
+            closeandupdate(Me)
+        End If
+    End Sub
+
+    Private Sub cmd_recargaprecios_Click(sender As Object, e As EventArgs) Handles cmd_recargaprecios.Click
+
+    End Sub
 
     'Private Sub cmd_next_Click(sender As Object, e As EventArgs) Handles cmd_next.Click
     '    If pagina = Math.Ceiling(nRegs / itXPage) Then Exit Sub

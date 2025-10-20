@@ -1,0 +1,83 @@
+'Imports System.Data
+Imports System.Data.SqlClient
+'Imports System.Data.Entity
+Imports System.Linq
+
+Module clientes
+    ' ************************************ FUNCIONES DE CLIENTES ***************************
+    Public Function info_cliente(ByVal id_cliente As String) As cliente
+        Dim tmp As New cliente
+        
+        Try
+            Using context As CentrexDbContext = GetDbContext()
+                Dim clienteEntity = context.Clientes.Include(Function(c) c.ProvinciaFiscal) _
+                    .Include(Function(c) c.ProvinciaEntrega) _
+                    .FirstOrDefault(Function(c) c.IdCliente = CInt(id_cliente))
+                
+                If clienteEntity IsNot Nothing Then
+                    tmp.id_cliente = clienteEntity.IdCliente.ToString()
+                    tmp.razon_social = clienteEntity.RazonSocial
+                    tmp.nombre_fantasia = clienteEntity.NombreFantasia
+                    tmp.taxNumber = clienteEntity.TaxNumber
+                    tmp.contacto = clienteEntity.Contacto
+                    tmp.telefono = clienteEntity.Telefono
+                    tmp.celular = clienteEntity.Celular
+                    tmp.email = clienteEntity.Email
+                    tmp.id_pais_fiscal = clienteEntity.IdPaisFiscal
+                    tmp.id_provincia_fiscal = clienteEntity.IdProvinciaFiscal
+                    tmp.direccion_fiscal = clienteEntity.DireccionFiscal
+                    tmp.localidad_fiscal = clienteEntity.LocalidadFiscal
+                    tmp.cp_fiscal = clienteEntity.CpFiscal
+                    tmp.id_pais_entrega = clienteEntity.IdPaisEntrega
+                    tmp.id_provincia_entrega = clienteEntity.IdProvinciaEntrega
+                    tmp.direccion_entrega = clienteEntity.DireccionEntrega
+                    tmp.localidad_entrega = clienteEntity.LocalidadEntrega
+                    tmp.cp_entrega = clienteEntity.CpEntrega
+                    tmp.notas = clienteEntity.Notas
+                    tmp.esInscripto = clienteEntity.EsInscripto
+                    tmp.activo = clienteEntity.Activo
+                    tmp.id_tipoDocumento = clienteEntity.IdTipoDocumento
+                    tmp.id_claseFiscal = clienteEntity.IdClaseFiscal
+                Else
+                    tmp.razon_social = "error"
+                End If
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString)
+            tmp.razon_social = "error"
+        End Try
+        
+        Return tmp
+    End Function
+
+    Public Function addcliente(ByVal cl As cliente) As Boolean
+        Try
+            Using context As CentrexDbContext = GetDbContext()
+                Dim clienteEntity As New ClienteEntity()
+                
+                With clienteEntity
+                    .RazonSocial = cl.razon_social
+                    .NombreFantasia = cl.nombre_fantasia
+                    .TaxNumber = cl.taxNumber
+                    .Contacto = cl.contacto
+                    .Telefono = cl.telefono
+                    .Celular = cl.celular
+                    .Email = cl.email
+                    .IdProvinciaFiscal = cl.id_provincia_fiscal
+                    .DireccionFiscal = cl.direccion_fiscal
+                    .LocalidadFiscal = cl.localidad_fiscal
+                    .CpFiscal = cl.cp_fiscal
+                    .IdProvinciaEntrega = cl.id_provincia_entrega
+                    .DireccionEntrega = cl.direccion_entrega
+                    .LocalidadEntrega = cl.localidad_entrega
+                    .CpEntrega = cl.cp_entrega
+                    .Notas = cl.notas
+                    .EsInscripto = cl.esInscripto
+                    .Activo = cl.activo
+                    .IdTipoDocumento = cl.id_tipoDocumento
+                    .IdClaseFiscal = cl.id_claseFiscal
+                End With
+                
+                context.Clientes.Add(clienteEntity)
+                context.SaveChanges()
+           

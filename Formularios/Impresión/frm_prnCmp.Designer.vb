@@ -43,6 +43,7 @@ Partial Class frm_prnCmp
         Me.ReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer1.Name = "ReportViewer1"
+        Me.ReportViewer1.PageCountMode = Microsoft.Reporting.WinForms.PageCountMode.Actual
         Me.ReportViewer1.Size = New System.Drawing.Size(930, 733)
         Me.ReportViewer1.TabIndex = 0
         '

@@ -20,6 +20,7 @@
 
         id_Cliente = idCliente
         id_Proveedor = _idProveedor
+        chRecibido = True
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
     End Sub
 
@@ -31,6 +32,18 @@
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         chRecibido = _chRecibido
         chEmitido = _chEmitido
+
+
+        If chRecibido Then
+            rb_recibido.Checked = True
+            rb_emitido.Enabled = False
+            'chk_depositado.Checked = False
+            cmb_proveedor.Enabled = False
+        Else
+            rb_emitido.Checked = True
+            rb_recibido.Enabled = False
+            cmb_cliente.Enabled = False
+        End If
     End Sub
 
 
@@ -73,12 +86,26 @@
         If id_Cliente <> -1 Then
             cmb_cliente.SelectedValue = id_Cliente
             cmb_cliente.Enabled = False
+            cmb_proveedor.Enabled = False
+            pic_searchCliente.Enabled = False
+            pic_searchProveedor.Enabled = False
+            RemoveHandler Me.rb_recibido.CheckedChanged, New EventHandler(AddressOf Me.rb_recibido_CheckedChanged)
+            rb_recibido.Enabled = False
+            rb_emitido.Enabled = False
+            rb_recibido.Checked = True
+            AddHandler Me.rb_recibido.CheckedChanged, New EventHandler(AddressOf Me.rb_recibido_CheckedChanged)
             Exit Sub
         End If
 
         If id_Proveedor <> -1 Then
             cmb_proveedor.SelectedValue = id_Proveedor
             cmb_proveedor.Enabled = False
+            'cmb_cliente.Enabled = False
+            'pic_searchCliente.Enabled = False
+            pic_searchProveedor.Enabled = False
+            rb_recibido.Enabled = False
+            rb_emitido.Enabled = False
+            Exit Sub
         End If
 
         If edicion Or borrado Then
@@ -127,6 +154,10 @@
                 cmb_cuentaBancaria.SelectedValue = edita_cheque.id_cuentaBancaria
             End If
 
+            If edita_cheque.id_estadoch <> ID_CH_CARTERA Then
+                deshabilitarModiciaciones()
+            End If
+
             chk_secuencia.Checked = False
             chk_secuencia.Enabled = False
         Else
@@ -137,33 +168,9 @@
             End If
         End If
 
+
         If borrado Then
-            dtp_fEmision.Enabled = False
-            rb_recibido.Enabled = False
-            cmb_cliente.Enabled = False
-            pic_searchCliente.Enabled = False
-            rb_emitido.Enabled = False
-            cmb_proveedor.Enabled = False
-            pic_searchProveedor.Enabled = False
-            cmb_banco.Enabled = False
-            pic_searchBanco.Enabled = False
-            txt_nCheque.Enabled = False
-            txt_nCheque2.Enabled = False
-            txt_importe.Enabled = False
-            chk_eCheck.Enabled = False
-            cmb_estadoch.Enabled = False
-            chk_fCobro.Enabled = False
-            dtp_fCobro.Enabled = False
-            chk_fSalida.Enabled = False
-            dtp_fSalida.Enabled = False
-            chk_depositado.Enabled = False
-            dtp_fDeposito.Enabled = False
-            chk_depositado.Enabled = False
-            cmb_cuentaBancaria.Enabled = False
-            cmd_ok.Visible = False
-            cmd_ok.Enabled = False
-            cmd_exit.Visible = False
-            cmd_exit.Enabled = False
+            deshabilitarModiciaciones()
             Me.Show()
             If MsgBox("¿Está seguro que desea borrar este cheque?", vbYesNo + vbQuestion, "Centrex") = MsgBoxResult.Yes Then
                 If (borrarch(edita_cheque)) = False Then
@@ -245,7 +252,7 @@
 
         With ch
             .fecha_emision = dtp_fEmision.Value.Date
-            If rb_recibido.Checked Then
+            If rb_recibido.Checked Or chRecibido Then
                 .id_cliente = cmb_cliente.SelectedValue
                 .id_proveedor = Nothing
                 .recibido = True
@@ -398,5 +405,34 @@
         '    e.KeyChar = ""
         'End If
         esNumero(e)
+    End Sub
+
+    Private Sub deshabilitarModiciaciones()
+        dtp_fEmision.Enabled = False
+        rb_recibido.Enabled = False
+        cmb_cliente.Enabled = False
+        pic_searchCliente.Enabled = False
+        rb_emitido.Enabled = False
+        cmb_proveedor.Enabled = False
+        pic_searchProveedor.Enabled = False
+        cmb_banco.Enabled = False
+        pic_searchBanco.Enabled = False
+        txt_nCheque.Enabled = False
+        txt_nCheque2.Enabled = False
+        txt_importe.Enabled = False
+        chk_eCheck.Enabled = False
+        cmb_estadoch.Enabled = False
+        chk_fCobro.Enabled = False
+        dtp_fCobro.Enabled = False
+        chk_fSalida.Enabled = False
+        dtp_fSalida.Enabled = False
+        chk_depositado.Enabled = False
+        dtp_fDeposito.Enabled = False
+        chk_depositado.Enabled = False
+        cmb_cuentaBancaria.Enabled = False
+        cmd_ok.Visible = False
+        cmd_ok.Enabled = False
+        cmd_exit.Visible = False
+        cmd_exit.Enabled = False
     End Sub
 End Class

@@ -1,0 +1,14 @@
+[ req ]
+default_bits         	= 2048
+default_keyfile     	= cts.pem
+distinguished_name     	= req_distinguished_name
+prompt             	= no
+ 
+[ req_distinguished_name ]
+C            		= AR
+ST           		= C.A.B.A.
+L            		= C.A.B.A.
+O            		= TOLFO ANGEL
+serialNumber  		= CUIT 20100906512
+OU            		= Facturacion
+CN            		= SERVTEC-06

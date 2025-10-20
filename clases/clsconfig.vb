@@ -13,6 +13,7 @@ Public Class configInit
     Private bckupFile As String
     Private sepdec As String
     Private itPerPage As Integer
+    Private modDB As Boolean
 
     Sub New()
         path = Application.StartupPath + "\initConfig.jav"
@@ -27,7 +28,6 @@ Public Class configInit
             basedb = value
         End Set
     End Property
-
 
     Public Property serverDB As String
         Get
@@ -98,6 +98,32 @@ Public Class configInit
         End Set
     End Property
 
+    Public Property modsDB As Boolean
+        Get
+            Return modDB
+        End Get
+        Set(value As Boolean)
+            Me.modDB = value
+        End Set
+    End Property
+
+    Public Property ModDB1 As Boolean
+        Get
+            Return modDB
+        End Get
+        Set(value As Boolean)
+            modDB = value
+        End Set
+    End Property
+
+    Public Property ModDB2 As Boolean
+        Get
+            Return modDB
+        End Get
+        Set(value As Boolean)
+            modDB = value
+        End Set
+    End Property
 
     Public Sub guardarConfig()
         Dim strEncrypt As New Encriptar
@@ -111,7 +137,8 @@ Public Class configInit
                 "rutaBackup = " & bckupDir & vbCrLf &
                 "nombreBackup = " & bckupFile & vbCrLf &
                 "sepDecimal = " & sepdec & vbCrLf &
-                "itPerPage = " & itPerPage)
+                "itPerPage = " & itPerPage & vbCrLf &
+                "modificacionesDB = " & modDB)
 
         fs.Write(str, 0, str.Length)
         fs.Close()
@@ -151,6 +178,9 @@ Public Class configInit
             ElseIf c = 8 Then
                 itXPage = obtieneValorConfig(str)
                 itPerPage = itXPage
+            ElseIf c = 9 Then
+                modificacionesDB = obtieneValorConfig(str)
+                modDB = modificacionesDB
             End If
         Loop Until str Is Nothing
         objReader.Close()

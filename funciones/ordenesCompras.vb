@@ -14,12 +14,14 @@ Module ordenesCompras
             With comando
                 .CommandType = CommandType.Text
                 If id_ordenCompra = "" Then
-                    sqlstr = "SET DATEFORMAT dmy; SELECT TOP 1 id_ordenCompra, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), ISNULL(CONVERT(NVARCHAR(20), fecha_recepcion, 3), 0), " &
+                    sqlstr = "SET DATEFORMAT dmy; SELECT TOP 1 id_ordenCompra, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), CONVERT(NVARCHAR(20), fecha_comprobante, 3), " &
+                        "ISNULL(CONVERT(NVARCHAR(20), fecha_recepcion, 3), 0), " &
                         "subtotal, iva, total, recibido, notas, activo " &
                         "FROM ordenes_compras " &
                         "ORDER BY id_ordenCompra DESC"
                 Else
-                    sqlstr = "SET DATEFORMAT dmy; SELECT id_ordenCompra, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), ISNULL(CONVERT(NVARCHAR(20), fecha_recepcion, 3), 0), " &
+                    sqlstr = "SET DATEFORMAT dmy; SELECT id_ordenCompra, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), CONVERT(NVARCHAR(20), fecha_comprobante, 3), " &
+                        "ISNULL(CONVERT(NVARCHAR(20), fecha_recepcion, 3), 0), " &
                         "subtotal, iva, total, recibido, notas, activo " &
                         "FROM ordenes_compras WHERE id_ordenCompra = '" + id_ordenCompra + "'"
                 End If
@@ -37,13 +39,14 @@ Module ordenesCompras
             tmp.id_ordenCompra = dataset.Tables("tabla").Rows(0).Item(0).ToString
             tmp.id_proveedor = dataset.Tables("tabla").Rows(0).Item(1).ToString
             tmp.fecha_carga = dataset.Tables("tabla").Rows(0).Item(2).ToString
-            tmp.fecha_recepcion = dataset.Tables("tabla").Rows(0).Item(3).ToString
-            tmp.subtotal = dataset.Tables("tabla").Rows(0).Item(4).ToString
-            tmp.iva = dataset.Tables("tabla").Rows(0).Item(5).ToString
-            tmp.total = dataset.Tables("tabla").Rows(0).Item(6).ToString
-            tmp.recibido = dataset.Tables("tabla").Rows(0).Item(7).ToString
-            tmp.notas = dataset.Tables("tabla").Rows(0).Item(8).ToString
-            tmp.activo = dataset.Tables("tabla").Rows(0).Item(9).ToString
+            tmp.fecha_comprobante = dataset.Tables("tabla").Rows(0).Item(3).ToString
+            tmp.fecha_recepcion = dataset.Tables("tabla").Rows(0).Item(4).ToString
+            tmp.subtotal = dataset.Tables("tabla").Rows(0).Item(5).ToString
+            tmp.iva = dataset.Tables("tabla").Rows(0).Item(6).ToString
+            tmp.total = dataset.Tables("tabla").Rows(0).Item(7).ToString
+            tmp.recibido = dataset.Tables("tabla").Rows(0).Item(8).ToString
+            tmp.notas = dataset.Tables("tabla").Rows(0).Item(9).ToString
+            tmp.activo = dataset.Tables("tabla").Rows(0).Item(10).ToString
             cerrardb()
             Return tmp
         Catch ex As Exception
@@ -64,10 +67,10 @@ Module ordenesCompras
         mytrans = CN.BeginTransaction()
 
         Try
-            sqlstr = "SET DATEFORMAT dmy; INSERT INTO ordenes_compras (id_proveedor, fecha_carga, "
+            sqlstr = "SET DATEFORMAT dmy; INSERT INTO ordenes_compras (id_proveedor, fecha_carga, fecha_comprobante, "
             If Not oc.fecha_recepcion Is Nothing Then sqlstr += "fecha_recepcion, "
             sqlstr += "subtotal, iva, total, recibido, notas) VALUES " &
-            "('" + oc.id_proveedor.ToString + "', '" + oc.fecha_carga.ToString + "', '"
+            "('" + oc.id_proveedor.ToString + "', '" + oc.fecha_carga.ToString + "', '" + oc.fecha_comprobante.ToString + "', '"
             If Not oc.fecha_recepcion Is Nothing Then sqlstr += oc.fecha_recepcion.ToString + "', '"
             sqlstr += oc.subtotal.ToString + "', '" + oc.iva.ToString + "', '" + oc.total.ToString + "', '" + oc.recibido.ToString + "', '" + oc.notas + "')"
 
@@ -98,7 +101,8 @@ Module ordenesCompras
             If borra Then
                 sqlstr = "UPDATE ordenes_compras SET activo = '0' WHERE id_ordenCompra = '" + oc.id_ordenCompra.ToString + "'"
             Else
-                sqlstr = "SET DATEFORMAT dmy; UPDATE ordenes_compras SET id_proveedor = '" + oc.id_proveedor.ToString + "', fecha_carga = '" + oc.fecha_carga.ToString + "', "
+                sqlstr = "SET DATEFORMAT dmy; UPDATE ordenes_compras SET id_proveedor = '" + oc.id_proveedor.ToString + "', fecha_carga = '" + oc.fecha_carga.ToString + "', " &
+                            "fecha_comprobante = '" + oc.fecha_comprobante.ToString + "', "
 
                 If oc.fecha_recepcion IsNot Nothing Then
                     sqlstr += "fecha_recepcion = '" + oc.fecha_recepcion.ToString + "', recibido = '" + oc.recibido.ToString + "', "
@@ -133,7 +137,9 @@ Module ordenesCompras
         mytrans = CN.BeginTransaction()
 
         Try
-            sqlstr = "DELETE FROM ordenes_compras WHERE id_ordenCompra = '" + oc.id_ordenCompra.ToString + "'"
+            sqlstr = "DELETE FROM tmpOC_items WHERE id_ordenCompra = '" + oc.id_ordenCompra.ToString + "' " &
+                    "DELETE FROM ordenesCompras_items WHERE id_ordenCompra = '" + oc.id_ordenCompra.ToString + "' " &
+                    "DELETE FROM ordenes_compras WHERE id_ordenCompra = '" + oc.id_ordenCompra.ToString + "'"
             Comando = New SqlClient.SqlCommand(sqlstr, CN)
             Comando.Transaction = mytrans
             Comando.ExecuteNonQuery()
@@ -417,6 +423,7 @@ Module ordenesCompras
                         "ISNULL(ti.descript, '') AS descript " &
                         "FROM tmpOC_items AS ti " &
                         "LEFT JOIN items AS i ON ti.id_item = i.id_item " &
+                        "WHERE ti.activo = 1" & 
                         "ORDER BY id_tmpOCItem ASC"
 
             With comando
@@ -545,7 +552,7 @@ Module ordenesCompras
             If id_tmpOCItem_seleccionado = -1 Then
                 sqlstr = "DELETE FROM tmpOC_items WHERE activo = '0'"
             Else
-                sqlstr = "UPDATE tmppedidos_items SET activo = 0 WHERE id_tmpPedidoItem = '" + id_tmpOCItem_seleccionado.ToString + "'"
+                sqlstr = "UPDATE tmpOC_items SET activo = 0 WHERE id_tmpOCItem = '" + id_tmpOCItem_seleccionado.ToString + "'"
             End If
 
             Comando = New SqlClient.SqlCommand(sqlstr, CN)

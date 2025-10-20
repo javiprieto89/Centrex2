@@ -3,6 +3,7 @@
         If busquedaavanzada Then
             With edita_proveedor
                 .razon_social = Trim(txt_razonSocial.Text)
+                .id_claseFiscal = cmb_claseFiscal.SelectedValue
                 .id_tipoDocumento = cmb_tipoDocumento.SelectedValue
                 .contacto = Trim(txt_contacto.Text)
                 .vendedor = Trim(txt_vendedor.Text)
@@ -30,12 +31,19 @@
         If txt_razonSocial.Text = "" Then
             MsgBox("El campo 'Razon social' es obligatorio y está vacio")
             Exit Sub
+        ElseIf cmb_claseFiscal.Text = "Seleccione una clase fiscal..." Then
+            MsgBox("Debe seleccionar una clase fiscal", vbExclamation + vbOKOnly, "Centrex")
+            Exit Sub
+        ElseIf (InStr(LCase(cmb_claseFiscal.Text), "indefinido") = 0 Or InStr(LCase(cmb_tipoDocumento.Text), "indefinido") = 0 Or InStr(LCase(cmb_claseFiscal.Text), "c.u.i.t.") > 0) And txt_taxNumber.Text = "" Then
+            MsgBox("Debe especificar un documento o seleccionar una clase fiscal y un tipo de documento indefinido.", vbExclamation + vbOKOnly, "Centrex")
+            Exit Sub
         End If
 
-        Dim cl As New proveedor
+        Dim p As New proveedor
 
-        With cl
+        With p
             .razon_social = Trim(txt_razonSocial.Text)
+            .id_claseFiscal = cmb_claseFiscal.SelectedValue
             .id_tipoDocumento = cmb_tipoDocumento.SelectedValue
             .contacto = Trim(txt_contacto.Text)
             .vendedor = Trim(txt_vendedor.Text)
@@ -59,17 +67,18 @@
         End With
 
         If edicion = True Then
-            cl.id_proveedor = edita_proveedor.id_proveedor
-            If updateproveedor(cl) = False Then
+            p.id_proveedor = edita_proveedor.id_proveedor
+            If updateProveedor(p) = False Then
                 MsgBox("Hubo un problema al actualizar el proveedor, consulte con su programdor", vbExclamation)
                 closeandupdate(Me)
             End If
         Else
-            addproveedor(cl)
+            addproveedor(p)
         End If
 
         If chk_secuencia.Checked = True Then
             txt_razonSocial.Text = ""
+            cmb_claseFiscal.Text = "Seleccione una clase fiscal..."
             cmb_tipoDocumento.SelectedValue = id_tipoDocumento_default
             txt_taxNumber.Text = ""
             txt_contacto.Text = ""
@@ -119,8 +128,12 @@
         'Cargo todas las provincias de direccion de entrega
         cargar_combo(cmb_provinciaEntrega, "SELECT id_provincia, provincia FROM provincias WHERE id_pais = '" + cmb_paisEntrega.SelectedValue.ToString + "' ORDER BY provincia ASC", basedb, "provincia", "id_provincia")
 
+        'Cargo todos las clases fiscales
+        cargar_combo(cmb_claseFiscal, "SELECT id_claseFiscal, descript FROM sys_ClasesFiscales ORDER BY descript ASC", basedb, "descript", "id_claseFiscal")
+        cmb_claseFiscal.Text = "Seleccione una clase fiscal..."
+
         'Cargo todos los tipos de documentos
-        cargar_combo(cmb_tipoDocumento, "SELECT id_tipoDocumento, documento FROM tipos_documentos ORDER BY documento ASC", basedb, "documento", "id_tipoDocumento")
+        cargar_combo(cmb_tipoDocumento, "SELECT id_tipoDocumento, documento FROM tipos_documentos WHERE activo = 1 ORDER BY documento ASC", basedb, "documento", "id_tipoDocumento")
         cmb_tipoDocumento.SelectedValue = id_tipoDocumento_default
 
         Me.ActiveControl = Me.txt_razonSocial
@@ -137,6 +150,7 @@
         If edicion = True Or borrado = True Then
             chk_secuencia.Enabled = False
             txt_razonSocial.Text = edita_proveedor.razon_social
+            cmb_claseFiscal.SelectedValue = edita_proveedor.id_claseFiscal
             cmb_tipoDocumento.SelectedValue = edita_proveedor.id_tipoDocumento
             txt_taxNumber.Text = edita_proveedor.taxNumber
             txt_contacto.Text = edita_proveedor.contacto
@@ -161,6 +175,7 @@
 
         If borrado = True Then
             txt_razonSocial.Enabled = False
+            cmb_claseFiscal.Enabled = False
             cmb_tipoDocumento.Enabled = False
             txt_taxNumber.Enabled = False
             txt_contacto.Enabled = False

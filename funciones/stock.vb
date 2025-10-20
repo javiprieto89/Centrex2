@@ -1,9 +1,11 @@
 ﻿Imports System.Data
 Imports System.Data.SqlClient
+Imports System.Data.Entity
+Imports System.Linq
 
 Module stock
     ' ************************************ FUNCIONES DE STOCK ***************************
-    Public Function info_registro_stock(ByVal id_rs As Integer) As registro_stock
+    Public Function InfoRegistroStock(ByVal id_rs As Integer) As registro_stock
         Dim tmp As New registro_stock
         Dim sqlstr As String
 
@@ -54,7 +56,7 @@ Module stock
         End Try
     End Function
 
-    Public Function info_registro_stocktmp(ByVal id_rs As Integer) As registro_stock
+    Public Function InfoRegistroStockTmp(ByVal id_rs As Integer) As registro_stock
         Dim tmp As New registro_stock
         Dim sqlstr As String
 
@@ -105,7 +107,7 @@ Module stock
         End Try
     End Function
 
-    Public Function addstocktmp(ByVal rs As registro_stock) As Boolean
+    Public Function AddStockTmp(ByVal rs As registro_stock) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -121,9 +123,7 @@ Module stock
                 rs.precio_lista.ToString + "', '" + rs.factor.ToString + "', '" + rs.cantidad_anterior.ToString + "', '" + rs.costo_anterior.ToString + "', '" & _
                 rs.precio_lista_anterior.ToString + "', '" + rs.factor_anterior.ToString + "', '" + rs.nota + "')"
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -136,7 +136,7 @@ Module stock
         End Try
     End Function
 
-    Public Function updatestocktmp(ByVal rs As registro_stock) As Boolean
+    Public Function UpdateStockTmp(ByVal rs As registro_stock) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -151,9 +151,7 @@ Module stock
                 "WHERE id_registrotmp = '" + rs.id_registro.ToString + "'"
 
         Try
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -166,7 +164,7 @@ Module stock
         End Try
     End Function
 
-    Public Function addstock() As Boolean
+    Public Function AddStock() As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -182,9 +180,7 @@ Module stock
                         "costo_anterior, precio_lista_anterior, factor_anterior, nota " & _
                         "FROM tmpregistros_stock"
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -197,7 +193,7 @@ Module stock
         End Try
     End Function
 
-    Public Function borraritemregistrostocktmp(rs As registro_stock) As Boolean
+    Public Function BorrarItemRegistroStockTmp(rs As registro_stock) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -206,8 +202,7 @@ Module stock
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("DELETE FROM tmpregistros_stock WHERE id_registrotmp = '" + rs.id_registro.ToString + "'", CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("DELETE FROM tmpregistros_stock WHERE id_registrotmp = '" + rs.id_registro.ToString + "'", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -220,7 +215,7 @@ Module stock
         End Try
     End Function
 
-    Public Sub archivaringresostock()
+    Public Sub ArchivarIngresoStock()
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -234,9 +229,7 @@ Module stock
                         "SET activo = 0 " & _
                         "WHERE fecha_ingreso <> CONVERT (date, SYSDATETIME())"
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()

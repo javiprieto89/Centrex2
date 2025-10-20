@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,8 +13,11 @@
     <AssemblyName>Centrex</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>Q:\J%40V!\Docs\Dropbox\_Development\Centrex 1.0\Setup\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -77,25 +82,68 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.QRCode, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="WSAFIPFE, Version=92.4.0.0, Culture=neutral, PublicKeyToken=e3525bb207303650, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\WSAFIPFE.dll</HintPath>
+    <Reference Include="System.Configuration" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.10\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.10\lib\net48\zxing.presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +158,12 @@
     <Import Include="System.Linq" />
     <Import Include="System.Xml.Linq" />
     <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Data.Entity" />
+    <Import Include="System.Data.Entity.Infrastructure" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="afip\WSAAProxy.vb" />
+    <Compile Include="afip\WSFEProxy.vb" />
     <Compile Include="cambios.Designer.vb">
       <DependentUpon>cambios.vb</DependentUpon>
     </Compile>
@@ -135,6 +187,7 @@
     <Compile Include="clases\clscondicion_venta.vb" />
     <Compile Include="clases\clsconfig.vb" />
     <Compile Include="clases\clsconsultas_personalizadas.vb" />
+    <Compile Include="clases\clsconsultas_SIAP.vb" />
     <Compile Include="clases\clscuentas_bancarias.vb" />
     <Compile Include="clases\clsimpuesto.vb" />
     <Compile Include="clases\clsitemImpuesto.vb" />
@@ -142,9 +195,11 @@
     <Compile Include="clases\clsitem_produccion.vb" />
     <Compile Include="clases\clsmarcai.vb" />
     <Compile Include="clases\clscliente.vb" />
-    <Compile Include="clases\clsorden_produccion.vb" />
+    <Compile Include="clases\clsorden_compra.vb" />
     <Compile Include="clases\clspagos.vb" />
     <Compile Include="clases\clspedido.vb" />
+    <Compile Include="clases\clsperfiles.vb" />
+    <Compile Include="clases\clspermiso.vb" />
     <Compile Include="clases\clsproduccion.vb" />
     <Compile Include="clases\clsregistro_stock.vb" />
     <Compile Include="clases\clssaldoCaja.vb" />
@@ -152,8 +207,12 @@
     <Compile Include="clases\clsitem.vb" />
     <Compile Include="clases\clsproveedor.vb" />
     <Compile Include="clases\clsgenerales.vb" />
+    <Compile Include="clases\clstipoComprobante.vb" />
     <Compile Include="clases\clstipo_pedido.vb" />
+    <Compile Include="clases\clstransaccion.vb" />
     <Compile Include="clases\clstransferencia.vb" />
+    <Compile Include="clases\clsusuario.vb" />
+    <Compile Include="clases\clsmodoMiPyme.vb" />
     <Compile Include="dbCentrexDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -220,6 +279,36 @@
       <DependentUpon>add_cobroRetencion.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Agregar\add_cobroRetencion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_perfil.designer.vb">
+      <DependentUpon>add_perfil.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_perfil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_permiso.designer.vb">
+      <DependentUpon>add_permiso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_permiso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_permisos_perfiles.designer.vb">
+      <DependentUpon>add_permisos_perfiles.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_permisos_perfiles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_usuario.designer.vb">
+      <DependentUpon>add_usuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_usuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_usuarios_perfiles.designer.vb">
+      <DependentUpon>add_usuarios_perfiles.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Agregar\add_usuarios_perfiles.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Agregar\Comprobantes_compras\add_comprobantes_compras.Designer.vb">
@@ -420,6 +509,12 @@
     <Compile Include="Formularios\dbselect.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\frm_exportaSiap.designer.vb">
+      <DependentUpon>frm_exportaSiap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frm_exportaSiap.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\grilla_resultados.Designer.vb">
       <DependentUpon>grilla_resultados.vb</DependentUpon>
     </Compile>
@@ -430,6 +525,24 @@
       <DependentUpon>frm_prnCmp.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Impresión\frm_prnCmp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnComprobanteCompra.designer.vb">
+      <DependentUpon>frm_prnComprobanteCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnComprobanteCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnReciboCobro.designer.vb">
+      <DependentUpon>frm_prnReciboCobro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnReciboCobro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnOrdenDePago.designer.vb">
+      <DependentUpon>frm_prnOrdenDePago.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Impresión\frm_prnOrdenDePago.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Impresión\frm_prnReportes.Designer.vb">
@@ -456,6 +569,18 @@
     <Compile Include="Formularios\Busqueda\search.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\Busqueda\info_fc.Designer.vb">
+      <DependentUpon>info_fc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Busqueda\info_fc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\login.designer.vb">
+      <DependentUpon>login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\login.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\main.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -463,10 +588,40 @@
       <DependentUpon>main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\muestra_texto.Designer.vb">
+      <DependentUpon>muestra_texto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\muestra_texto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\Precios\edita_precios.Designer.vb">
       <DependentUpon>edita_precios.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Precios\edita_precios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Busqueda\resultado_info_fc.Designer.vb">
+      <DependentUpon>resultado_info_fc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Busqueda\resultado_info_fc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frm_pruebas_afip.Designer.vb">
+      <DependentUpon>frm_pruebas_afip.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frm_pruebas_afip.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frm_error_detalle.Designer.vb">
+      <DependentUpon>frm_error_detalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frm_error_detalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frm_mercadopago_qr.Designer.vb">
+      <DependentUpon>frm_mercadopago_qr.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frm_mercadopago_qr.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="funciones\ajustes_stock.vb" />
@@ -484,18 +639,23 @@
     <Compile Include="funciones\conceptos_compras.vb" />
     <Compile Include="funciones\condiciones_compras.vb" />
     <Compile Include="funciones\condiciones_ventas.vb" />
+    <Compile Include="funciones\consultasSIAP.vb" />
     <Compile Include="funciones\consultas_personalizadas.vb" />
     <Compile Include="clases\clsencriptar.vb" />
     <Compile Include="funciones\cuentas_bancarias.vb" />
     <Compile Include="funciones\generales.vb" />
     <Compile Include="funciones\clientes.vb" />
+    <Compile Include="funciones\generales_multiUsuario.vb" />
     <Compile Include="funciones\impuestos.vb" />
     <Compile Include="funciones\itemsImpuestos.vb" />
     <Compile Include="funciones\marcasitems.vb" />
     <Compile Include="funciones\items.vb" />
+    <Compile Include="funciones\modoMiPyme.vb" />
     <Compile Include="funciones\ordenesCompras.vb" />
     <Compile Include="funciones\pagos.vb" />
     <Compile Include="funciones\pedidos.vb" />
+    <Compile Include="funciones\perfiles.vb" />
+    <Compile Include="funciones\permisos.vb" />
     <Compile Include="funciones\precios.vb" />
     <Compile Include="funciones\produccion.vb" />
     <Compile Include="funciones\stock.vb" />
@@ -503,7 +663,12 @@
     <Compile Include="funciones\tipositems.vb" />
     <Compile Include="funciones\proveedores.vb" />
     <Compile Include="funciones\rutina.vb" />
+    <Compile Include="funciones\transacciones.vb" />
     <Compile Include="funciones\transferencias.vb" />
+    <Compile Include="funciones\usuarios.vb" />
+    <Compile Include="Models\ImpuestoEntity.vb" />
+    <Compile Include="Models\ItemImpuestoEntity.vb" />
+    <Compile Include="Models\TmpPedidoItemEntity.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -519,11 +684,56 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="afip\Config.vb" />
+    <Compile Include="afip\Models.vb" />
+    <Compile Include="afip\TokenCache.vb" />
+    <Compile Include="afip\WSAA.vb" />
+    <Compile Include="afip\WSFEv1.vb" />
+    <Compile Include="Models\CentrexDbContext.vb" />
+    <Compile Include="Models\ClienteEntity.vb" />
+    <Compile Include="Models\CobroEntity.vb" />
+    <Compile Include="Models\ComprobanteEntity.vb" />
+    <Compile Include="Models\ItemEntity.vb" />
+    <Compile Include="Models\MarcaEntity.vb" />
+    <Compile Include="Models\PedidoEntity.vb" />
+    <Compile Include="Models\PedidoItemEntity.vb" />
+    <Compile Include="Models\PerfilEntity.vb" />
+    <Compile Include="Models\ProduccionEntity.vb" />
+    <Compile Include="Models\ProveedorEntity.vb" />
+    <Compile Include="Models\ProvinciaEntity.vb" />
+    <Compile Include="Models\RegistroStockEntity.vb" />
+    <Compile Include="Models\TipoComprobanteEntity.vb" />
+    <Compile Include="Models\TipoItemEntity.vb" />
+    <Compile Include="Models\UsuarioEntity.vb" />
+    <Compile Include="Models\UsuarioPerfilEntity.vb" />
+    <Compile Include="Módulos\AfipHelper.vb" />
+    <Compile Include="Módulos\ApplicationInitializer.vb" />
     <Compile Include="Módulos\archivos.vb" />
+    <Compile Include="Módulos\BusinessLogicHelper.vb" />
     <Compile Include="Módulos\configuracion_regional.vb" />
+    <Compile Include="Módulos\DataGridOperations.vb" />
+    <Compile Include="Módulos\DatabaseHelper.vb" />
+    <Compile Include="Módulos\AutomatedModuleConverter.vb" />
+    <Compile Include="Módulos\EntityFrameworkConversionHelper.vb" />
+    <Compile Include="Módulos\EntityFrameworkTests.vb" />
+    <Compile Include="Módulos\TestEFMigration.vb" />
+    <Compile Include="Módulos\ExecuteMigration.vb" />
+    <Compile Include="Módulos\FinalEFMigration.vb" />
+    <Compile Include="Módulos\CompleteEFMigration.vb" />
+    <Compile Include="Módulos\CompleteSQLToEFMigration.vb" />
+    <Compile Include="Módulos\FinalMigrationExecutor.vb" />
+    <Compile Include="Módulos\CompleteSQLToEFConverter.vb" />
+    <Compile Include="Módulos\CodeOptimization.vb" />
+    <Compile Include="Módulos\EntityFrameworkHelper.vb" />
     <Compile Include="Módulos\factura_electronica.vb" />
+    <Compile Include="Módulos\FileOperations.vb" />
+    <Compile Include="Módulos\FormHelper.vb" />
     <Compile Include="Módulos\general.vb" />
+    <Compile Include="Módulos\MainDatabaseOperations.vb" />
     <Compile Include="Módulos\mconfig.vb" />
+    <Compile Include="Módulos\MenuHandler.vb" />
+    <Compile Include="afip\Models\PtoVentaInfo.vb" />
+    <Compile Include="Módulos\ValidationHelper.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="cambios.resx">
@@ -561,6 +771,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Agregar\add_cobroRetencion.resx">
       <DependentUpon>add_cobroRetencion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Agregar\add_perfil.resx">
+      <DependentUpon>add_perfil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Agregar\add_permiso.resx">
+      <DependentUpon>add_permiso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Agregar\add_permisos_perfiles.resx">
+      <DependentUpon>add_permisos_perfiles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Agregar\add_usuario.resx">
+      <DependentUpon>add_usuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Agregar\add_usuarios_perfiles.resx">
+      <DependentUpon>add_usuarios_perfiles.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Agregar\Comprobantes_compras\add_comprobantes_compras.resx">
       <DependentUpon>add_comprobantes_compras.vb</DependentUpon>
@@ -667,11 +892,26 @@
       <DependentUpon>dbselect.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frm_exportaSiap.resx">
+      <DependentUpon>frm_exportaSiap.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frm_pruebas_afip.resx">
+      <DependentUpon>frm_pruebas_afip.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\grilla_resultados.resx">
       <DependentUpon>grilla_resultados.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Impresión\frm_prnCmp.resx">
       <DependentUpon>frm_prnCmp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Impresión\frm_prnComprobanteCompra.resx">
+      <DependentUpon>frm_prnComprobanteCompra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Impresión\frm_prnReciboCobro.resx">
+      <DependentUpon>frm_prnReciboCobro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Impresión\frm_prnOrdenDePago.resx">
+      <DependentUpon>frm_prnOrdenDePago.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Impresión\frm_prnReportes.resx">
       <DependentUpon>frm_prnReportes.vb</DependentUpon>
@@ -682,6 +922,12 @@
     <EmbeddedResource Include="Formularios\infoagregarstock.resx">
       <DependentUpon>infoagregarstock.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Busqueda\info_fc.resx">
+      <DependentUpon>info_fc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\login.resx">
+      <DependentUpon>login.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\main.resx">
       <DependentUpon>main.vb</DependentUpon>
     </EmbeddedResource>
@@ -689,8 +935,14 @@
       <DependentUpon>search.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\muestra_texto.resx">
+      <DependentUpon>muestra_texto.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Precios\edita_precios.resx">
       <DependentUpon>edita_precios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Busqueda\resultado_info_fc.resx">
+      <DependentUpon>resultado_info_fc.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -700,6 +952,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rpt_comprobanteCompra.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_facturaA.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_facturaA_MiPyme.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_facturaA_Monotributo.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_facturaB.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_notaDeCreditoA.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_notaDeCreditoB.rdlc" />
@@ -709,8 +963,11 @@
     <EmbeddedResource Include="Reportes\rpt_presupuesto.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_produccion.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_produccionComponentes.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_proformaA.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_proformaB.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_reciboCobro.rdlc" />
-    <EmbeddedResource Include="Reportes\rpt_reciboPago.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_ordenDePago.rdlc" />
+    <EmbeddedResource Include="Reportes\rpt_reciboCobro_noOficial.rdlc" />
     <EmbeddedResource Include="Reportes\rpt_saleOrderRM.rdlc" />
   </ItemGroup>
   <ItemGroup>
@@ -720,8 +977,8 @@
     </None>
     <None Include="dbCentrexDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbCentrexDataSet.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>dbCentrexDataSet.Designer.vb</LastGenOutput>
     </None>
     <None Include="dbCentrexDataSet.xss">
       <DependentUpon>dbCentrexDataSet.xsd</DependentUpon>
@@ -738,6 +995,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\iconoLupa.png" />
     <None Include="Resources\iconoLupajpg.jpg" />
   </ItemGroup>
@@ -773,10 +1031,14 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="icono4.ico" />
-    <None Include="img\BackupFolder.jpg" />
+    <None Include="Resources\icono-excelByN.jpg" />
+    <None Include="Resources\icono-txt.png" />
+    <None Include="Resources\icono-txtByN.png" />
+    <None Include="Resources\txt-file-icon-1200.png" />
+    <None Include="img\logoCentrexFC.jpg" />
+    <None Include="img\icono-excel.jpg" />
     <None Include="img\centrexlogo.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -793,4 +1055,13 @@
   <ItemGroup>
     <Resource Include="fuentes\Interleaved2of5.ttf" />
   </ItemGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
 </Project>

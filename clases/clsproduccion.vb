@@ -8,4 +8,5 @@
     Public recibido As Boolean
     Public notas As String
     Public activo As Boolean
+    Public id_usuario As Integer
 End Class

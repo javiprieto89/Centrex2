@@ -18,14 +18,12 @@
         Dim ultimoComprobante As Integer
         c = info_comprobante(cmb_comprobante.SelectedValue)
 
-        ultimoComprobante = consultaUltimoComprobante(c.puntoVenta, c.id_tipoComprobante, c.testing)
+        ' NO usar Try-Catch aquí para permitir que las excepciones se propaguen
+        ' y se muestre el formulario de errores detallados desde WSFEv1 o WSAA
+        ultimoComprobante = consultaUltimoComprobante(c.puntoVenta, c.id_tipoComprobante, c.numeroComprobante)
 
-        If ultimoComprobante = -1 Then
-            MsgBox("Hubo un error al consultar el último número del comprobante.", vbExclamation + vbOKOnly, "Centrex")
-        Else
-            MsgBox("El último número de comprobante para el documento: " + c.comprobante + " con el punto de venta: " + c.puntoVenta +
-                " es: " + ultimoComprobante.ToString, vbInformation + vbOKOnly, "Centrex")
-        End If
+        MsgBox("El último número de comprobante para el documento: " + c.comprobante + " con el punto de venta: " + c.puntoVenta.ToString +
+            " es: " + ultimoComprobante.ToString, vbInformation + vbOKOnly, "Centrex")
     End Sub
 
     Private Sub frm_ultimo_comprobante_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

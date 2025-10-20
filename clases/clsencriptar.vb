@@ -52,14 +52,19 @@ Public Class Encriptar
 
     ' FUNCION PARA DESENCRIPTAR
     Public Function Desencriptar(ByVal text As String) As String
+        Dim input() As Byte
+        Dim output() As Byte
 
-        Dim input() As Byte = Convert.FromBase64String(text)
+        Try
+            input = Convert.FromBase64String(text)
 
-        Dim output() As Byte = Transformar(input,
-                         m_des.CreateDecryptor(m_key, m_iv))
+            output = Transformar(input,
+                             m_des.CreateDecryptor(m_key, m_iv))
 
-        Return m_utf8.GetString(output)
-
+            Return m_utf8.GetString(output)
+        Catch ex As Exception
+            Return "error"
+        End Try
     End Function
 
     Private Function Transformar(ByVal input() As Byte,

@@ -19,6 +19,11 @@
     Public notas As String
     Public esInscripto As Boolean
     Public vendedor As String
+    Public nombre As String
+    Public direccion As String
+    Public nombre_fantasia As String
+    Public id As Integer
     Public activo As Boolean
     Public id_tipoDocumento As Integer
+    Public id_claseFiscal As Integer
 End Class

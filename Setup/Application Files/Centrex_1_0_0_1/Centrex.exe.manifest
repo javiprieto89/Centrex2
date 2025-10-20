@@ -120,18 +120,7 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WSAFIPFE.dll" size="3148288">
-      <assemblyIdentity name="WSAFIPFE" version="31.0.0.0" publicKeyToken="E3525BB207303650" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qrxf0Y3SpQJkViLsbg7rLEiKZ/BdZldQ6SiXjL9X6FU=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
+  
   <file name="Centrex.exe.config" size="527">
     <hash>
       <dsig:Transforms>

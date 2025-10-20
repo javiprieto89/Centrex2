@@ -67,7 +67,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!fecha_carga.Value, "DSProd_cabecera")</Value>
+                <Value>=First(Fields!fecha_carga.Value, "Produccion_cabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -135,7 +135,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!ID.Value, "DSProd_cabecera")</Value>
+                <Value>=Sum(Fields!id.Value, "Produccion_cabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -155,39 +155,6 @@
         <ZIndex>4</ZIndex>
         <Style>
           <Border />
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox9">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>C.U.I.T.:</Value>
-                <Style>
-                  <FontFamily>Helvetica LT Std</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>3.98233cm</Top>
-        <Left>12.1312cm</Left>
-        <Height>0.5cm</Height>
-        <Width>3.13512cm</Width>
-        <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -216,42 +183,7 @@
         <Left>12.1312cm</Left>
         <Height>0.5cm</Height>
         <Width>3.13512cm</Width>
-        <ZIndex>6</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox14">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!cuit.Value, "DS_empresa")</Value>
-                <Style>
-                  <FontFamily>Helvetica LT Std</FontFamily>
-                  <FontSize>9pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>3.98233cm</Top>
-        <Left>15.44271cm</Left>
-        <Height>0.5cm</Height>
-        <Width>3.41312cm</Width>
-        <ZIndex>7</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -415,7 +347,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!provincia.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!provincia_fiscal.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -448,7 +380,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!localidad.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!localidad_fiscal.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -481,7 +413,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!supp_address.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!direccion_fiscal.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -513,7 +445,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!supp_name.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!proveedor.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -579,7 +511,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!supp_taxNumber.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!taxNumber.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -647,7 +579,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!notas.Value, "DSProd_cabecera")</Value>
+                    <Value>=First(Fields!notas.Value, "Produccion_cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -661,7 +593,7 @@
             </Paragraphs>
             <rd:DefaultName>subtotal</rd:DefaultName>
             <Top>3.05674cm</Top>
-            <Left>3.36867cm</Left>
+            <Left>3.26962cm</Left>
             <Height>1.66242cm</Height>
             <Width>14.08805cm</Width>
             <ZIndex>12</ZIndex>
@@ -677,19 +609,36 @@
           </Textbox>
           <Rectangle Name="Rectangle1">
             <ReportItems>
-              <Tablix Name="tb_detalle">
+              <Line Name="Line7">
+                <Left>3.1072cm</Left>
+                <Height>15.77061cm</Height>
+                <Width>0cm</Width>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                    <Width>1.5pt</Width>
+                  </Border>
+                </Style>
+              </Line>
+              <Tablix Name="Tablix1">
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>1.65341cm</Width>
+                      <Width>3.1072cm</Width>
                     </TablixColumn>
                     <TablixColumn>
-                      <Width>16.45732cm</Width>
+                      <Width>9.1864cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>3.31712cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.5cm</Width>
                     </TablixColumn>
                   </TablixColumns>
                   <TablixRows>
                     <TablixRow>
-                      <Height>0.58539cm</Height>
+                      <Height>0.93927cm</Height>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
@@ -700,11 +649,8 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>CANT.</Value>
-                                      <Style>
-                                        <FontFamily>Helvetica LT Std</FontFamily>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
+                                      <Value>Item</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
@@ -715,18 +661,9 @@
                               <rd:DefaultName>Textbox1</rd:DefaultName>
                               <Style>
                                 <Border>
-                                  <Style>None</Style>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
                                 </Border>
-                                <TopBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1.5pt</Width>
-                                </TopBorder>
-                                <BottomBorder>
-                                  <Style>Solid</Style>
-                                  <Width>1.5pt</Width>
-                                </BottomBorder>
-                                <VerticalAlign>Middle</VerticalAlign>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
@@ -744,11 +681,8 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>PRODUCTO</Value>
-                                      <Style>
-                                        <FontFamily>Helvetica LT Std</FontFamily>
-                                        <FontSize>9pt</FontSize>
-                                      </Style>
+                                      <Value>Descripción</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
@@ -759,19 +693,73 @@
                               <rd:DefaultName>Textbox3</rd:DefaultName>
                               <Style>
                                 <Border>
-                                  <Style>None</Style>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
                                 </Border>
-                                <TopBorder>
-                                  <Color>Black</Color>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox7">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Cantidad</Value>
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox7</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
                                   <Style>Solid</Style>
-                                  <Width>1.5pt</Width>
-                                </TopBorder>
-                                <BottomBorder>
-                                  <Color>Black</Color>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox11">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Cantidad recibida</Value>
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox11</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
                                   <Style>Solid</Style>
-                                  <Width>1.5pt</Width>
-                                </BottomBorder>
-                                <VerticalAlign>Middle</VerticalAlign>
+                                </Border>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
@@ -783,22 +771,79 @@
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
-                      <Height>0.4531cm</Height>
+                      <Height>0.93927cm</Height>
                       <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="item">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!item.Value</Value>
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>item</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="descript">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!descript.Value</Value>
+                                      <Style />
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>descript</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
                         <TablixCell>
                           <CellContents>
                             <Textbox Name="cantidad">
                               <CanGrow>true</CanGrow>
-                              <CanShrink>true</CanShrink>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
                                       <Value>=Fields!cantidad.Value</Value>
-                                      <Style>
-                                        <FontFamily>Helvetica LT Std</FontFamily>
-                                      </Style>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
@@ -809,44 +854,45 @@
                               <rd:DefaultName>cantidad</rd:DefaultName>
                               <Style>
                                 <Border>
-                                  <Style>None</Style>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
                                 </Border>
-                                <VerticalAlign>Middle</VerticalAlign>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>3pt</PaddingTop>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
                           </CellContents>
                         </TablixCell>
                         <TablixCell>
                           <CellContents>
-                            <Textbox Name="producto">
+                            <Textbox Name="cantidad_recibida">
+                              <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=Fields!producto.Value</Value>
-                                      <Style>
-                                        <FontFamily>Helvetica LT Std</FontFamily>
-                                      </Style>
+                                      <Value>=Fields!cantidad_recibida.Value</Value>
+                                      <Style />
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
-                                    <TextAlign>Left</TextAlign>
+                                    <TextAlign>Center</TextAlign>
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>producto</rd:DefaultName>
+                              <rd:DefaultName>cantidad_recibida</rd:DefaultName>
                               <Style>
                                 <Border>
-                                  <Style>None</Style>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
                                 </Border>
-                                <VerticalAlign>Middle</VerticalAlign>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>3pt</PaddingTop>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
                           </CellContents>
@@ -857,6 +903,8 @@
                 </TablixBody>
                 <TablixColumnHierarchy>
                   <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                   </TablixMembers>
@@ -871,22 +919,37 @@
                     </TablixMember>
                   </TablixMembers>
                 </TablixRowHierarchy>
-                <DataSetName>DSProd_detalle</DataSetName>
+                <DataSetName>Produccion_detalle</DataSetName>
                 <Top>0.03528cm</Top>
-                <Height>1.03849cm</Height>
+                <Left>0cm</Left>
+                <Height>1.87854cm</Height>
                 <Width>18.11073cm</Width>
+                <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
                 </Style>
               </Tablix>
-              <Line Name="Line7">
+              <Line Name="Line9">
                 <Top>0.03528cm</Top>
-                <Left>1.65341cm</Left>
-                <Height>15.65595cm</Height>
+                <Left>12.29361cm</Left>
+                <Height>15.73533cm</Height>
                 <Width>0cm</Width>
-                <ZIndex>1</ZIndex>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                    <Width>1.5pt</Width>
+                  </Border>
+                </Style>
+              </Line>
+              <Line Name="Line10">
+                <Top>0.03528cm</Top>
+                <Left>15.61073cm</Left>
+                <Height>15.73533cm</Height>
+                <Width>0cm</Width>
+                <ZIndex>3</ZIndex>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -896,9 +959,9 @@
               </Line>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>4.93965cm</Top>
+            <Top>4.89555cm</Top>
             <Left>0.02646cm</Left>
-            <Height>15.72651cm</Height>
+            <Height>15.77061cm</Height>
             <Width>18.11073cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
@@ -918,7 +981,7 @@
         <Left>1.39911cm</Left>
         <Height>20.66616cm</Height>
         <Width>18.13719cm</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -948,7 +1011,7 @@
         <Left>3.48376cm</Left>
         <Height>0.50827cm</Height>
         <Width>4.21149cm</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -981,7 +1044,7 @@
         <Left>4.35123cm</Left>
         <Height>0.52968cm</Height>
         <Width>2.03899cm</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1044,7 +1107,7 @@
         <Left>2.92842cm</Left>
         <Height>1.18067cm</Height>
         <Width>5.04893cm</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1077,7 +1140,7 @@
         <Left>3.54376cm</Left>
         <Height>0.54329cm</Height>
         <Width>3.89593cm</Width>
-        <ZIndex>12</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1096,7 +1159,7 @@
         <Left>2.30857cm</Left>
         <Height>0.81202cm</Height>
         <Width>6.0392cm</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1125,7 +1188,7 @@
         <Left>12.1312cm</Left>
         <Height>0.5cm</Height>
         <Width>3.13512cm</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1143,7 +1206,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!fecha_carga.Value, "DSProd_cabecera")</Value>
+                <Value>=First(Fields!fecha_envio.Value, "Produccion_cabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1160,7 +1223,7 @@
         <Left>15.44271cm</Left>
         <Height>0.5cm</Height>
         <Width>3.41312cm</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1193,7 +1256,7 @@
         <Left>12.1312cm</Left>
         <Height>0.5cm</Height>
         <Width>3.13512cm</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1211,7 +1274,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!fecha_recepcion.Value, "DSProd_cabecera")</Value>
+                <Value>=First(Fields!fecha_recepcion.Value, "Produccion_cabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -1228,7 +1291,7 @@
         <Left>15.44271cm</Left>
         <Height>0.5cm</Height>
         <Width>3.41312cm</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1269,6 +1332,118 @@
     </DataSource>
   </DataSources>
   <DataSets>
+    <DataSet Name="Produccion_cabecera">
+      <Query>
+        <DataSourceName>dbCentrexDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="id">
+          <DataField>id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="proveedor">
+          <DataField>proveedor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="direccion_fiscal">
+          <DataField>direccion_fiscal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="localidad_fiscal">
+          <DataField>localidad_fiscal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="provincia_fiscal">
+          <DataField>provincia_fiscal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="taxNumber">
+          <DataField>taxNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fecha_carga">
+          <DataField>fecha_carga</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fecha_envio">
+          <DataField>fecha_envio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fecha_recepcion">
+          <DataField>fecha_recepcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="enviado">
+          <DataField>enviado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="recibido">
+          <DataField>recibido</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="notas">
+          <DataField>notas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="activo">
+          <DataField>activo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>produccion_cabecera</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>produccion_cabeceraTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="Produccion_detalle">
+      <Query>
+        <DataSourceName>dbCentrexDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="id">
+          <DataField>id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="id_produccion">
+          <DataField>id_produccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="item">
+          <DataField>item</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="descript">
+          <DataField>descript</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cantidad">
+          <DataField>cantidad</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cantidad_recibida">
+          <DataField>cantidad_recibida</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="activo">
+          <DataField>activo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>produccion_detalle</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>produccion_detalleTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="DS_empresa">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
@@ -1302,103 +1477,11 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\Dropbox\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
         <rd:TableName>datos_empresa</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>datos_empresaTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DSProd_cabecera">
-      <Query>
-        <DataSourceName>dbCentrexDataSet</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="ID">
-          <DataField>ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="fecha_carga">
-          <DataField>fecha_carga</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="fecha_envio">
-          <DataField>fecha_envio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="fecha_recepcion">
-          <DataField>fecha_recepcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="supp_name">
-          <DataField>supp_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="supp_taxNumber">
-          <DataField>supp_taxNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="supp_address">
-          <DataField>supp_address</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="provincia">
-          <DataField>provincia</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="localidad">
-          <DataField>localidad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="notas">
-          <DataField>notas</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\Dropbox\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>produccion_cabecera</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>produccion_cabeceraTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DSProd_detalle">
-      <Query>
-        <DataSourceName>dbCentrexDataSet</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="producto">
-          <DataField>producto</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="descripcion">
-          <DataField>descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="cantidad">
-          <DataField>cantidad</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="producto_asociado">
-          <DataField>producto_asociado</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="cantidad_armado">
-          <DataField>cantidad_armado</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\Dropbox\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>produccion_detalle</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>produccion_detalleTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

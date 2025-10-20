@@ -2,7 +2,7 @@
 
 Module tipositems
     ' ************************************ FUNCIONES DE TIPOS DE ITEMS ***********************
-    Public Function info_tipoitem(ByVal id_tipo) As tipoitem
+    Public Function InfoTipoItem(ByVal id_tipo) As tipoitem
         Dim tmp As New tipoitem
         Try
             'Crea y abre una nueva conexión
@@ -36,7 +36,7 @@ Module tipositems
         End Try
     End Function
 
-    Public Function addtipoitem(titem As tipoitem) As Boolean
+    Public Function AddTipoItem(titem As tipoitem) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -45,9 +45,7 @@ Module tipositems
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("INSERT INTO tipos_items (tipo, activo) VALUES ('" + titem.tipo + "', '" + titem.activo.ToString + "')", CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("INSERT INTO tipos_items (tipo, activo) VALUES ('" + titem.tipo + "', '" + titem.activo.ToString + "')", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -60,7 +58,7 @@ Module tipositems
         End Try
     End Function
 
-    Public Function updatetipoitem(titem As tipoitem, Optional borra As Boolean = False) As Boolean
+    Public Function UpdateTipoItem(titem As tipoitem, Optional borra As Boolean = False) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -89,7 +87,7 @@ Module tipositems
         End Try
     End Function
 
-    Public Function borrartipoitem(titem As tipoitem) As Boolean
+    Public Function BorrarTipoItem(titem As tipoitem) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -98,8 +96,7 @@ Module tipositems
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("DELETE FROM tipos_items WHERE id_tipo = '" + titem.id_tipo.ToString + "'", CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("DELETE FROM tipos_items WHERE id_tipo = '" + titem.id_tipo.ToString + "'", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()

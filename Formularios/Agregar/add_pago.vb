@@ -53,6 +53,10 @@
 
         Dim p As String = cmb_proveedor.SelectedValue.ToString
 
+        'sqlstr = "SELECT id_cc, nombre FROM cc_proveedores WHERE activo = 1 AND id_proveedor = '" + p + "' ORDER BY nombre ASC"
+        'cargar_combo(cmb_cc, sqlstr, basedb, "nombre", "id_cc")
+        'cmb_cc.Enabled = True
+
         'Cargo los combos con todas las cuentas corrientes del proveedor
         sqlstr = "SELECT id_cc, nombre FROM cc_proveedores WHERE activo = 1 AND id_proveedor = '" + p + "' ORDER BY nombre ASC"
         cargar_combo(cmb_cc, sqlstr, basedb, "nombre", "id_cc")
@@ -61,6 +65,8 @@
         chk_efectivo.Enabled = True
         chk_transferencia.Enabled = True
         chk_cheque.Enabled = True
+        dg_view_nFC_importes.Enabled = True
+        txt_notas.Enabled = True
         'c = info_cliente(cmb_cliente.SelectedValue)
         cmb_cc_SelectionChangeCommitted(Nothing, Nothing)
         ' actualizarDataGrid(p)
@@ -78,25 +84,36 @@
         End If
 
         txt_efectivo.Enabled = chk_efectivo.Checked
+        lbl_importePago.Text = total
     End Sub
 
-    Private Sub chk_transferenciaBancaria_CheckedChanged(sender As Object, e As EventArgs) Handles chk_transferencia.CheckedChanged
-        If txt_transferenciaBancaria.Text <> 0 Then transferenciaBancaria = Convert.ToDouble(txt_transferenciaBancaria.Text)
+    'Private Sub chk_transferenciaBancaria_CheckedChanged(sender As Object, e As EventArgs)
+    '    If txt_transferenciaBancaria.Text <> 0 Then transferenciaBancaria = Convert.ToDouble(txt_transferenciaBancaria.Text)
 
-        If chk_transferencia.Checked Then
-            total += transferenciaBancaria
-        Else
-            total -= transferenciaBancaria
-        End If
+    '    If chk_transferencia.Checked Then
+    '        total += transferenciaBancaria
+    '    Else
+    '        total -= transferenciaBancaria
+    '    End If
 
-        txt_transferenciaBancaria.Enabled = chk_transferencia.Checked
-    End Sub
+    '    txt_transferenciaBancaria.Enabled = chk_transferencia.Checked
+    'End Sub
 
     Private Sub chk_cheque_CheckedChanged(sender As Object, e As EventArgs) Handles chk_cheque.CheckedChanged
         Dim chk As Boolean
         chk = chk_cheque.Checked
 
-        dg_view.Enabled = chk
+        If chk Then
+            total += totalCh
+            lbl_totalCh.Text = precio(totalCh.ToString)
+            lbl_importePago.Text = precio(total.ToString)
+        Else
+            total -= totalCh
+            lbl_totalCh.Text = precio("0")
+            lbl_importePago.Text = precio(total.ToString)
+        End If
+
+        dg_viewCH.Enabled = chk
         cmd_addCheques.Enabled = chk
         cmd_verCheques.Enabled = chk
         txt_search.Enabled = chk
@@ -131,7 +148,7 @@
         Dim ccp As New ccProveedor
 
         If cmb_proveedor.Text = "Seleccione un proveedor..." Then
-            MsgBox("El campo 'Cliente' es obligatorio y está vacio", vbOKOnly, vbExclamation)
+            MsgBox("El campo 'Proveedor' es obligatorio y está vacio", vbOKOnly, vbExclamation)
             Exit Sub
             If Not chk_efectivo.Checked And Not chk_transferencia.Checked And Not chk_cheque.Checked Then
                 MsgBox("Debe elegir algún medio de pago", vbOKOnly, vbExclamation)
@@ -154,61 +171,85 @@
                 .efectivo = 0
             End If
 
+            'If chk_transferencia.Checked Then
+            '    .totalTransferencia = txt_transferenciaBancaria.Text
+            'Else
+            '    .totalTransferencia = 0
+            'End If
+
             If chk_transferencia.Checked Then
-                .totalTransferencia = txt_transferenciaBancaria.Text
+                .hayTransferencia = True
+                .totalTransferencia = sumaTransferencias()
             Else
+                .hayTransferencia = False
                 .totalTransferencia = 0
             End If
 
             If chk_cheque.Checked Then
-                .totalch = totalCh
+                .hayCheque = True
+                .totalch = sumaCheques()
             Else
-                .totalTransferencia = 0
+                .hayCheque = False
+                .totalch = 0
             End If
 
-            .hayCheque = chk_cheque.Checked
+            '.hayCheque = chk_cheque.Checked
+            '.aplicaFc = txt_aplicaFc.Text
+            .notas = txt_notas.Text
 
-            .total = total
+            .total = .total + sumaCheques() + sumaTransferencias()
         End With
 
         pg.id_pago = addpago(pg)
         If pg.id_pago <> -1 Then
             If pg.hayCheque Then
-                'Dim count As Integer = -1
+                Dim count As Integer = -1
 
-                'For Each row As DataGridViewRow In dg_view.Rows
-                '    If (Convert.ToBoolean(row.Cells(selColName).Value)) Then count += 1
-                'Next
-                'Dim cheques(count) As Integer
-                'count = 0
+                For Each row As DataGridViewRow In dg_viewCH.Rows
+                    If (Convert.ToBoolean(row.Cells(selColName).Value)) Then count += 1
+                Next
+                Dim cheques(count) As Integer
+                count = 0
 
-                'For Each row As DataGridViewRow In dg_view.Rows
-                '    If (Convert.ToBoolean(row.Cells(selColName).Value)) Then
-                '        cheques(count) = row.Cells("ID").Value
-                '        count += 1
-                '    End If
-                'Next
-
-                'add_chequeCobrado(cb.id_cobro, cheques)
-                'Marco los cheques como entregados
                 Dim ch As New cheque
-                For Each row As DataGridViewRow In dg_view.Rows
+                For Each row As DataGridViewRow In dg_viewCH.Rows
                     If (Convert.ToBoolean(row.Cells(selColName).Value)) Then
-                        ch = info_cheque(row.Cells("ID").Value.ToString)
+                        cheques(count) = row.Cells("ID").Value
+                        'Actualizo el estado del cheque
+                        ch = info_cheque(cheques(count).ToString)
                         ch.id_estadoch = ID_CH_ENTREGADO
                         updatech(ch)
+                        count += 1
                     End If
                 Next
 
-                'Actualizo el saldo del proveedor
-                'Dim p As New proveedor
+                add_chequePagado(pg.id_pago, cheques)
+            End If
 
-                ccp.saldo += pg.total
-                updateCCProveedor(ccp)
-                closeandupdate(Me)
-            Else
+            If pg.hayTransferencia Then
+                If Not guardarTransferencias(pg) Then
+                    MsgBox("Hubo un problema al agregar el cobro.", vbExclamation + vbOKOnly, "Centrex")
+                    closeandupdate(Me)
+                End If
+            End If
+
+            If Not guardar_pagos_facturas_importes(pg.id_pago, dg_view_nFC_importes) Then
+                MsgBox("Hubo un problema al agregar el pago.", vbExclamation + vbOKOnly, "Centrex")
                 closeandupdate(Me)
             End If
+
+            'Actualizo el saldo del proveedor
+            'Dim p As New proveedor
+
+            ccp.saldo -= pg.total
+            updateCCProveedor(ccp)
+
+            'Dim frm As New frm_prnReportes("rpt_ordenDePago", "datos_empresa", "SP_pago_cabecera", "SP_detalle_pagos_cheques", "SP_detalle_pagos_transferencias", "DS_Datos_Empresa",
+            '                                "DS_Pago_Cabecera", "DS_Detalle_Pagos_Cheques", "DS_Detalle_Pagos_Transferencias", pg.id_pago, True)
+            'frm.ShowDialog()
+            Dim rptOrdenDePago As New frm_prnOrdenDePago(pg.id_pago)
+            rptOrdenDePago.ShowDialog()
+            closeandupdate(Me)
         Else
             MsgBox("Hubo un problema al agregar el cobro.", vbExclamation)
             closeandupdate(Me)
@@ -223,13 +264,13 @@
         lbl_importePago.Text = "$ " + Convert.ToString(total)
     End Sub
 
-    Private Sub txt_transferenciaBancaria_Leave(sender As Object, e As EventArgs) Handles txt_transferenciaBancaria.Leave
-        total -= transferenciaBancaria
-        transferenciaBancaria = Convert.ToDouble(txt_transferenciaBancaria.Text)
-        total += transferenciaBancaria
+    'Private Sub txt_transferenciaBancaria_Leave(sender As Object, e As EventArgs)
+    '    total -= transferenciaBancaria
+    '    transferenciaBancaria = Convert.ToDouble(txt_transferenciaBancaria.Text)
+    '    total += transferenciaBancaria
 
-        lbl_importePago.Text = "$ " + Convert.ToString(total)
-    End Sub
+    '    lbl_importePago.Text = "$ " + Convert.ToString(total)
+    'End Sub
 
     Private Sub pic_proveedorProveedor_Click(sender As Object, e As EventArgs) Handles pic_searchProveedor.Click
         'busqueda
@@ -289,6 +330,8 @@
         Else
             checkCheques()
 
+            'MUESTRA LOS CHEQUES EN CARTERA DISPONIBLES PARA USAR PARA PAGAR A UN PROVEEDOR
+
             sqlstr = "SELECT ch.id_cheque AS 'ID', CASE WHEN ch.id_cliente IS NULL THEN '**** CHEQUE PROPIO ****' ELSE c.razon_social END AS 'Cliente', b.nombre AS 'Banco', ch.nCheque AS 'Nº cheque', ch.importe AS 'Importe', sech.estado AS 'Estado', " &
                  "CASE WHEN ch.id_cuentaBancaria IS NULL THEN 'No' ELSE CONCAT('Si, en:', cbb.nombre, ' - ', cb.nombre) END AS '¿Depositado?', " &
                  "CASE WHEN ch.activo = 1 THEN 'Si' ELSE 'No' END AS '¿Activo?' " &
@@ -303,7 +346,10 @@
         End If
 
         If sqlstr <> "" And sqlstr <> "error" Then
-            cargar_datagrid(dg_view, sqlstr, basedb, {0}, True, selColName) 'Carga el datagrid con los nuevos datos
+            Dim nRegs As Integer = 0
+            Dim tPaginas As Integer = 0
+            Dim txtnPage As New TextBox()
+            cargar_datagrid(dg_viewCH, sqlstr, basedb, 0, nRegs, tPaginas, 1, txtnPage, "cheques", "cheques")
             selCheques()
         End If
 
@@ -317,20 +363,20 @@
         lbl_importePago.Text = "$ " + Convert.ToString(total)
     End Sub
 
-    Private Sub txt_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt_search.KeyPress
+    Private Sub txt_search_KeyPress(sender As Object, e As KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Return) Then
             ' actualizarDataGrid(cmb_proveedor.SelectedValue.ToString)
             actualizarDataGrid()
         End If
     End Sub
 
-    Private Sub dg_view_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles dg_view.CurrentCellDirtyStateChanged
-        If dg_view.IsCurrentCellDirty Then
-            dg_view.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    Private Sub dg_view_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs)
+        If dg_viewCH.IsCurrentCellDirty Then
+            dg_viewCH.CommitEdit(DataGridViewDataErrorContexts.Commit)
         End If
     End Sub
 
-    Private Sub dg_view_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dg_view.CellValueChanged
+    Private Sub dg_view_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs)
         Dim count As Integer = 0
 
         If noCambiar Then Exit Sub
@@ -367,7 +413,7 @@
         'Si el cheque ya está agregado en chSel, no lo vuelve a agregar
         'Si el cheque no está en chSel no hace nada
 
-        For Each row As DataGridViewRow In dg_view.Rows
+        For Each row As DataGridViewRow In dg_viewCH.Rows
             If (Convert.ToBoolean(row.Cells(selColName).Value)) Then
                 chSel = addValArray(chSel, row.Cells("ID").Value)
             Else
@@ -382,7 +428,7 @@
         Dim c As Integer = 0
         noCambiar = True
 
-        For Each row As DataGridViewRow In dg_view.Rows
+        For Each row As DataGridViewRow In dg_viewCH.Rows
             If searchArray(chSel, row.Cells("ID").Value) Then
                 row.Cells(selColName).Value = True
             End If
@@ -404,10 +450,12 @@
         chk_cheque.Checked = False
 
         txt_efectivo.Text = efectivo
-        txt_transferenciaBancaria.Text = transferenciaBancaria
+        'txt_transferenciaBancaria.Text = transferenciaBancaria
+        lbl_totalTransferencia.Text = precio(transferenciaBancaria)
         txt_search.Text = ""
         lbl_totalCh.Text = "$ " + Convert.ToString(totalCh)
         lbl_importePago.Text = "$ " + Convert.ToString(total)
+        cargarDGTransferencias()
     End Sub
 
     Private Sub pic_searchCCProveedor_Click(sender As Object, e As EventArgs) Handles pic_searchCCProveedor.Click
@@ -432,4 +480,163 @@
         If id = 0 Then id = id_cliente_pedido_default
         updateform(id.ToString, cmb_cc)
     End Sub
+
+    Private Sub chk_transferencia_CheckedChanged(sender As Object, e As EventArgs) Handles chk_transferencia.CheckedChanged
+        Dim chk As Boolean
+        chk = chk_transferencia.Checked
+
+        If chk Then
+            total += transferenciaBancaria
+            lbl_totalTransferencia.Text = precio(transferenciaBancaria.ToString)
+            lbl_importePago.Text = precio(total.ToString)
+        Else
+            total -= transferenciaBancaria
+            lbl_totalTransferencia.Text = precio("0")
+            lbl_importePago.Text = precio(total.ToString)
+        End If
+
+        txt_searchTransferencia.Enabled = chk
+        dg_viewTransferencia.Enabled = chk
+        cmd_addTransferencia.Enabled = chk
+    End Sub
+    Private Sub cargarDGTransferencias()
+        Dim sqlstr As String
+
+        sqlstr = "SELECT t.id_tmpTransferencia AS 'ID', b.nombre AS 'Banco', cb.nombre AS 'Cuenta Bancaria', CAST(t.fecha AS VARCHAR(50)) AS 'Fecha', " +
+                    "t.total AS 'Total', t.notas AS 'Notas' " +
+                    "FROM tmptransferencias AS t " +
+                    "INNER JOIN cuentas_bancarias AS cb ON t.id_cuentaBancaria = cb.id_cuentaBancaria " +
+                    "INNER JOIN bancos AS b ON cb.id_banco = b.id_banco"
+
+        'Carga el datagrid con los nuevos datos
+        Dim nRegs As Integer = 0
+        Dim tPaginas As Integer = 0
+        Dim txtnPage As New TextBox()
+        cargar_datagrid(dg_viewTransferencia, sqlstr, basedb, 0, nRegs, tPaginas, 1, txtnPage, "tmptransferencias", "tmptransferencias")
+    End Sub
+    Private Function sumaTransferencias() As Double
+        'Obtengo el total de las transferencias
+        Dim suma As Double
+
+        For Each row As DataGridViewRow In dg_viewTransferencia.Rows
+            suma += row.Cells("Total").Value
+        Next
+
+        Return suma
+    End Function
+
+    Private Sub actualizaTransferencias()
+        cargarDGTransferencias()
+
+        total -= transferenciaBancaria
+        transferenciaBancaria = sumaTransferencias()
+        total += transferenciaBancaria
+
+        lbl_totalTransferencia.Text = precio(transferenciaBancaria)
+        lbl_importePago.Text = precio(total)
+    End Sub
+
+    Private Sub dg_viewTransferencia_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dg_viewTransferencia.CellMouseDoubleClick
+        Dim seleccionado As String = dg_viewTransferencia.CurrentRow.Cells(0).Value.ToString
+        edita_transferencia = InfoTmpTransferencia(seleccionado)
+
+        If edita_transferencia.id_transferencia = -1 Then
+            MsgBox("Ocurrió un problema al editar la transferencia.", vbExclamation + vbOKOnly, "Centrex")
+            Exit Sub
+        End If
+
+        If borrado = False Then edicion = True
+
+        add_transferencia.ShowDialog()
+
+        actualizaTransferencias()
+
+        edicion = False
+    End Sub
+
+    Private Sub cmd_addTransferencia_Click(sender As Object, e As EventArgs) Handles cmd_addTransferencia.Click
+        'Dim t As New transferencia
+
+        add_transferencia.ShowDialog()
+
+        actualizaTransferencias()
+    End Sub
+
+    Private Function sumaCheques() As Double
+        'Obtengo el total de los cheques
+        Dim suma As Double
+
+        For Each row As DataGridViewRow In dg_viewCH.Rows
+            If (Convert.ToBoolean(row.Cells(selColName).Value)) Then
+                suma += row.Cells("Importe").Value
+            End If
+        Next
+
+        Return suma
+    End Function
+
+    Private Sub dg_view_nFC_importes_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dg_view_nFC_importes.EditingControlShowing
+        If dg_view_nFC_importes.CurrentCell.ColumnIndex = 2 Then 'Numeric column with decimal point
+            AddHandler CType(e.Control, TextBox).KeyPress, AddressOf dg_view_nFC_importes_textbox_keyPress
+        End If
+    End Sub
+
+    Private Sub dg_view_nFC_importes_textbox_keyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs)
+        'Allows Numeric values, one decimal point and BackSpace key
+        Dim numbers As Windows.Forms.TextBox = sender
+        If InStr("1234567890.", e.KeyChar) = 0 And Asc(e.KeyChar) <> 8 Or (e.KeyChar = "." And InStr(numbers.Text, ".") > 0) Then
+            e.KeyChar = Chr(0)
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub dg_viewCH_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dg_viewCH.CellValueChanged
+        Dim count As Integer = 0
+
+        If noCambiar Then Exit Sub
+
+        total -= totalCh
+        totalCh = 0
+
+        checkCheques()
+
+        'For Each idCheque As Integer In chSel
+        '    totalCh += info_cheque(idCheque.ToString).importe
+        'Next
+
+        'For Each row As DataGridViewRow In dg_view.Rows
+        '    If (Convert.ToBoolean(row.Cells(selColName).Value)) Then
+        '        totalCh += Convert.ToDouble(row.Cells("Importe").Value)
+        '    End If
+        'Next
+
+        If chSel IsNot Nothing Then
+            For Each a As Integer In chSel
+                totalCh += info_cheque(a).importe
+            Next
+        End If
+
+        total += totalCh
+        lbl_totalCh.Text = precio(totalCh)
+        lbl_importePago.Text = precio(total)
+    End Sub
+
+    Private Sub dg_viewCH_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dg_viewCH.CellMouseDoubleClick
+        Dim seleccionado As String = dg_viewTransferencia.CurrentRow.Cells(0).Value.ToString
+        edita_cheque = info_cheque(seleccionado)
+        If borrado = False Then edicion = True
+
+        add_cheque.ShowDialog()
+
+        actualizarDataGrid()
+        edicion = False
+    End Sub
+
+
+    Private Sub dg_viewCH_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles dg_viewCH.CurrentCellDirtyStateChanged
+        If dg_viewCH.IsCurrentCellDirty Then
+            dg_viewCH.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        End If
+    End Sub
+
 End Class

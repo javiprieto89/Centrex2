@@ -1,1024 +1,679 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.Entity
+Imports System.Linq
 
-Module pedidos
-    ' ************************************ FUNCIONES DE PEDIDOS ***************************
-    Public Function info_pedido(Optional ByVal id_pedido As String = "") As pedido
-        Dim tmp As New pedido
-        Dim sqlstr As String
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
+''' <summary>
+''' Repositorio de operaciones para la tabla "pedidos" usando Entity Framework 6
+''' </summary>
+Public Class Pedidos
 
+    ''' <summary>
+    ''' Obtiene la información de un pedido (último o por ID)
+    ''' </summary>
+    Public Shared Function InfoPedido(Optional id_pedido As Integer? = Nothing) As PedidoEntity
+        Using context As New CentrexDbContext()
+            Dim query = context.Pedidos _
+                .Include(Function(p) p.Cliente) _
+                .Include(Function(p) p.Comprobante) _
+                .Include(Function(p) p.TipoComprobante) _
+                .Include(Function(p) p.Usuario) _
+                .Include(Function(p) p.PedidoItems)
 
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                If id_pedido = "" Then
-                    sqlstr = "SET DATEFORMAT dmy; SELECT TOP 1 id_pedido, CONVERT(NVARCHAR(20), fecha, 3), CONVERT(NVARCHAR(20), fecha_edicion, 3), id_cliente, " &
-                                "markup, subtotal, iva, total, nota1, nota2, esPresupuesto, activo, cerrado, ISNULL(idPresupuesto, 0), ISNULL(id_comprobante, 0), " &
-                                "cae, CONVERT(NVARCHAR(20), fechaVencimiento_cae, 112), ISNULL(puntoVenta, 0), ISNULL(numeroComprobante, 0), " &
-                                "ISNULL(codigoDeBarras, 0), ISNULL(esTest, 0), id_cc " &
-                                "FROM pedidos " &
-                                "ORDER by id_pedido DESC"
-                Else
-                    sqlstr = "SET DATEFORMAT dmy; SELECT id_pedido, CONVERT(NVARCHAR(20), fecha, 3), CONVERT(NVARCHAR(20), fecha_edicion, 3), id_cliente, " &
-                                    "markup, subtotal, iva, total, nota1, nota2, esPresupuesto, activo, cerrado, ISNULL(idPresupuesto, 0), ISNULL(id_comprobante, 0), " &
-                                    "cae, CONVERT(NVARCHAR(20), fechaVencimiento_cae, 112), ISNULL(puntoVenta, 0), ISNULL(numeroComprobante, 0), " +
-                                    "ISNULL(codigoDeBarras, 0), ISNULL(esTest, 0), id_cc " &
-                                    "FROM pedidos " &
-                                    "WHERE id_pedido = '" + id_pedido + "'"
-                End If
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            tmp.id_pedido = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            tmp.fecha = dataset.Tables("tabla").Rows(0).Item(1).ToString
-            tmp.fecha_edicion = dataset.Tables("tabla").Rows(0).Item(2).ToString
-            tmp.id_cliente = dataset.Tables("tabla").Rows(0).Item(3).ToString
-            tmp.markup = dataset.Tables("tabla").Rows(0).Item(4).ToString
-            tmp.subTotal = dataset.Tables("tabla").Rows(0).Item(5).ToString
-            tmp.iva = dataset.Tables("tabla").Rows(0).Item(6).ToString
-            tmp.total = dataset.Tables("tabla").Rows(0).Item(7).ToString
-            tmp.nota1 = dataset.Tables("tabla").Rows(0).Item(8).ToString
-            tmp.nota2 = dataset.Tables("tabla").Rows(0).Item(9).ToString
-            tmp.esPresupuesto = dataset.Tables("tabla").Rows(0).Item(10).ToString
-            tmp.activo = dataset.Tables("tabla").Rows(0).Item(11).ToString
-            tmp.cerrado = dataset.Tables("tabla").Rows(0).Item(12).ToString
-            tmp.idPresupuesto = dataset.Tables("tabla").Rows(0).Item(13).ToString
-            tmp.id_comprobante = dataset.Tables("tabla").Rows(0).Item(14).ToString
-            tmp.cae = dataset.Tables("tabla").Rows(0).Item(15).ToString
-            tmp.fechaVencimiento_cae = dataset.Tables("tabla").Rows(0).Item(16).ToString
-            tmp.puntoVenta = dataset.Tables("tabla").Rows(0).Item(17).ToString
-            tmp.numeroComprobante = dataset.Tables("tabla").Rows(0).Item(18).ToString
-            tmp.codigoDeBarras = dataset.Tables("tabla").Rows(0).Item(19).ToString
-            tmp.esTest = dataset.Tables("tabla").Rows(0).Item(20).ToString
-            tmp.id_Cc = dataset.Tables("tabla").Rows(0).Item(21).ToString
-            cerrardb()
-            Return tmp
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            cerrardb()
-            Return tmp
-        End Try
-    End Function
-
-    Public Function addpedido(p As pedido) As Boolean
-        Dim sqlstr As String
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            sqlstr = "SET DATEFORMAT dmy; INSERT INTO pedidos (fecha, id_cliente, markup, subTotal, iva, total, nota1, nota2, esPresupuesto, activo, id_comprobante, cae, " _
-                                            + "fechaVencimiento_cae, puntoVenta, numeroComprobante, codigoDeBarras, esTest, id_Cc) VALUES ('" + p.fecha.ToString + "', '" _
-                                            + p.id_cliente.ToString + "', '" + p.markup.ToString + "', '" + p.subTotal.ToString + "', '" + p.iva.ToString + "', '" _
-                                            + p.total.ToString + "', '" + p.nota1.ToString + "', '" + p.nota2 + "', '" + p.esPresupuesto.ToString + "', '" + p.activo.ToString + "', '" _
-                                            + p.id_comprobante.ToString + "', '" + p.cae + "', '" + p.fechaVencimiento_cae + "', '" + p.puntoVenta.ToString + "', '" + p.numeroComprobante.ToString _
-                                            + "', '" + p.codigoDeBarras + "', '" + p.esTest.ToString + "', '" + p.id_Cc.ToString + "')"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function updatepedido(ByVal p As pedido, Optional borra As Boolean = False) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            If borra Then
-                sqlstr = "UPDATE pedidos SET activo = '0' WHERE id_pedido = '" + p.id_pedido.ToString + "'"
+            If id_pedido.HasValue Then
+                Return query.FirstOrDefault(Function(p) p.IdPedido = id_pedido.Value)
             Else
-                sqlstr = "SET DATEFORMAT dmy; UPDATE pedidos SET fecha = '" + p.fecha + "', fecha_edicion = '" + p.fecha_edicion +
-                        "', id_cliente = '" + p.id_cliente.ToString + "', markup = '" + p.markup.ToString +
-                        "', subTotal = '" + p.subTotal.ToString + "', iva = '" + p.iva.ToString + "', total = '" + p.total.ToString + "', nota1 = '" + p.nota1 +
-                        "', nota2 = '" + p.nota2 + "', esPresupuesto = '" + p.esPresupuesto.ToString + "', activo = '" + p.activo.ToString +
-                        "', cerrado = '" + p.cerrado.ToString + "', id_comprobante = '" + p.id_comprobante.ToString + "', cae = '" + p.cae +
-                        "', fechaVencimiento_cae = '" + p.fechaVencimiento_cae + "', puntoVenta = '" + p.puntoVenta.ToString +
-                        "', numeroComprobante = '" + p.numeroComprobante.ToString + "', codigoDeBarras = '" + p.codigoDeBarras +
-                        "', esTest = '" + p.esTest.ToString + "', id_Cc = '" + p.id_Cc.ToString + " " +
-                        "' WHERE id_pedido = '" + p.id_pedido.ToString + "'"
+                Return query.OrderByDescending(Function(p) p.IdPedido).FirstOrDefault()
             End If
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
+        End Using
     End Function
 
-    Public Function borrarpedido(p As pedido) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
+    ''' <summary>
+    ''' Agrega un nuevo pedido
+    ''' </summary>
+    Public Function AddPedido(p As PedidoEntity) As Boolean
         Try
-            sqlstr = "DELETE FROM tmppedidos_items WHERE id_pedido = '" + p.id_pedido.ToString + "'; DELETE FROM pedidos_items WHERE id_pedido = '" + p.id_pedido.ToString + "'; DELETE FROM pedidos WHERE id_pedido = '" + p.id_pedido.ToString + "'"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-    'Public Function addItemPedidotmp(ByVal id_item As Integer, ByVal cantidad As Double, ByVal precio As String, Optional ByVal id_tmpPedidoItem As Integer = -1) As Boolean
-    Public Function addItemPedidotmp(ByVal i As item, ByVal cantidad As Double, ByVal precio As String, Optional ByVal id_tmpPedidoItem As Integer = -1) As Boolean
-        'Dim i As New item
-        'If id_item Then i = info_item(id_item)
-
-        'Dim mytrans As SqlTransaction
-        Dim sqlComm As New SqlCommand 'Comando en el resto
-
-        Try
-            abrirdb(serversql, basedb, usuariodb, passdb)
-            'If id_item And i.esDescuento Then
-            If i.esDescuento Then
-                'Si es un descuento guardo el precio negativo
-                precio = (Math.Round(add_pedido.txt_subTotal.Text * precio, 2)) * -1
-            End If
-
-            With sqlComm
-                If id_tmpPedidoItem = -1 Or id_tmpPedidoItem = 0 Then
-                    .CommandText = "SP_insertItemsTMP"
-                Else
-                    .CommandText = "SP_updateItemsTMP"
-                End If
-                .CommandType = CommandType.StoredProcedure
-                With .Parameters
-                    .AddWithValue("id_tmpPedidoItem", id_tmpPedidoItem)
-                    .AddWithValue("id_item", i.id_item)
-                    .AddWithValue("cantidad", cantidad)
-                    .AddWithValue("precio", precio)
-                    .AddWithValue("descript", i.descript)
-                    .AddWithValue("item", i.item)
-                    .Add(New SqlParameter("@resultado", SqlDbType.Int)).Direction = ParameterDirection.Output
-                End With
-                .Connection = CN
-                .ExecuteNonQuery()
-            End With
-
-            'sqlComm.Transaction = mytrans
-            'mytrans.Commit()
-            If CInt(sqlComm.Parameters("@resultado").Value) Then
+            Using context As New CentrexDbContext()
+                context.Pedidos.Add(p)
+                context.SaveChanges()
                 Return True
-            Else
-                Return False
-            End If
+            End Using
         Catch ex As Exception
-            MsgBox(ex.Message)
-            Return False
-        Finally
-            cerrardb()
-        End Try
-    End Function
-
-    Public Function guardarPedido(Optional ByVal id_pedido As Integer = 0, Optional ByVal total As Double = 0) As Boolean
-        'Obtengo el último pedido que se generó
-        Dim sqlstr As String
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim p As New pedido
-
-        If id_pedido = 0 Then
-            p = info_pedido()
-            id_pedido = p.id_pedido
-        End If
-
-        Try
-            abrirdb(serversql, basedb, usuariodb, passdb)
-            mytrans = CN.BeginTransaction()
-
-            sqlstr = "UPDATE pedidos_items " &
-                            "SET cantidad = src.cantidad, " &
-                            "descript = src.descript, " &
-                            "precio = src.precio " &
-                            "FROM pedidos_items dst " &
-                            "JOIN tmppedidos_items src ON src.id_pedidoItem = dst.id_pedidoItem " &
-                            "WHERE dst.id_pedido = '" + id_pedido.ToString + "' " &
-                                "AND src.activo = '1' " &
-                        "INSERT pedidos_items " &
-                            "(id_item, " &
-                            "cantidad, " &
-                            "precio, " &
-                            "id_pedido, " &
-                            "descript) " &
-                            "SELECT id_item, " &
-                               "cantidad, " &
-                               "precio, '" &
-                                id_pedido.ToString + "', " &
-                                "descript " &
-                            "FROM tmppedidos_items src " &
-                            "WHERE NOT EXISTS " &
-                            "(" &
-                                "SELECT id_item " &
-                                "FROM pedidos_items dst " &
-                                "WHERE src.id_pedidoItem = dst.id_pedidoItem " &
-                                    "AND dst.id_pedido = '" + id_pedido.ToString + "'" &
-                            ") " &
-                            "AND src.activo = '1' " &
-                            "ORDER BY src.id_tmpPedidoItem ASC"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-
-            'Borro de la tabla pedidos_items, todos los items que no estén en la tabla tmppedidos_items
-            abrirdb(serversql, basedb, usuariodb, passdb)
-            mytrans = CN.BeginTransaction()
-
-            sqlstr = "DELETE FROM pedidos_items " & _
-                        "WHERE id_pedidoItem IN " & _
-                        "( " & _
-                        "	SELECT tmpi.id_pedidoItem " & _
-                        "	FROM pedidos_items AS pit " & _
-                        "	LEFT JOIN tmppedidos_items AS tmpi ON tmpi.id_item = pit.id_item " & _
-                        "	WHERE tmpi.activo = 0 AND tmpi.id_pedido = " + id_pedido.ToString + " AND pit.cantidad = tmpi.cantidad AND pit.precio = tmpi.precio " & _
-                        ")"
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
+            MsgBox($"Error al agregar pedido: {ex.Message}")
             Return False
         End Try
     End Function
 
-    Public Function info_itemPedido(ByVal id_item As String) As item_pedido
-        Dim tmp As New item_pedido
+    Public Shared Function GuardarPedido(idUsuario As Integer, idUnico As String, idPedido As Integer) As Boolean
         Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = "SELECT * FROM pedidos_items WHERE id_item = '" + id_item + "'"
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-            tmp.id_pedido = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            tmp.id_item = dataset.Tables("tabla").Rows(0).Item(1).ToString
-            tmp.cantidad = dataset.Tables("tabla").Rows(0).Item(2).ToString
-            tmp.precio = dataset.Tables("tabla").Rows(0).Item(3).ToString
-            tmp.activo = dataset.Tables("tabla").Rows(0).Item(4).ToString
-            cerrardb()
-            Return tmp
-        Catch ex As Exception
-            'MsgBox(ex.Message.ToString)
-            tmp.id_item = -1
-            cerrardb()
-            Return tmp
-        End Try
-    End Function
-
-    Public Function cerrarPedido(ByVal p As pedido, ByVal esPresupuesto As Boolean, ByVal imprimeRemito As Boolean) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            sqlstr = "UPDATE pedidos SET cerrado = '1', activo = '0' WHERE id_pedido = '" + p.id_pedido.ToString + "'"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-
-            imprimirFactura(p.id_pedido, esPresupuesto, imprimeRemito)
-
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function recargaPrecios(Optional ByVal id As Integer = 0, Optional ByVal id_item As Integer = 0, Optional ByVal tabla As String = "") As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        If id_item = 0 Then
-            'Recargo todos los precios
-            If tabla = "pedidos_items" Then
-                sqlstr = "UPDATE pedidos_items " & _
-                            "SET pedidos_items.precio = i.precio_lista " & _
-                            "FROM pedidos_items AS [pi] " & _
-                            "INNER JOIN items AS i ON [pi].id_item = i.id_item " & _
-                            "WHERE [pi].id_pedido = '" + id.ToString + "' AND i.esDescuento = '0' AND i.esmarkup = '0'"
-            Else
-                sqlstr = "UPDATE tmppedidos_items " & _
-                        "SET tmppedidos_items.precio = i.precio_lista " & _
-                        "FROM tmppedidos_items AS tmpi " & _
-                        "INNER JOIN items AS i ON tmpi.id_item = i.id_item " & _
-                        "WHERE i.esDescuento = '0' AND i.esmarkup = '0'"
-
-            End If
-        Else
-            'Recargo el precio solo del item indicado
-            If tabla = "pedidos_items" Then
-                sqlstr = "UPDATE pedidos_items " & _
-                            "SET pedidos_items.precio = items.precio_lista " & _
-                            "FROM pedidos_iitems AS [pi] " & _
-                            "INNER JOIN items AS i ON [pi].id_item = i.id_item " & _
-                            "WHERE [pi].id_pedido = '" + id.ToString + "' AND [pi].id_item = '" + id_item.ToString + "' AND i.esDescuento = '0' AND i.esmarkup = '0'"
-            Else
-                sqlstr = "UPDATE tmppedidos_items " & _
-                            "SET tmppedidos_items.precio = i.precio_lista " & _
-                            "FROM tmppedidos_items AS tmpi " & _
-                            "INNER JOIN items AS i ON tmpi.id_item = i.id_item " & _
-                            "WHERE tmpi.id_item = '" + id_item.ToString + "' AND i.esDescuento = '0' AND i.esmarkup = '0' "
-            End If
-        End If
-
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-            mytrans.Commit()
-            cerrardb()
-            If id <> 0 And tabla <> "" Then
-                If recargaprecios(, id_item) = False Then Return False
-            End If
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function askCantidadCargada(ByVal id_item As Integer, Optional ByVal id As Integer = -1, Optional ByVal id_tmpPedidoItem As Integer = -1) As Double
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            Dim sqlstr As String
-
-            sqlstr = "SELECT cantidad FROM tmppedidos_items WHERE id_item = '" + id_item.ToString + "'"
-            If id <> -1 Then sqlstr = sqlstr + " AND id_pedido = '" + id.ToString + "'"
-            If id_tmpPedidoItem <> -1 Then sqlstr = sqlstr + " AND id_tmpPedidoItem = '" + id_tmpPedidoItem.ToString + "'"
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            Dim cantidad As Double
-            cantidad = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            cerrardb()
-            Return cantidad
-        Catch ex As Exception
-            'MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            'si no hay stock devuelve -1
-            cerrardb()
-            Return -1
-        End Try
-    End Function
-
-    Public Function askPrecioCargado(ByVal id_item As Integer, Optional ByVal id As Integer = -1, Optional ByVal id_tmpPedidoItem As Integer = -1) As Double
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            Dim sqlstr As String
-
-            sqlstr = "SELECT precio FROM tmppedidos_items WHERE id_item = '" + id_item.ToString + "'"
-            If id <> -1 Then sqlstr = sqlstr + " AND id_pedido = '" + id.ToString + "'"
-            If id_tmpPedidoItem <> -1 Then sqlstr = sqlstr + " AND id_tmpPedidoItem = '" + id_tmpPedidoItem.ToString + "'"
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            Dim precio As Double
-            precio = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            cerrardb()
-            Return precio
-        Catch ex As Exception
-            'MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            'si no hay stock devuelve -1
-            cerrardb()
-            Return -1
-        End Try
-    End Function
-
-    Public Function existe_Descuento_Markup_Tmp(ByVal id_item As Integer) As Integer
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            Dim sqlstr As String
-
-            sqlstr = "SELECT id_tmpPedidoItem FROM tmppedidos_items WHERE id_item = '" + id_item.ToString + "'"
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            Dim id_tmpPedidoItem As Integer
-            id_tmpPedidoItem = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            Return id_tmpPedidoItem
-        Catch ex As Exception
-            'MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            'si no hay stock devuelve -1
-            Return -1
-        Finally
-            cerrardb()
-        End Try
-    End Function
-
-    Public Function duplicarPedido(ByVal id As Integer) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-
-        Dim sqlstr As String = ""
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            sqlstr = "SET DATEFORMAT dmy; INSERT INTO pedidos (fecha, id_cliente, markup, subTotal, iva, total, nota1, nota2, esPresupuesto, activo, cerrado, " &
-                        "idPresupuesto, id_comprobante, cae, fechaVencimiento_cae, puntoVenta, numeroComprobante, codigoDeBarras, esTest, id_Cc) " &
-                        "SELECT '" & Format(DateTime.Now, "dd/MM/yyyy") & "', id_cliente, markup, subTotal, iva, total, nota1, nota2, " &
-                        "esPresupuesto, 1, 0, idPresupuesto, id_comprobante, cae, " &
-                        "fechaVencimiento_cae, puntoVenta, numeroComprobante, codigoDeBarras, esTest, id_Cc " &
-                        "FROM pedidos " &
-                        "WHERE id_pedido = '" + id.ToString + "'; " &
-                        "DECLARE @nuevo_id_pedido AS INTEGER; " &
-                        "SET @nuevo_id_pedido = (SELECT TOP 1 id_pedido FROM pedidos ORDER BY id_pedido DESC); " &
-                        "INSERT INTO pedidos_items (id_item, cantidad, precio, id_pedido) " &
-                        "SELECT id_item, cantidad, precio, @nuevo_id_pedido " &
-                        "FROM pedidos_items " &
-                        "WHERE id_pedido = '" + id.ToString + "'"
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function updatePrecios(ByVal datagrid As DataGridView, ByVal chk_esPresupuesto As CheckBox, ByVal txt_subTotal As TextBox, ByVal txt_impuestos As TextBox,
-                                     ByVal txt_total As TextBox, ByVal txt_totalOriginal As TextBox, ByVal txt_markup As TextBox, ByVal txt_totalDescuentos As TextBox, ByVal comprobanteSeleccionado As comprobante) As Boolean
-        Dim sqlstr As String
-        Dim total As Double
-        Dim subtotal As Double
-        Dim descuento As Double
-        'Dim iva As Double
-        Dim impuestosItem As Double
-        Dim totalImpuestoItem As Double
-        Dim totalImpuestos As Double
-        Dim factor As Double
-        Dim precio As Double
-        Dim cantidad As Integer
-        Dim id_item As Integer
-        Dim mytrans As SqlTransaction
-        Dim comando As New SqlCommand
-
-        Try
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            sqlstr = "SELECT ti.id_tmpPedidoItem, ISNULL(ti.id_item, 0) AS 'id_item' , ti.cantidad, ti.precio, ti.activo, " &
-                        "ISNULL(i.esDescuento, 0) AS 'esDescuento', ISNULL(i.esMarkup, 0) AS 'esMarkup', ISNULL(i.factor, 1) AS 'factor', " &
-                        "ISNULL(ti.descript, '') AS descript " &
-                        "FROM tmppedidos_items AS ti " &
-                        "LEFT JOIN items AS i ON ti.id_item = i.id_item " &
-                        "ORDER BY id_tmpPedidoItem ASC"
-
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-            'llenar el dataset
-            da.FillSchema(dataset, SchemaType.Source, "tmppedidos_items") 'Para que pueda manejarme con los nombres de las tablas y no haga falta por id
-            da.Fill(dataset, "tmppedidos_items")
-
-            Dim tbl_tmppedidos_items As DataTable
-            tbl_tmppedidos_items = dataset.Tables("tmppedidos_items")
-            cerrardb()
-
-            'Calculo el subtotal
-            For Each fila As DataRow In dataset.Tables(0).Rows
-                cantidad = fila("cantidad")
-                precio = fila("precio")
-                If Not fila("esDescuento") And Not fila("esMarkup") And fila("activo") Then subtotal = subtotal + (cantidad * precio)
-            Next
-
-            txt_totalOriginal.Text = subtotal
-
-            'Calculo los descuentos a partir del subtotal que se va actualizando con cada descuento
-            For Each fila As DataRow In dataset.Tables(0).Rows
-                If fila("esDescuento") And fila("activo") Then
-                    fila.BeginEdit()
-
-                    factor = fila("factor")
-                    precio = (subtotal * factor) * -1 'Multiplico por -1 porque al ser un descuento necesito que sea negativo
-                    cantidad = fila("cantidad")
-                    id_item = fila("id_item")
-                    fila("precio") = precio
-                    fila.EndEdit()
-                    descuento += precio * -1
-                    subtotal = subtotal + precio 'Sumo porque fila("precio") tiene un valor negativo y + * - = - por lo cual queda restando
-
-                    'Actualizo el precio en la base de datos
-                    abrirdb(serversql, basedb, usuariodb, passdb)
-                    sqlstr = "UPDATE tmppedidos_items SET cantidad = '" + cantidad.ToString + "', precio = '" + precio.ToString + "', activo = '1' WHERE id_item = '" + id_item.ToString + "'"
-
-                    mytrans = CN.BeginTransaction()
-
-                    comando = New SqlClient.SqlCommand(sqlstr, CN)
-                    comando.Transaction = mytrans
-                    comando.ExecuteNonQuery()
-
-                    mytrans.Commit()
-                    cerrardb()
+            Using context As New CentrexDbContext()
+                ' Incluir los ítems del pedido definitivo y los temporales
+                Dim pedido = context.Pedidos.
+                Include(Function(p) p.PedidoItems).
+                FirstOrDefault(Function(p) p.IdPedido = idPedido)
+
+                If pedido Is Nothing Then
+                    MsgBox("Pedido no encontrado.")
+                    Return False
                 End If
-            Next
 
-            'Calculo los impuestos
-            totalImpuestos = 0
-            For Each fila As DataRow In dataset.Tables(0).Rows
-                If Not fila("esDescuento") And Not fila("esMarkup") And fila("activo") Then
-                    precio = fila("precio")
-                    cantidad = fila("cantidad")
-                    impuestosItem = calculaImpuestosItem(fila("id_tmpPedidoItem"), fila("id_item"), comprobanteSeleccionado)
-                    totalImpuestoItem = ((impuestosItem * (precio * cantidad)) / 100)
-                    totalImpuestos += totalImpuestoItem
-                End If
-            Next
+                ' Obtener ítems temporales activos del usuario
+                Dim itemsTemporales = context.TempPedidosItems.
+                Where(Function(t) t.Activo = True AndAlso
+                                   t.IdUsuario = idUsuario AndAlso
+                                   t.IdUnico = idUnico).
+                ToList()
 
-            totalImpuestos = totalImpuestos - ((impuestosItem * descuento) / 100) 'TERRIBLE PARCHE SACALO YA!
-
-            total = subtotal + totalImpuestos
-            impuestosItem = totalImpuestos
-
-            'Si hay un descuento desactivo la posibilidad de poner markup y viceversa
-            If txt_totalOriginal.Text <> subtotal Then
-                txt_markup.Enabled = False
-            Else
-                txt_markup.Enabled = True
-            End If
-
-
-            'If add_pedido.chk_presupuesto.Checked Then
-            '    'Si es un presupuesto no calcula IVA
-            '    total = subtotal
-            'Else
-            '    impuestosItem = subtotal * 0.21
-            '    total = subtotal + impuestosItem
-            'End If
-
-            txt_subTotal.Text = Math.Round(subtotal, 2)
-            txt_impuestos.Text = Math.Round(totalImpuestos, 2)
-            txt_totalDescuentos.Text = Math.Round(descuento, 2)
-            txt_total.Text = Math.Round(total, 2)
-
-            sqlstr = "SELECT CONCAT(ti.id_tmpPedidoItem, '-', ti.id_item) AS 'ID', ti.id_pedidoItem AS 'id_pedidioItem', 
-                    CASE WHEN ti.id_item IS NULL THEN ti.descript ELSE i.descript END AS 'Producto', ti.cantidad AS 'Cant.', ti.precio AS 'Precio', " &
-                   "CAST(ti.cantidad * ti.precio AS DECIMAL(18,2)) AS 'Subtotal' " &
-                   "FROM tmppedidos_items AS ti " &
-                   "LEFT JOIN items AS i ON ti.id_item = i.id_item " &
-                   "LEFT JOIN tipos_items AS tim ON i.id_tipo = tim.id_tipo " &
-                   "WHERE ti.activo = '1' AND (i.esMarkup = '0' OR i.esMarkup IS NULL)" &
-                   "ORDER BY id ASC"
-            cargar_datagrid(datagrid, sqlstr, basedb)
-
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function calculaImpuestosItem(ByVal id_tmpPedidoItem As String, ByVal id_item As String, ByVal comprobanteSeleccionado As comprobante) As Double
-        Dim sqlstr As String
-        Dim totalImpuestos As Double
-        Dim comando As New SqlCommand
-
-        Try
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            sqlstr = "SELECT ti.id_item, ti.cantidad, ti.precio, im.nombre, im.porcentaje " &
-                        "FROM tmppedidos_items AS ti " &
-                        "INNER JOIN items AS it ON ti.id_item = it.id_item " &
-                        "INNER JOIN items_impuestos AS ii ON ti.id_item = ii.id_item " &
-                        "INNER JOIN impuestos AS im ON ii.id_impuesto = im.id_impuesto " &
-                        "WHERE ti.activo = '1' AND ii.activo = '1' AND ti.id_item = '" & id_item & "' AND ti.id_tmpPedidoITem = '" + id_tmpPedidoItem + "' " &
-                        "AND it.esDescuento = '0' AND it.esMarkup = '0'"
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-            'llenar el dataset
-            da.FillSchema(dataset, SchemaType.Source, "tmppedidos_items") 'Para que pueda manejarme con los nombres de las tablas y no haga falta por id
-            da.Fill(dataset, "tmppedidos_items")
-
-            Dim tbl_tmppedidos_items As DataTable
-            tbl_tmppedidos_items = dataset.Tables("tmppedidos_items")
-            cerrardb()
-
-            'Calculo cada uno de los impuestos, excepto el I.V.A. si es un presupuesto
-            For Each fila As DataRow In dataset.Tables(0).Rows
-                If add_pedido.chk_presupuesto.Checked Then
-                    If InStr(LCase(Trim(fila("nombre"))), "iva") < 0 Then
-                        totalImpuestos += fila("porcentaje")
+                ' --- 1️⃣ Actualizar ítems existentes ---
+                For Each tmp In itemsTemporales
+                    Dim existente = pedido.PedidoItems.FirstOrDefault(Function(pi) pi.IdItem = tmp.IdItem)
+                    If existente IsNot Nothing Then
+                        existente.Cantidad = tmp.Cantidad
+                        existente.Descript = tmp.Descript
+                        existente.Precio = tmp.Precio
                     End If
+                Next
+
+                ' --- 2️⃣ Insertar nuevos ítems ---
+                For Each tmp In itemsTemporales
+                    Dim existe = pedido.PedidoItems.Any(Function(pi) pi.IdItem = tmp.IdItem)
+                    If Not existe Then
+                        Dim nuevo = New PedidoItemEntity With {
+                        .IdPedido = pedido.IdPedido,
+                        .IdItem = tmp.IdItem,
+                        .Cantidad = tmp.Cantidad,
+                        .Precio = tmp.Precio,
+                        .Descript = tmp.Descript
+                    }
+                        context.PedidoItems.Add(nuevo)
+                    End If
+                Next
+
+                ' --- 3️⃣ Eliminar ítems inactivos ---
+                Dim itemsInactivos = context.TempPedidosItems.
+                Where(Function(t) t.Activo = False AndAlso
+                                   t.IdUsuario = idUsuario AndAlso
+                                   t.IdUnico = idUnico).
+                Select(Function(t) t.IdItem).ToList()
+
+                If itemsInactivos.Any() Then
+                    Dim aEliminar = pedido.PedidoItems.
+                    Where(Function(pi) itemsInactivos.Contains(pi.IdItem)).ToList()
+
+                    If aEliminar.Any() Then
+                        context.PedidoItems.RemoveRange(aEliminar)
+                    End If
+                End If
+
+                ' Guardar todos los cambios en una sola transacción
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al guardar pedido: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Actualiza un pedido existente
+    ''' </summary>
+    Public Shared Function UpdatePedido(p As PedidoEntity) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                context.Entry(p).State = EntityState.Modified
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al actualizar pedido: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Marca un pedido como inactivo (eliminación lógica)
+    ''' </summary>
+    Public Function BorrarPedido(id_pedido As Integer) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                Dim pedido = context.Pedidos.FirstOrDefault(Function(p) p.IdPedido = id_pedido)
+                If pedido Is Nothing Then Return False
+                pedido.Activo = False
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al eliminar pedido: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Devuelve el último pedido cargado por un usuario
+    ''' </summary>
+    Public Shared Function Info_Ultimo_Pedido_Por_Usuario(idUsuario As Integer) As PedidoEntity
+        Using context As New CentrexDbContext()
+            Return context.Pedidos _
+                .Include(Function(p) p.Cliente) _
+                .Include(Function(p) p.Comprobante) _
+                .Include(Function(p) p.TipoComprobante) _
+                .Where(Function(p) p.IdUsuario = idUsuario) _
+                .OrderByDescending(Function(p) p.IdPedido) _
+                .FirstOrDefault()
+        End Using
+    End Function
+
+    ''' <summary>
+    ''' Cierra un pedido (lo marca como cerrado e inactivo)
+    ''' </summary>
+    Public Function CerrarPedido(idPedido As Integer) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                Dim pedido = context.Pedidos.FirstOrDefault(Function(p) p.IdPedido = idPedido)
+                If pedido Is Nothing Then Return False
+                pedido.Cerrado = True
+                pedido.Activo = False
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al cerrar pedido: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Obtiene todos los ítems asociados a un pedido
+    ''' </summary>
+    Public Function GetItemsPedido(idPedido As Integer) As List(Of PedidoItemEntity)
+        Using context As New CentrexDbContext()
+            Return context.PedidoItems _
+                .Include(Function(i) i.Item) _
+                .Where(Function(i) i.IdPedido = idPedido) _
+                .ToList()
+        End Using
+    End Function
+
+    ''' <summary>
+    ''' Agrega un ítem a un pedido existente
+    ''' </summary>
+    Public Function AddItemPedido(idPedido As Integer, nuevoItem As PedidoItemEntity) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                nuevoItem.IdPedido = idPedido
+                context.PedidoItems.Add(nuevoItem)
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al agregar item: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Elimina un ítem de pedido
+    ''' </summary>
+    Public Function DeleteItemPedido(idPedidoItem As Integer) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                Dim item = context.PedidoItems.FirstOrDefault(Function(i) i.IdPedidoItem = idPedidoItem)
+                If item Is Nothing Then Return False
+                context.PedidoItems.Remove(item)
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al eliminar item: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Duplica un pedido y sus ítems para el usuario actual
+    ''' </summary>
+    Public Function DuplicarPedido(idPedido As Integer, idUsuarioActual As Integer) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                Dim original = context.Pedidos _
+                    .Include(Function(p) p.PedidoItems) _
+                    .FirstOrDefault(Function(p) p.IdPedido = idPedido)
+                If original Is Nothing Then Return False
+
+                Dim nuevo = New PedidoEntity() With {
+                    .Fecha = DateTime.Now.ToString("dd/MM/yyyy"),
+                    .FechaEdicion = DateTime.Now.ToString("dd/MM/yyyy"),
+                    .IdCliente = original.IdCliente,
+                    .Markup = original.Markup,
+                    .SubTotal = original.SubTotal,
+                    .Iva = original.Iva,
+                    .Total = original.Total,
+                    .Nota1 = original.Nota1,
+                    .Nota2 = original.Nota2,
+                    .EsPresupuesto = original.EsPresupuesto,
+                    .Activo = True,
+                    .Cerrado = False,
+                    .IdComprobante = original.IdComprobante,
+                    .EsTest = original.EsTest,
+                    .IdCc = original.IdCc,
+                    .EsDuplicado = True,
+                    .IdUsuario = idUsuarioActual
+                }
+
+                nuevo.PedidoItems = original.PedidoItems.Select(Function(i) New PedidoItemEntity With {
+                    .IdItem = i.IdItem,
+                    .Cantidad = i.Cantidad,
+                    .Precio = i.Precio,
+                    .Descript = i.Descript
+                }).ToList()
+
+                context.Pedidos.Add(nuevo)
+                context.SaveChanges()
+                Return True
+            End Using
+        Catch ex As Exception
+            MsgBox($"Error al duplicar pedido: {ex.Message}")
+            Return False
+        End Try
+    End Function
+
+    Public Function AddItemPedidoTmp(ByVal i As ItemEntity,
+                                 ByVal cantidad As Double,
+                                 ByVal precio As Decimal,
+                                 ByVal _idUsuario As Integer,
+                                 ByVal _idUnico As String,
+                                 ByVal _idPedido As Integer,
+                                 Optional ByVal id_tmpPedidoItem As Integer = -1) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                Dim precioFinal As Decimal = precio
+
+                ' Si es descuento, calcular precio negativo
+                If i.EsDescuento.HasValue AndAlso i.EsDescuento.Value Then
+                    Dim frm As add_pedido = TryCast(Application.OpenForms("add_pedido"), add_pedido)
+                    If frm IsNot Nothing AndAlso Not String.IsNullOrEmpty(frm.txt_subTotal.Text) Then
+                        Dim subtotal As Decimal = CDec(frm.txt_subTotal.Text)
+                        precioFinal = Math.Round(subtotal * precio, 2) * -1D
+                    End If
+                End If
+
+                ' Buscar si existe el registro temporal
+                Dim tmpItem As TmpPedidoItemEntity = Nothing
+                If id_tmpPedidoItem > 0 Then
+                    tmpItem = context.TempPedidosItems.FirstOrDefault(
+                    Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem AndAlso
+                                t.IdUsuario = _idUsuario AndAlso
+                                t.IdUnico = _idUnico AndAlso
+                                t.IdPedido = _idPedido)
+                End If
+
+                ' Si existe, actualizar
+                If tmpItem IsNot Nothing Then
+                    tmpItem.IdPedido = _idPedido
+                    tmpItem.IdItem = i.IdItem
+                    tmpItem.Cantidad = cantidad
+                    tmpItem.Precio = precioFinal
+                    tmpItem.Descript = i.Descript
+                    tmpItem.Activo = True
+
                 Else
-                    Select Case comprobanteSeleccionado.id_tipoComprobante
-                        Case Is = 1, 2, 3, 6, 7, 8, 4, 5, 9, 10, 63, 64, 34, 35, 39, 40, 60, 61, 11, 12, 13, 15, 49, 51, 52, 53, 54, 99
-                            If comprobanteSeleccionado.id_tipoComprobante = 99 Then
-                                If add_pedido.chk_presupuesto.Checked Then
-                                    If InStr(LCase(Trim(fila("nombre"))), "iva") < 0 Then
-                                        totalImpuestos += fila("porcentaje")
-                                    End If
-                                Else
-                                    totalImpuestos += fila("porcentaje")
-                                End If
-                            Else
-                                Select Case comprobanteSeleccionado.id_tipoComprobante
-                                    Case Is = 6, 7, 8, 9, 64, 40, 61, 49
-                                        If InStr(LCase(Trim(fila("nombre"))), "iva") < 0 Then
-                                            totalImpuestos += fila("porcentaje")
-                                        End If
-                                    Case Else
-                                        totalImpuestos += fila("porcentaje")
-                                End Select
+                    ' Si no existe, crear nuevo
+                    tmpItem = New TmpPedidoItemEntity With {
+                    .IdPedido = _idPedido,
+                    .IdItem = i.IdItem,
+                    .Cantidad = cantidad,
+                    .Precio = precioFinal,
+                    .Descript = i.Descript,
+                    .IdUsuario = _idUsuario,
+                    .IdUnico = _idUnico,
+                    .Activo = True
+                }
+                    context.TempPedidosItems.Add(tmpItem)
+                End If
+
+                ' Guardar cambios
+                context.SaveChanges()
+                Return True
+            End Using
+
+        Catch ex As Exception
+            MsgBox($"Error al agregar ítem temporal: {ex.Message}", MsgBoxStyle.Critical)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function ExisteDescuentoMarkupTmp(ByVal id_item As Integer) As Integer
+        Try
+            Using context As New CentrexDbContext()
+                ' Buscar el primer registro temporal que tenga ese id_item
+                Dim tmpItem = context.TempPedidosItems.
+                Where(Function(t) t.IdItem = id_item).
+                Select(Function(t) t.IdTmpPedidoItem).
+                FirstOrDefault()
+
+                ' Si no se encuentra nada, FirstOrDefault devuelve 0
+                If tmpItem = 0 Then
+                    Return -1
+                End If
+
+                Return tmpItem
+            End Using
+
+        Catch ex As Exception
+            ' En caso de error, devolver -1 (comportamiento original)
+            Return -1
+        End Try
+    End Function
+
+
+    Public Shared Function IdItemMarkupPedido(ByVal id_pedido As Integer) As Integer
+        Try
+            Using context As New CentrexDbContext()
+                Dim id_item As Integer = context.PedidoItems _
+                .Include(Function(pi) pi.Item) _
+                .Where(Function(pi) pi.IdPedido = id_pedido AndAlso pi.Item.EsMarkup = True) _
+                .Select(Function(pi) pi.Item.IdItem) _
+                .FirstOrDefault()
+
+                If id_item = 0 Then Return -1
+                Return id_item
+            End Using
+
+        Catch ex As Exception
+            MsgBox($"Error obteniendo markup del pedido: {ex.Message}", MsgBoxStyle.Critical)
+            Return -1
+        End Try
+    End Function
+
+    Public Shared Sub BorrarItemCargado(Optional ByVal id_tmpPedidoItem_seleccionado As Integer = -1,
+                              Optional ByVal esMarkup As Boolean = False)
+        Try
+            Using context As New CentrexDbContext()
+                Dim itemsAfectados As IQueryable(Of TmpPedidoItemEntity)
+
+                If id_tmpPedidoItem_seleccionado = -1 Then
+                    ' Borrar (eliminar físicamente) los inactivos
+                    itemsAfectados = context.TempPedidosItems.Where(Function(t) t.Activo = False)
+                    context.TempPedidosItems.RemoveRange(itemsAfectados)
+
+                ElseIf esMarkup Then
+                    ' Marcar como inactivo todos los ítems con ese id_item (markup)
+                    itemsAfectados = context.TempPedidosItems.Where(Function(t) t.IdItem = id_tmpPedidoItem_seleccionado)
+                    For Each item In itemsAfectados
+                        item.Activo = False
+                    Next
+
+                Else
+                    ' Marcar como inactivo el ítem seleccionado
+                    Dim item = context.TempPedidosItems.FirstOrDefault(Function(t) t.IdTmpPedidoItem = id_tmpPedidoItem_seleccionado)
+                    If item IsNot Nothing Then
+                        item.Activo = False
+                    End If
+                End If
+
+                context.SaveChanges()
+            End Using
+
+        Catch ex As Exception
+            MsgBox($"Error al borrar ítem cargado: {ex.Message}", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+
+    Public Shared Function PedidoAPedidoTmp(ByVal id_pedido As Integer,
+                                 ByVal _idUsuario As Integer,
+                                 ByVal _idUnico As String) As Boolean
+        Try
+            Using context As New CentrexDbContext()
+                ' Obtener los ítems del pedido original
+                Dim pedidoItems = context.PedidoItems.
+                Where(Function(p) p.IdPedido = id_pedido).
+                ToList()
+
+                ' Crear una lista temporal de ítems para insertar
+                Dim tmpItems As New List(Of TmpPedidoItemEntity)
+
+                For Each item In pedidoItems
+                    Dim tmp As New TmpPedidoItemEntity With {
+                    .IdPedidoItem = item.IdPedidoItem,
+                    .IdPedido = item.IdPedido,
+                    .IdItem = item.IdItem,
+                    .Cantidad = item.Cantidad,
+                    .Precio = item.Precio,
+                    .Activo = item.Activo,
+                    .Descript = item.Descript,
+                    .IdUsuario = _idUsuario,
+                    .IdUnico = _idUnico
+                }
+                    tmpItems.Add(tmp)
+                Next
+
+                ' Insertar en la tabla temporal
+                context.TempPedidosItems.AddRange(tmpItems)
+                context.SaveChanges()
+
+                Return True
+            End Using
+
+        Catch ex As Exception
+            MsgBox($"Error al copiar ítems del pedido: {ex.Message}", MsgBoxStyle.Critical)
+            Return False
+        End Try
+    End Function
+
+    Public Function UpdatePrecios(
+      ByVal datagrid As DataGridView,
+      ByVal chk_esPresupuesto As CheckBox,
+      ByVal txt_subTotal As TextBox,
+      ByVal txt_impuestos As TextBox,
+      ByVal txt_total As TextBox,
+      ByVal txt_totalOriginal As TextBox,
+      ByVal txt_markup As TextBox,
+      ByVal txt_totalDescuentos As TextBox,
+      ByVal comprobanteSeleccionado As ComprobanteEntity,
+      ByVal _idUsuario As Integer,
+      ByVal _idUnico As String) As Boolean
+
+        Try
+            Using context As New CentrexDbContext()
+                ' === 1. Traer ítems temporales con datos de item ===
+                Dim tmpItems = context.TempPedidosItems.
+                    Include(Function(t) t.ItemEntity).
+                    Where(Function(t) t.IdUsuario = _idUsuario AndAlso t.IdUnico = _idUnico).
+                    OrderBy(Function(t) t.IdTmpPedidoItem).
+                    ToList()
+
+                Dim subtotal As Double = 0
+                Dim descuento As Double = 0
+                Dim totalImpuestos As Double = 0
+
+                ' === 2. Calcular subtotal ===
+                For Each t In tmpItems
+                    If t.Activo AndAlso (t.ItemEntity Is Nothing OrElse (Not t.ItemEntity.EsDescuento AndAlso Not t.ItemEntity.EsMarkup)) Then
+                        subtotal += t.Cantidad * t.Precio
+                    End If
+                Next
+
+                txt_totalOriginal.Text = subtotal
+
+                ' === 3. Aplicar descuentos ===
+                For Each t In tmpItems
+                    If t.Activo AndAlso t.ItemEntity IsNot Nothing AndAlso t.ItemEntity.EsDescuento Then
+                        Dim factor As Double = If(t.ItemEntity.Factor, 1)
+                        Dim nuevoPrecio As Double = (subtotal * factor) * -1
+                        descuento += nuevoPrecio
+                        subtotal += nuevoPrecio
+                        t.Precio = nuevoPrecio
+                        t.Activo = True
+                    End If
+                Next
+                context.SaveChanges()
+
+                ' === 4. Calcular impuestos ===
+                Dim comprobantesB As New List(Of Integer) From {
+                    6, 7, 8, 9, 10, 18, 25, 26, 28, 43, 46, 61, 64, 82, 113, 116, 206
+                }
+
+                If Not comprobanteSeleccionado.EsPresupuesto Then
+                    If Not comprobantesB.Contains(comprobanteSeleccionado.IdTipoComprobante) Then
+                        totalImpuestos = 0
+                        For Each t In tmpItems
+                            If t.Activo AndAlso (t.ItemEntity Is Nothing OrElse (Not t.ItemEntity.EsDescuento AndAlso Not t.ItemEntity.EsMarkup)) Then
+                                Dim impuestosItem = CalculaImpuestosItemEF(context, t.IdTmpPedidoItem, t.IdItem, comprobanteSeleccionado, chk_esPresupuesto)
+                                Dim totalImpuestoItem As Double = ((impuestosItem * (t.Precio * t.Cantidad)) / 100)
+                                totalImpuestos += totalImpuestoItem
                             End If
-                            'totalImpuestos Then += fila("porcentaje")
-                    End Select
+                        Next
+                        totalImpuestos -= ((totalImpuestos * (descuento * -1)) / 100)
+                    Else
+                        totalImpuestos = subtotal - (subtotal / 1.21)
+                    End If
+                End If
+
+                ' === 5. Calcular total ===
+                Dim total As Double
+                If comprobantesB.Contains(comprobanteSeleccionado.IdTipoComprobante) Then
+                    total = subtotal
+                    subtotal -= totalImpuestos
+                Else
+                    total = subtotal + totalImpuestos
+                End If
+
+                ' === 6. Actualizar controles ===
+                If Val(txt_totalOriginal.Text) <> subtotal Then
+                    txt_markup.Enabled = False
+                Else
+                    txt_markup.Enabled = True
+                End If
+
+                txt_subTotal.Text = Math.Round(subtotal, 2)
+                txt_impuestos.Text = Math.Round(totalImpuestos, 2)
+                txt_totalDescuentos.Text = Math.Round(descuento, 2)
+                txt_total.Text = Math.Round(total, 2)
+
+                ' === 7. Refrescar DataGrid ===
+                Dim lista = tmpItems.
+                    Where(Function(t) t.Activo AndAlso (t.ItemEntity Is Nothing OrElse Not t.ItemEntity.EsMarkup)).
+                    Select(Function(t) New With {
+                        .ID = $"{t.IdTmpPedidoItem}-{t.IdItem}",
+                        .IdPedidoItem = t.IdPedidoItem,
+                        .Producto = If(t.ItemEntity IsNot Nothing, t.ItemEntity.Descript, t.Descript),
+                        .Cantidad = t.Cantidad,
+                        .Precio = t.Precio,
+                        .Subtotal = Math.Round(t.Cantidad * t.Precio, 2)
+                    }).
+                    OrderBy(Function(x) x.Producto).
+                    ToList()
+
+                datagrid.DataSource = lista
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+            MsgBox($"Error al actualizar precios: {ex.Message}", MsgBoxStyle.Critical)
+            Return False
+        End Try
+    End Function
+
+    Private Function CalculaImpuestosItemEF(
+    ByVal context As CentrexDbContext,
+    ByVal id_tmpPedidoItem As Integer,
+    ByVal id_item As Integer,
+    ByVal comprobanteSeleccionado As ComprobanteEntity,
+    ByVal chk_esPresupuesto As CheckBox) As Double
+
+        Dim totalImpuestos As Double = 0
+
+        Try
+            ' Traer el ítem y sus impuestos asociados (ItemImpuestos -> Impuesto)
+            Dim itemConImpuestos = context.Items.
+            Include(Function(i) i.ItemImpuestos.Select(Function(ii) ii.Impuesto)).
+            FirstOrDefault(Function(i) i.IdItem = id_item)
+
+            If itemConImpuestos Is Nothing Then Return 0
+
+            For Each imp In itemConImpuestos.ItemImpuestos
+                If imp.Activo AndAlso imp.Impuesto IsNot Nothing Then
+                    Dim nombreImp As String = LCase(Trim(imp.Impuesto.Nombre))
+                    Dim porcentaje As Double = imp.Impuesto.Porcentaje
+
+                    ' Si es presupuesto, no sumar IVA
+                    If chk_esPresupuesto.Checked Then
+                        If Not nombreImp.Contains("iva") Then
+                            totalImpuestos += porcentaje
+                        End If
+                    Else
+                        ' Suma general según tipo de comprobante
+                        totalImpuestos += porcentaje
+                    End If
                 End If
             Next
 
             Return totalImpuestos
+
         Catch ex As Exception
-            MsgBox(ex.Message)
-            Return -1
-        Finally
-            cerrardb()
+            MsgBox($"Error al calcular impuestos: {ex.Message}", MsgBoxStyle.Critical)
+            Return 0
         End Try
     End Function
 
-    Public Sub borraritemCargado(Optional ByVal id_tmpPedidoItem_seleccionado As Integer = -1, Optional ByVal esMarkup As Boolean = False)
-        abrirdb(serversql, basedb, usuariodb, passdb)
 
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String = ""
+End Class
 
+' ==========================
+' Funciones adicionales (unificadas desde pedidos_refactorizado.vb) en EF puro
+' ==========================
 
-        mytrans = CN.BeginTransaction()
+Public Module PedidosExtraEF
 
+    ' Obtiene información de pedido (último o por ID) y la mapea a tipo legacy "pedido"
+    Public Function InfoPedido(Optional ByVal id_pedido As String = "") As pedido
         Try
-            If id_tmpPedidoItem_seleccionado = -1 Then
-                sqlstr = "DELETE FROM tmppedidos_items WHERE activo = '0'"
-            Else
-                'sqlstr = "DELETE tmppedidos_items WHERE id_tmpPedidoItem = '" + id_tmpPedidoItem_seleccionado.ToString + "'"
-                If esMarkup Then
-                    sqlstr = "UPDATE tmppedidos_items SET activo = 0 WHERE id_Item = '" + id_tmpPedidoItem_seleccionado.ToString + "'"
-                Else
-                    sqlstr = "UPDATE tmppedidos_items SET activo = 0 WHERE id_tmpPedidoItem = '" + id_tmpPedidoItem_seleccionado.ToString + "'"
-                End If
+            Using ctx As New CentrexDbContext()
+                Dim q = ctx.Pedidos _
+                    .Include(Function(p) p.Cliente) _
+                    .Include(Function(p) p.Comprobante) _
+                    .Include(Function(p) p.TipoComprobante)
 
-            End If
+                Dim ped As PedidoEntity = If(String.IsNullOrEmpty(id_pedido),
+                    q.OrderByDescending(Function(p) p.IdPedido).FirstOrDefault(),
+                    q.FirstOrDefault(Function(p) p.IdPedido = CInt(id_pedido)))
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
+                If ped Is Nothing Then Return Nothing
 
-            mytrans.Commit()
-            cerrardb()
+                Dim tmp As New pedido()
+                tmp.id_pedido = ped.IdPedido.ToString()
+                tmp.fecha = ped.Fecha
+                tmp.fecha_edicion = ped.FechaEdicion
+                tmp.id_cliente = ped.IdCliente.ToString()
+                tmp.markup = ped.Markup.ToString()
+                tmp.subTotal = ped.SubTotal.ToString()
+                tmp.iva = ped.Iva.ToString()
+                tmp.total = ped.Total.ToString()
+                tmp.nota1 = ped.Nota1
+                tmp.nota2 = ped.Nota2
+                tmp.esPresupuesto = ped.EsPresupuesto
+                tmp.activo = ped.Activo
+                tmp.cerrado = ped.Cerrado
+                tmp.idPresupuesto = If(ped.IdPresupuesto.HasValue, ped.IdPresupuesto.Value.ToString(), "0")
+                tmp.id_comprobante = If(ped.IdComprobante.HasValue, ped.IdComprobante.Value.ToString(), "0")
+                tmp.cae = ped.Cae
+                tmp.fechaVencimiento_cae = ped.FechaVencimientoCae
+                tmp.puntoVenta = If(ped.PuntoVenta.HasValue, ped.PuntoVenta.Value.ToString(), "0")
+                tmp.numeroComprobante = If(ped.NumeroComprobante.HasValue, ped.NumeroComprobante.Value.ToString(), "0")
+                tmp.codigoDeBarras = If(ped.CodigoDeBarras, 0).ToString()
+                tmp.esTest = ped.EsTest
+                tmp.id_Cc = If(ped.IdCc.HasValue, ped.IdCc.Value.ToString(), "0")
+                tmp.numeroComprobante_anulado = If(ped.NumeroComprobanteAnulado.HasValue, ped.NumeroComprobanteAnulado.Value.ToString(), "0")
+                tmp.numeroPedido_anulado = If(ped.NumeroPedidoAnulado.HasValue, ped.NumeroPedidoAnulado.Value.ToString(), "0")
+                tmp.esDuplicado = ped.EsDuplicado
+                tmp.id_usuario = ped.IdUsuario.ToString()
+                Return tmp
+            End Using
         Catch ex As Exception
-            MsgBox(ex.Message.ToString)
-            cerrardb()
-        End Try
-    End Sub
-
-    Public Function pedido_a_pedidoTmp(ByVal id_pedido As Integer) As Boolean
-        Dim sqlstr As String
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            sqlstr = "INSERT INTO tmppedidos_items (id_pedidoItem, id_pedido, id_item, cantidad, precio, activo, descript) " _
-                               + "SELECT id_pedidoItem, id_pedido, id_item, cantidad, precio, activo, descript " _
-                               + "FROM pedidos_items " _
-                               + "WHERE id_pedido = '" + id_pedido.ToString + "'"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
+            MsgBox($"Error obteniendo información de pedido (EF): {ex.Message}")
+            Return Nothing
         End Try
     End Function
 
-    Public Function OC_A_OCTmp(ByVal id_pedido As Integer) As Boolean
-        Dim sqlstr As String
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-
-        mytrans = CN.BeginTransaction()
-
-        Try
-            sqlstr = "INSERT INTO tmpOC_items (id_ocItem, id_item, cantidad, precio, activo, descript) " _
-                               + "SELECT id_pedidoItem, id_pedido, id_item, cantidad, precio, activo, descript " _
-                               + "FROM pedidos_items " _
-                               + "WHERE id_pedido = '" + id_pedido.ToString + "'"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return False
-        End Try
-    End Function
-
-    Public Function precioOriginal_pedido(ByVal id_pedido As Integer) As Double
-        Dim sqlstr As String
-        Dim subtotal As Double
-        Dim comando As New SqlCommand
-
-        Try
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            sqlstr = "SELECT ti.id_tmpPedidoItem, ti.id_item, ti.cantidad, ti.precio, ti.activo, i.esDescuento, i.esMarkup, i.factor " &
-                        "FROM tmppedidos_items AS ti " &
-                        "INNER JOIN items AS i ON ti.id_item = i.id_item"
-
-
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-            'llenar el dataset
-            da.FillSchema(dataset, SchemaType.Source, "tmppedidos_items") 'Para que pueda manejarme con los nombres de las tablas y no haga falta por id
-            da.Fill(dataset, "tmppedidos_items")
-
-            Dim tbl_tmppedidos_items As DataTable
-            tbl_tmppedidos_items = dataset.Tables("tmppedidos_items")
-            cerrardb()
-
-            'Calculo el subtotal
-            For Each fila As DataRow In dataset.Tables(0).Rows
-                If Not fila("esDescuento") And Not fila("esMarkup") And fila("activo") Then subtotal = subtotal + (fila("cantidad") * fila("precio"))
-            Next
-            Return subtotal
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            cerrardb()
-            Return -1
-        Finally
-            cerrardb()
-        End Try
-    End Function
-
-    Public Function id_ItemMarkupPedido(ByVal id_pedido As Integer) As Integer
-        Dim id_item As Integer
-        Dim sqlstr As String
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                sqlstr = "SELECT i.id_item " &
-                            "FROM pedidos_items AS p " &
-                            "INNER JOIN items AS i ON p.id_item = i.id_item " &
-                            "WHERE i.esMarkup = '1' AND p.id_pedido = '" + id_pedido.ToString + "' "
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            id_item = dataset.Tables("tabla").Rows(0).Item(0).ToString
-
-            Return id_item
-        Catch ex As Exception
-            MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            cerrardb()
-            Return -1
-        Finally
-            cerrardb()
-        End Try
-    End Function
-
-    Public Function Ultima_CC_Pedido_Cliente(ByVal id_cliente As Integer) As Integer
-        Dim id_cc As Integer
-        Dim sqlstr As String
-
-        id_cc = -1
-
-        Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-
-            With comando
-                .CommandType = CommandType.Text
-                sqlstr = "SELECT TOP 1 id_cc FROM pedidos WHERE id_cliente = '" + id_cliente.ToString + "' ORDER BY id_pedido DESC"
-
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-
-            id_cc = dataset.Tables("tabla").Rows(0).Item(0).ToString
-
-            Return id_cc
-        Catch ex As Exception
-            'MsgBox(ex.Message.ToString)
-            'tmp.nombre = "error"
-            Return id_cc
-        Finally
-            cerrardb()
-        End Try
-    End Function
-    ' ************************************ FUNCIONES DE PEDIDOS ***************************
 End Module

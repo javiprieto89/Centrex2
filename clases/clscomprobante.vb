@@ -11,4 +11,13 @@
     Public activo As Boolean
     Public testing As Boolean
     Public maxItems As Integer
+    Public comprobanteRelacionado As Integer
+    Public esMiPyME As Boolean
+    Public CBU_emisor As String
+    Public alias_CBU_emisor As String
+    Public anula_MiPyME As Char
+    Public contabilizar As Boolean
+    Public mueveStock As Boolean
+    Public prefijo As String
+    Public id_modoMiPyme As Integer
 End Class

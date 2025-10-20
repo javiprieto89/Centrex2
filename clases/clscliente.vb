@@ -20,6 +20,9 @@ Public Class cliente
     Public cp_entrega As String
     Public notas As String
     Public esInscripto As Boolean
+    Public nombre As String
+    Public cuit As String
     Public activo As Boolean
     Public id_tipoDocumento As Integer
+    Public id_claseFiscal As Integer
 End Class

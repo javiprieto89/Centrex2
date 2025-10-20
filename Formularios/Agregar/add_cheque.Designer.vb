@@ -247,7 +247,6 @@ Partial Class add_cheque
         '
         Me.txt_nCheque2.Location = New System.Drawing.Point(163, 386)
         Me.txt_nCheque2.Name = "txt_nCheque2"
-        Me.txt_nCheque2.ReadOnly = True
         Me.txt_nCheque2.Size = New System.Drawing.Size(224, 20)
         Me.txt_nCheque2.TabIndex = 56
         '

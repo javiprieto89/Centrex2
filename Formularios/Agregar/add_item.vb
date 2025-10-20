@@ -56,7 +56,7 @@
                     If (MsgBox("Ocurrió un error al realizar el borrado del item, ¿desea intectar desactivarlo para que no aparezca en la búsqueda?" _
                      , MsgBoxStyle.Question + MsgBoxStyle.YesNo)) = vbYes Then
                         'Realizo un borrado lógico
-                        If updateitem(edita_item, True) = True Then
+                        If updateitem(edita_item) = True Then
                             MsgBox("Se ha podido realizar un borrado lógico, pero el item no se borró definitivamente." + Chr(13) +
                                 "Esto posiblemente se deba a que el item, tiene operaciones realizadas y por lo tanto no podrá borrarse", vbInformation)
                         Else
@@ -112,7 +112,7 @@
         tabla = tmp
 
         'Establezco la opción del combo
-        cmb_cat.SelectedIndex = cmb_cat.FindString(info_tipoitem(id).tipo)
+        cmb_cat.SelectedIndex = cmb_cat.FindString(InfoTipoItem(id).tipo)
         'cmb_cat.SelectedIndex = id
         id = 0
     End Sub
@@ -144,20 +144,20 @@
             Exit Sub
         End If
 
-        Dim tmp As New item
+        Dim tmp As New ItemEntity
 
         With tmp
             If chk_descuento.Checked Then
                 .costo = 0
                 .precio_lista = 0
                 .id_tipo = 2 '2 = Descuentos
-                .id_marca = 2 '2 = Centrex
+                .IdMarca = 2 '2 = Centrex
                 .id_proveedor = 2 '2 = Centrex            
             Else
                 .costo = txt_costo.Text
                 .precio_lista = txt_prclista.Text
                 .id_tipo = CInt(cmb_cat.SelectedItem(0).ToString)
-                .id_marca = CInt(cmb_marca.SelectedItem(0).ToString)
+                .IdMarca = CInt(cmb_marca.SelectedItem(0).ToString)
                 .id_proveedor = CInt(cmb_proveedor.SelectedItem(0).ToString)
             End If
             .item = txt_item.Text

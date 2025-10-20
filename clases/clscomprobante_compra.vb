@@ -2,7 +2,7 @@
     Public id_comprobanteCompra As Integer
     Public fecha_carga As String
     Public fecha_comprobante As String
-    Public id_sysComprobanteCompra As Integer
+    Public id_tipoComprobante As Integer
     Public id_proveedor As Integer
     Public id_cc As Integer
     Public id_moneda As Integer

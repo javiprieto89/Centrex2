@@ -50,7 +50,7 @@
       <Line Name="Line8">
         <Top>2.36993cm</Top>
         <Left>10.74692cm</Left>
-        <Height>2.38058cm</Height>
+        <Height>2.42068cm</Height>
         <Width>0cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -134,7 +134,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Sum(Fields!id_cobro.Value, "DS_Cobro_Cabecera")</Value>
+                <Value>=First(Fields!id_cobro.Value, "DS_Cobro_Cabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -408,39 +408,6 @@
               </Border>
             </Style>
           </Line>
-          <Textbox Name="Textbox10">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Nombre:</Value>
-                    <Style>
-                      <FontFamily>Helvetica LT Std</FontFamily>
-                      <FontSize>9pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>0.32354cm</Top>
-            <Left>3.24974cm</Left>
-            <Height>0.46076cm</Height>
-            <Width>1.90204cm</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox15">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -459,11 +426,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>0.82363cm</Top>
-            <Left>3.24974cm</Left>
+            <Top>0.90784cm</Top>
+            <Left>0.30702cm</Left>
             <Height>0.46076cm</Height>
             <Width>1.90204cm</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -492,11 +459,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>1.84745cm</Top>
-            <Left>3.24973cm</Left>
+            <Top>1.93166cm</Top>
+            <Left>0.30701cm</Left>
             <Height>0.46076cm</Height>
             <Width>1.90204cm</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -525,11 +492,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>1.32558cm</Top>
-            <Left>3.24974cm</Left>
+            <Top>1.40979cm</Top>
+            <Left>0.30702cm</Left>
             <Height>0.46076cm</Height>
             <Width>1.90204cm</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -558,11 +525,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>provincia</rd:DefaultName>
-            <Top>1.84745cm</Top>
-            <Left>5.57734cm</Left>
+            <Top>1.942cm</Top>
+            <Left>3.21667cm</Left>
             <Height>0.46076cm</Height>
             <Width>8.99109cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -591,11 +558,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>localidad</rd:DefaultName>
-            <Top>1.32558cm</Top>
-            <Left>5.57736cm</Left>
+            <Top>1.42013cm</Top>
+            <Left>3.21669cm</Left>
             <Height>0.46076cm</Height>
             <Width>8.99108cm</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -623,11 +590,11 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>0.82363cm</Top>
-            <Left>5.57735cm</Left>
+            <Top>0.91818cm</Top>
+            <Left>3.21668cm</Left>
             <Height>0.46076cm</Height>
             <Width>8.99108cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -657,10 +624,10 @@
             </Paragraphs>
             <rd:DefaultName>cust_name</rd:DefaultName>
             <Top>0.28103cm</Top>
-            <Left>5.57734cm</Left>
+            <Left>3.21669cm</Left>
             <Height>0.46076cm</Height>
             <Width>8.99109cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -694,7 +661,7 @@
             <Left>0.30702cm</Left>
             <Height>0.55625cm</Height>
             <Width>2.80161cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -728,7 +695,7 @@
             <Left>0.30702cm</Left>
             <Height>0.55625cm</Height>
             <Width>2.80161cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -743,13 +710,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.70438cm</Width>
+                  <Width>5.05581cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.70438cm</Width>
+                  <Width>5.05581cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.70438cm</Width>
+                  <Width>5.05581cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -795,7 +762,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Importe</Value>
+                                  <Value>Número de factura</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -825,7 +792,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Número de factura</Value>
+                                  <Value>Importe</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -853,21 +820,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="fecha_cobro">
+                        <Textbox Name="fecha1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!fecha_cobro.Value</Value>
+                                  <Value>=Fields!fecha.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>fecha_cobro</rd:DefaultName>
+                          <rd:DefaultName>fecha1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -883,21 +850,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="total">
+                        <Textbox Name="nfactura">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!total.Value</Value>
+                                  <Value>=Fields!nfactura.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>total</rd:DefaultName>
+                          <rd:DefaultName>nfactura</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -913,21 +880,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="aplicaFc">
+                        <Textbox Name="importe1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!aplicaFc.Value</Value>
+                                  <Value>=Fields!importe.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>aplicaFc</rd:DefaultName>
+                          <rd:DefaultName>importe1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -962,27 +929,27 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DS_Cobro_Cabecera</DataSetName>
+            <DataSetName>DS_Detalle_Cobro_FC_Importes</DataSetName>
             <Top>3.95993cm</Top>
             <Left>0.30702cm</Left>
             <Height>1.2cm</Height>
-            <Width>17.11313cm</Width>
-            <ZIndex>11</ZIndex>
+            <Width>15.16743cm</Width>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Color>Gray</Color>
-                <Style>Solid</Style>
+                <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox32">
+          <Textbox Name="lbl_total2">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Valores</Value>
+                    <Value>Efectivo</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std Black</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -993,11 +960,42 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>6.33756cm</Top>
-            <Left>0.30702cm</Left>
+            <Top>14.06339cm</Top>
+            <Left>0.30703cm</Left>
             <Height>0.55625cm</Height>
             <Width>1.79619cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="txt_total3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!efectivo.Value, "DS_Cobro_Cabecera")</Value>
+                    <Style>
+                      <FontFamily>Helvetica LT Std</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>14.06339cm</Top>
+            <Left>2.7247cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>12.74975cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
@@ -1009,295 +1007,26 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Tablix Name="tablix_Efectivo">
-            <TablixBody>
-              <TablixColumns>
-                <TablixColumn>
-                  <Width>5.70438cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.70438cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.70438cm</Width>
-                </TablixColumn>
-              </TablixColumns>
-              <TablixRows>
-                <TablixRow>
-                  <Height>0.6cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox23">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>EFECTIVO</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox23</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox25">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Fecha</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox25</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox34">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Importe</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox34</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.6cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox38">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox38</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="fecha_cobro1">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!fecha_cobro.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>fecha_cobro1</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="efectivo">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!efectivo.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>efectivo</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-              </TablixRows>
-            </TablixBody>
-            <TablixColumnHierarchy>
-              <TablixMembers>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-              </TablixMembers>
-            </TablixColumnHierarchy>
-            <TablixRowHierarchy>
-              <TablixMembers>
-                <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Detalles1" />
-                </TablixMember>
-              </TablixMembers>
-            </TablixRowHierarchy>
-            <DataSetName>DS_Cobro_Cabecera</DataSetName>
-            <Top>7.24076cm</Top>
-            <Left>0.30702cm</Left>
-            <Height>1.2cm</Height>
-            <Width>17.11313cm</Width>
-            <ZIndex>13</ZIndex>
-            <Style>
-              <Border>
-                <Color>Gray</Color>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Tablix>
           <Tablix Name="tablix_Cheque">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.42263cm</Width>
+                  <Width>2.9152cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.42263cm</Width>
+                  <Width>5.0049cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.42263cm</Width>
+                  <Width>2.95428cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.42263cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>3.42263cm</Width>
+                  <Width>4.29304cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox51">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>CHEQUE</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox51</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox53">
@@ -1425,36 +1154,6 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox52">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox52</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="fecha_ingreso">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1526,7 +1225,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>nCheque</rd:DefaultName>
@@ -1583,7 +1284,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1597,15 +1297,15 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DS_Detalle_Cobro_Cheques</DataSetName>
-            <Top>9.33097cm</Top>
-            <Left>0.30702cm</Left>
+            <Top>6.53343cm</Top>
+            <Left>0.35287cm</Left>
             <Height>1.2cm</Height>
-            <Width>17.11313cm</Width>
-            <ZIndex>14</ZIndex>
+            <Width>15.16742cm</Width>
+            <ZIndex>13</ZIndex>
             <Style>
               <Border>
                 <Color>Gray</Color>
-                <Style>Solid</Style>
+                <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
@@ -1613,55 +1313,22 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.07034cm</Width>
+                  <Width>2.9152cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.07034cm</Width>
+                  <Width>5.0049cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.07034cm</Width>
+                  <Width>3.55836cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.07034cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>4.83177cm</Width>
+                  <Width>3.68896cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.94396cm</Height>
+                  <Height>0.70584cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox61">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>DEPOSTIO / TRANSFERENCIA</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox61</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox63">
@@ -1731,7 +1398,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Nº. comprobante</Value>
+                                  <Value>Nº. comp.</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1787,36 +1454,6 @@
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox62">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox62</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="fecha">
@@ -1890,7 +1527,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>nComprobante</rd:DefaultName>
@@ -1947,7 +1586,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1961,15 +1599,15 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DS_Detalle_Cobro_Transferencias</DataSetName>
-            <Top>11.42112cm</Top>
-            <Left>0.30702cm</Left>
-            <Height>1.54396cm</Height>
-            <Width>17.11313cm</Width>
-            <ZIndex>15</ZIndex>
+            <Top>10.07879cm</Top>
+            <Left>0.35287cm</Left>
+            <Height>1.30584cm</Height>
+            <Width>15.16742cm</Width>
+            <ZIndex>14</ZIndex>
             <Style>
               <Border>
                 <Color>Gray</Color>
-                <Style>Solid</Style>
+                <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
@@ -1977,49 +1615,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.70438cm</Width>
+                  <Width>4.12042cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.70438cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.70438cm</Width>
+                  <Width>4.12042cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox73">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>RETENCIONES</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox73</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox75">
@@ -2085,36 +1690,6 @@
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox74">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox74</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="retencion">
@@ -2183,7 +1758,6 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -2197,25 +1771,26 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DS_Detalle_Cobro_Retenciones</DataSetName>
-            <Top>13.85535cm</Top>
-            <Left>0.30702cm</Left>
+            <Top>12.64531cm</Top>
+            <Left>0.35287cm</Left>
             <Height>1.2cm</Height>
-            <Width>17.11313cm</Width>
-            <ZIndex>16</ZIndex>
+            <Width>8.24084cm</Width>
+            <ZIndex>15</ZIndex>
             <Style>
               <Border>
+                <Color>Gray</Color>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox33">
+          <Textbox Name="lbl_total3">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Un importe de Pesos Argentinos</Value>
+                    <Value>Cheques</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std Black</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -2226,11 +1801,43 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>15.88902cm</Top>
-            <Left>0.30702cm</Left>
+            <Top>5.5244cm</Top>
+            <Left>0.35287cm</Left>
             <Height>0.55625cm</Height>
-            <Width>5.70438cm</Width>
+            <Width>1.79619cm</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="lbl_total4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Depósitos/Transferencias</Value>
+                    <Style>
+                      <FontFamily>Helvetica LT Std Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>8.96398cm</Top>
+            <Left>0.35287cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>4.57824cm</Width>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
@@ -2242,14 +1849,47 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="cust_name2">
+          <Textbox Name="lbl_total5">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!totalChar.Value, "DS_Cobro_Cabecera")</Value>
+                    <Value>Total cheques</Value>
+                    <Style>
+                      <FontFamily>Helvetica LT Std Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>8.0644cm</Top>
+            <Left>0.35287cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>2.69577cm</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="txt_total4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!totalCh.Value, "DS_Cobro_Cabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -2259,12 +1899,76 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>cust_name</rd:DefaultName>
-            <Top>15.98451cm</Top>
-            <Left>6.86085cm</Left>
-            <Height>0.46076cm</Height>
-            <Width>8.99109cm</Width>
-            <ZIndex>18</ZIndex>
+            <Top>8.0644cm</Top>
+            <Left>3.72304cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>11.79725cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="lbl_total6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total depósitos/transferencias</Value>
+                    <Style>
+                      <FontFamily>Helvetica LT Std Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>11.79502cm</Top>
+            <Left>0.35287cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>5.28103cm</Width>
+            <ZIndex>20</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="txt_total5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!totalTransferencia.Value, "DS_Cobro_Cabecera")</Value>
+                    <Style>
+                      <FontFamily>Helvetica LT Std</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>11.79502cm</Top>
+            <Left>6.26305cm</Left>
+            <Height>0.55625cm</Height>
+            <Width>9.25724cm</Width>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2279,7 +1983,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>4.71523cm</Top>
         <Left>1.39911cm</Left>
-        <Height>17.14721cm</Height>
+        <Height>14.92471cm</Height>
         <Width>18.13719cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
@@ -2467,7 +2171,7 @@
         </Style>
       </Image>
     </ReportItems>
-    <Height>11.41667in</Height>
+    <Height>7.77393in</Height>
     <Style>
       <Border>
         <Style>None</Style>
@@ -2477,7 +2181,7 @@
   <Width>8.18625in</Width>
   <Page>
     <PageFooter>
-      <Height>2.54cm</Height>
+      <Height>2.75166cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -2500,8 +2204,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Top>1.36229cm</Top>
-          <Left>13.51676cm</Left>
+          <Top>1.89618cm</Top>
+          <Left>12.73973cm</Left>
           <Height>0.55625cm</Height>
           <Width>1.56471cm</Width>
           <Style>
@@ -2532,11 +2236,145 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>cust_name</rd:DefaultName>
-          <Top>1.36229cm</Top>
-          <Left>15.83688cm</Left>
+          <Top>1.89618cm</Top>
+          <Left>15.05985cm</Left>
           <Height>0.46076cm</Height>
           <Width>3.69942cm</Width>
           <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox33">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Un importe de Pesos Argentinos</Value>
+                  <Style>
+                    <FontFamily>Helvetica LT Std Black</FontFamily>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.89076cm</Top>
+          <Left>1.32863cm</Left>
+          <Height>0.55625cm</Height>
+          <Width>5.70438cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="cust_name2">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!totalChar.Value, "DS_Cobro_Cabecera")</Value>
+                  <Style>
+                    <FontFamily>Helvetica LT Std</FontFamily>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>cust_name</rd:DefaultName>
+          <Top>0.89076cm</Top>
+          <Left>7.88246cm</Left>
+          <Height>0.55625cm</Height>
+          <Width>11.62738cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox40">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>TOTAL</Value>
+                  <Style>
+                    <FontFamily>Helvetica LT Std Black</FontFamily>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.17639cm</Top>
+          <Left>1.33911cm</Left>
+          <Height>0.55625cm</Height>
+          <Width>1.44459cm</Width>
+          <ZIndex>4</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="cust_name4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!total.Value, "DS_Cobro_Cabecera")</Value>
+                  <Style>
+                    <FontFamily>Helvetica LT Std</FontFamily>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>cust_name</rd:DefaultName>
+          <Top>0.17639cm</Top>
+          <Left>3.10626cm</Left>
+          <Height>0.55625cm</Height>
+          <Width>3.86675cm</Width>
+          <ZIndex>5</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -2574,114 +2412,6 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DS_Cobro_Cabecera">
-      <Query>
-        <DataSourceName>dbCentrexDataSet</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="id_cobro">
-          <DataField>id_cobro</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="fecha_carga">
-          <DataField>fecha_carga</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="fecha_cobro">
-          <DataField>fecha_cobro</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="id_cliente">
-          <DataField>id_cliente</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="razon_social">
-          <DataField>razon_social</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="dineroEnCc">
-          <DataField>dineroEnCc</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="efectivo">
-          <DataField>efectivo</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="totalTransferencia">
-          <DataField>totalTransferencia</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="totalCh">
-          <DataField>totalCh</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="totalRetencion">
-          <DataField>totalRetencion</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="total">
-          <DataField>total</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="hayCheque">
-          <DataField>hayCheque</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="hayTransferencia">
-          <DataField>hayTransferencia</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="hayRetencion">
-          <DataField>hayRetencion</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="aplicaFc">
-          <DataField>aplicaFc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="activo">
-          <DataField>activo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="id_anulaCobro">
-          <DataField>id_anulaCobro</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="notas">
-          <DataField>notas</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="firmante">
-          <DataField>firmante</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="totalChar">
-          <DataField>totalChar</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="direccion_fiscal">
-          <DataField>direccion_fiscal</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="taxNumber">
-          <DataField>taxNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="inscripto">
-          <DataField>inscripto</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>SP_cobro_cabecera</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_cobro_cabeceraTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="DS_Detalle_Cobro_Cheques">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
@@ -2836,6 +2566,142 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>SP_detalle_cobros_retencionesTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_Detalle_Cobro_FC_Importes">
+      <Query>
+        <DataSourceName>dbCentrexDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="id_cobro">
+          <DataField>id_cobro</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="fecha">
+          <DataField>fecha</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="nfactura">
+          <DataField>nfactura</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="importe">
+          <DataField>importe</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
+        <rd:SchemaPath>D:\Onedrive\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>SP_detalle_cobros_fc_importes</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_detalle_cobros_fc_importesTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_Cobro_Cabecera">
+      <Query>
+        <DataSourceName>dbCentrexDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="id_cobro">
+          <DataField>id_cobro</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fecha_carga">
+          <DataField>fecha_carga</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fecha_cobro">
+          <DataField>fecha_cobro</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="id_cliente">
+          <DataField>id_cliente</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="razon_social">
+          <DataField>razon_social</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dineroEnCc">
+          <DataField>dineroEnCc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="efectivo">
+          <DataField>efectivo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalTransferencia">
+          <DataField>totalTransferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalCh">
+          <DataField>totalCh</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalRetencion">
+          <DataField>totalRetencion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="total">
+          <DataField>total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hayCheque">
+          <DataField>hayCheque</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="hayTransferencia">
+          <DataField>hayTransferencia</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="hayRetencion">
+          <DataField>hayRetencion</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="activo">
+          <DataField>activo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="id_anulaCobro">
+          <DataField>id_anulaCobro</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="notas">
+          <DataField>notas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="firmante">
+          <DataField>firmante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalChar">
+          <DataField>totalChar</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="direccion_fiscal">
+          <DataField>direccion_fiscal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="taxNumber">
+          <DataField>taxNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="inscripto">
+          <DataField>inscripto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>SP_cobro_cabecera</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_cobro_cabeceraTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

@@ -6,3 +6,9 @@ Partial Public Class dbCentrexDataSet
     End Class
 
 End Class
+
+Namespace dbCentrexDataSetTableAdapters
+
+    Partial Public Class presupuesto_cabeceraTableAdapter
+    End Class
+End Namespace

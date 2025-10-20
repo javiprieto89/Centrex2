@@ -1,5 +1,9 @@
 ﻿Public Class add_itemManual
     'Private esEdicion As Boolean
+
+    Private idUsuario As Integer
+    Private idUnico As String
+
     Public Sub New()
         MyBase.New
         ' Esta llamada es exigida por el diseñador.
@@ -9,7 +13,7 @@
 
     End Sub
 
-    Public Sub New(i As item)
+    Public Sub New(ByVal i As item, ByVal _idUsuario As Integer, ByVal _idUnico As String)
         MyBase.New
         ' Esta llamada es exigida por el diseñador.
         InitializeComponent()
@@ -19,6 +23,19 @@
         txt_cantidad.Text = i.cantidad
         txt_precio.Text = i.precio_lista
         'esEdicion = True
+
+        idUsuario = _idUsuario
+        idUnico = _idUnico
+    End Sub
+
+    Public Sub New(ByVal _idUsuario As Integer, ByVal _idUnico As String)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        idUsuario = _idUsuario
+        idUnico = _idUnico
     End Sub
 
     Private Sub cmd_exit_Click(sender As Object, e As EventArgs) Handles cmd_exit.Click
@@ -59,7 +76,7 @@
             .item = "MANUAL"
         End With
 
-        addItemPedidotmp(i, i.cantidad, i.precio_lista, edita_item.id_item_temporal)
+        addItemPedidotmp(i, i.cantidad, i.precio_lista, idUsuario, idUnico, edita_item.id_item_temporal)
 
         Me.Dispose()
     End Sub

@@ -20,5 +20,11 @@
     Public numeroComprobante As Integer
     Public codigoDeBarras As String
     Public esTest As Boolean
+    Public tipoComprobante As Integer
     Public id_Cc As Integer
+    Public numeroComprobante_anulado As Integer
+    Public numeroPedido_anulado As Integer
+    Public esDuplicado As Boolean
+    Public estado As String
+    Public id_usuario As Integer
 End Class

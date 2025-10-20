@@ -2029,7 +2029,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!iva.Value, "DataSetFC_cabecera")</Value>
+                    <Value>$0,00</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -2294,11 +2294,27 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Image Name="QR">
+            <Source>Database</Source>
+            <Value>=First(Fields!fc_qr.Value, "DataSetFC_cabecera")</Value>
+            <MIMEType>image/jpeg</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>1.77994cm</Top>
+            <Left>15.96885cm</Left>
+            <Height>1.46337cm</Height>
+            <Width>1.62534cm</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>25.22926cm</Top>
         <Left>1.39249cm</Left>
-        <Height>3.15375cm</Height>
+        <Height>3.48302cm</Height>
         <Width>18.14831cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
@@ -2420,6 +2436,10 @@
           <DataField>logo</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
+        <Field Name="fc_qr">
+          <DataField>fc_qr</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
@@ -2500,14 +2520,26 @@
           <DataField>numeroComprobante</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="idpresupuesto">
+          <DataField>idpresupuesto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="codigoDeBarras">
           <DataField>codigoDeBarras</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="fc_qr">
+          <DataField>fc_qr</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="id">
+          <DataField>id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\Dropbox\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
         <rd:TableName>factura_cabecera</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

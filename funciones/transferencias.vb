@@ -2,7 +2,7 @@
 
 Module transferencias
     ' ************************************ FUNCIONES DE TRANSFERENCIAS ***************************
-    Public Function info_transferencia(ByVal id_transferencia As String, ByVal esCobro As Boolean) As transferencia
+    Public Function InfoTransferencia(ByVal id_transferencia As String, ByVal esCobro As Boolean) As transferencia
         Dim tmp As New transferencia
         Dim sqlstr As String
 
@@ -57,7 +57,7 @@ Module transferencias
         End Try
     End Function
 
-    Public Function info_tmpTransferencia(ByVal id_transferencia As String) As transferencia
+    Public Function InfoTmpTransferencia(ByVal id_transferencia As String) As transferencia
         Dim tmp As New transferencia
         Dim sqlstr As String
 
@@ -100,7 +100,7 @@ Module transferencias
             Return tmp
         End Try
     End Function
-    Public Function addtransferencia(ByVal t As transferencia, ByVal esCobro As Boolean) As Boolean
+    Public Function AddTransferencia(ByVal t As transferencia, ByVal esCobro As Boolean) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
         Dim sqlstr As String
 
@@ -119,8 +119,7 @@ Module transferencias
             End If
 
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -133,7 +132,7 @@ Module transferencias
         End Try
     End Function
 
-    Public Function addTmpTransferencia(ByVal t As transferencia) As Boolean
+    Public Function AddTmpTransferencia(ByVal t As transferencia) As Boolean
         Dim sqlComm As New SqlCommand 'Comando en el resto
         Dim resultado As Integer
 
@@ -166,7 +165,7 @@ Module transferencias
         End Try
     End Function
 
-    Public Function guardarTransferencias(ByVal c As cobro) As Boolean
+    Public Function GuardarTransferencias(ByVal c As cobro) As Boolean
         Dim sqlstr As String
         Dim mytrans As SqlTransaction
         Dim Comando As New SqlClient.SqlCommand
@@ -178,9 +177,7 @@ Module transferencias
             sqlstr = "INSERT INTO transferencias (id_cobro, id_cuentaBancaria, fecha, total, nComprobante, notas) " &
                         "SELECT '" + c.id_cobro.ToString + "', id_cuentaBancaria, fecha, total, nComprobante, notas " &
                         "FROM tmptransferencias "
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -189,12 +186,12 @@ Module transferencias
             MsgBox(ex.Message)
             Return False
         Finally
-            borrartbl("tmptransferencias")
             cerrardb()
+            borrartbl("tmptransferencias")
         End Try
     End Function
 
-    Public Function guardarTransferencias(ByVal p As pago) As Boolean
+    Public Function GuardarTransferencias(ByVal p As pago) As Boolean
         Dim sqlstr As String
         Dim mytrans As SqlTransaction
         Dim Comando As New SqlClient.SqlCommand
@@ -206,9 +203,7 @@ Module transferencias
             sqlstr = "INSERT INTO transferencias (id_pago, id_cuentaBancaria, fecha, total, nComprobante, notas) " &
                         "SELECT '" + p.id_pago.ToString + "', id_cuentaBancaria, fecha, total, nComprobante, notas " &
                         "FROM tmptransferencias "
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -217,12 +212,12 @@ Module transferencias
             MsgBox(ex.Message)
             Return False
         Finally
-            borrartbl("tmptransferencias")
             cerrardb()
+            borrartbl("tmptransferencias")
         End Try
     End Function
 
-    Public Function updateTmptransferencia(ByVal t As transferencia) As Boolean
+    Public Function UpdateTmpTransferencia(ByVal t As transferencia) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -237,9 +232,7 @@ Module transferencias
                     "', fecha = '" + t.fecha + "', total = '" + t.total.ToString + "', nComprobante = '" + t.nComprobante + ", notas = '" + t.notas + "' " +
                     "WHERE id_tmpTransferencia = '" + t.id_transferencia.ToString + "'"
 
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -253,7 +246,7 @@ Module transferencias
     End Function
 
 
-    Public Function borrarTmptransferencia(ByVal t As transferencia) As Boolean
+    Public Function BorrarTmpTransferencia(ByVal t As transferencia) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -262,8 +255,7 @@ Module transferencias
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("DELETE FROM tmptransferencias WHERE id_tmptransferencia = '" + t.id_transferencia.ToString + "'", CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("DELETE FROM tmptransferencias WHERE id_tmptransferencia = '" + t.id_transferencia.ToString + "'", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -276,7 +268,7 @@ Module transferencias
         End Try
     End Function
 
-    Public Function borrarTmptransferencia(ByVal id_transferencia As Integer) As Boolean
+    Public Function BorrarTmpTransferencia(ByVal id_transferencia As Integer) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -285,8 +277,7 @@ Module transferencias
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("DELETE FROM tmptransferencias WHERE id_tmptransferencia = '" + id_transferencia.ToString + "'", CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("DELETE FROM tmptransferencias WHERE id_tmptransferencia = '" + id_transferencia.ToString + "'", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -299,7 +290,7 @@ Module transferencias
         End Try
     End Function
 
-    Public Function borrartransferencia(ByVal t As transferencia) As Boolean
+    Public Function BorrarTransferencia(ByVal t As transferencia) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
 
         Dim mytrans As SqlTransaction
@@ -308,8 +299,7 @@ Module transferencias
         mytrans = CN.BeginTransaction()
 
         Try
-            Comando = New SqlClient.SqlCommand("DELETE FROM transferencias WHERE id_transferencia = '" + t.id_transferencia.ToString + "'", CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlClient.SqlCommand("DELETE FROM transferencias WHERE id_transferencia = '" + t.id_transferencia.ToString + "'", CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()

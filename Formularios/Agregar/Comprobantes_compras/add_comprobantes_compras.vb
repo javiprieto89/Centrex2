@@ -17,8 +17,7 @@
         cmb_cc.Enabled = False
 
         'Cargo el combo con todos los comprobantes
-        sqlstr = "SELECT id_sysComprobanteCompra, comprobante FROM sysComprobantesCompras ORDER BY comprobante ASC"
-        cargar_combo(cmb_tipoComprobante, sqlstr, basedb, "comprobante", "id_sysComprobanteCompra")
+        cmb_tipoComprobante.Enabled = False
         cmb_tipoComprobante.Text = "Seleccione un comprobante..."
 
         'Cargo el combo con todas las condiciones de compra
@@ -52,6 +51,21 @@
         'Cargo los combos con todas las cuentas corrientes del proveedor
         sqlstr = "SELECT id_cc, nombre FROM cc_proveedores WHERE activo = 1 AND id_proveedor = '" + p.ToString + "' ORDER BY nombre ASC"
         cargar_combo(cmb_cc, sqlstr, basedb, "nombre", "id_cc")
+
+        'Cargo el combo con todos los comprobantes disponibles para el proveedor
+        cmb_tipoComprobante.Enabled = True
+        sqlstr = "DECLARE @id_claseFiscal AS INTEGER " &
+                 "SELECT @id_claseFiscal = id_claseFiscal " &
+                 "FROM proveedores " &
+                 "WHERE id_proveedor = '" + p.ToString + "' " &
+                 "SELECT id_tipoComprobante, comprobante_AFIP " &
+                 "FROM tipos_comprobantes " &
+                 "WHERE id_claseFiscal LIKE '%' + CAST(@id_claseFiscal AS VARCHAR(5)) + '%' " &
+                 "OR id_tipoComprobante IN (1000, 1001)"
+        '"WHERE CHARINDEX(@id_claseFiscal, id_claseFiscal) > 0 "
+        cargar_combo(cmb_tipoComprobante, sqlstr, basedb, "comprobante_AFIP", "id_tipoComprobante")
+        cmb_tipoComprobante.Text = "Seleccione un tipo de comprobante..."
+
 
         'Selecciono la última cuenta corriente que se uso del cliente
         id_ultima_cc = Ultima_CC_comprobante_compra_proveedor(p)
@@ -186,7 +200,7 @@
             .id_proveedor = cmb_proveedor.SelectedValue
             .id_cc = cmb_cc.SelectedValue
             .id_condicion_compra = cmb_condicionCompra.SelectedValue
-            .id_sysComprobanteCompra = cmb_tipoComprobante.SelectedValue
+            .id_tipoComprobante = cmb_tipoComprobante.SelectedValue
             .id_moneda = cmb_moneda.SelectedValue
             .tasaCambio = txt_tasaCambio.Text
             .puntoVenta = txt_puntoVenta.Text
@@ -234,6 +248,10 @@
     End Sub
 
     Private Sub cmd_exit_Click(sender As Object, e As EventArgs) Handles cmd_exit.Click
+        preguntar_antesDe_salir()
+    End Sub
+
+    Private Sub preguntar_antesDe_salir()
         If MsgBox("Si sale sin guardar los cambios perderá todo lo guardado." & vbCr & "¿Desea salir?", vbQuestion + vbYesNo, "Centrex") = vbYes Then
             If id_comprobante_compra = -1 Then
                 closeandupdate(Me)
@@ -242,8 +260,10 @@
             'Borrar los comprobantes de compras que no esten activos y todos los productos, impuestos y conceptos asociados a esa orden
             borrar_comprobantes_compras_activos(id_comprobante_compra)
             closeandupdate(Me)
+            Exit Sub
         End If
     End Sub
+
 
     Public Sub update_form()
         Dim sqlstr As String
@@ -325,18 +345,24 @@
 
     Private Sub add_comprobantes_compras_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If Not cerrarOk Then
-            cmd_exit_Click(Nothing, Nothing)
+            'cmd_exit_Click(Nothing, Nothing)
+            'closeandupdate(Me)
+            preguntar_antesDe_salir()
         End If
     End Sub
 
     Private Sub cmd_ok_Click(sender As Object, e As EventArgs) Handles cmd_ok.Click
+        Dim cc As New comprobante_compra
+        Dim ccp As New ccProveedor
+        Dim tc As New TipoComprobante(cmb_tipoComprobante.SelectedValue)
+
         If txt_totalFactura.Text = "0" Or txt_totalFactura.Text = "" Then
             MsgBox("Carge algún producto, impuesto o concepto para poder guardar.", vbExclamation + vbOKOnly, "Centrex")
             Exit Sub
         End If
 
-        Dim cc As New comprobante_compra
-
+        ccp = info_ccProveedor(cmb_cc.SelectedValue)
+        cc = info_comprobante_compra(id_comprobante_compra)
         With cc
             .id_comprobanteCompra = id_comprobante_compra
             .subtotal = CDbl(txt_totalItems.Text)
@@ -350,9 +376,36 @@
             MsgBox("Hubo un problema al guardar el comprobante de compra, consulte con el programador.", vbCritical + vbOKOnly, "Centrex")
             closeandupdate(Me)
             Exit Sub
-        End If
+        Else
+            If tc.signoProveedor = "+" Then
+                ccp.saldo += cc.total
+            Else
+                ccp.saldo += cc.total
+            End If
+            updateCCProveedor(ccp)
+            'Dim frm As New frm_prnReportes("rpt_ordenDePago", "datos_empresa", "SP_pago_cabecera", "SP_detalle_pagos_cheques", "SP_detalle_pagos_transferencias", "DS_Datos_Empresa",
+            '                                "DS_Pago_Cabecera", "DS_Detalle_Pagos_Cheques", "DS_Detalle_Pagos_Transferencias", id_comprobante_compra, True)
+            'frm.ShowDialog()
+            'Se agrega la operación a la tabla transacciones
+            Dim t As New transaccion
+            t.id_comprobanteCompra = id_comprobante_compra
+            t.fecha = cc.fecha_comprobante
+            't.id_tipoComprobante = info_comprobante(p.id_comprobante).id_tipoComprobante
+            t.id_tipoComprobante = cc.id_tipoComprobante
+            t.numeroComprobante = cc.numeroComprobante
+            t.puntoVenta = cc.puntoVenta
+            t.total = cc.total
+            t.id_cc = cc.id_cc
+            t.id_proveedor = cc.id_proveedor
+            If Not Agregar_Transaccion_Desde_Comprobante_Compra(t) Then
+                MsgBox("Ha ocurrido un error al agregar la transaccion en el proveedor, verifique el mismo o vuelva a intentarlo más tarde.", vbExclamation, "Centrex")
+                Exit Sub
+            End If
+            Dim rptOrdenDePago As New frm_prnOrdenDePago(id_comprobante_compra)
+                rptOrdenDePago.ShowDialog()
+            End If
 
-        cerrarOk = True
+            cerrarOk = True
         closeandupdate(Me)
     End Sub
 
@@ -360,8 +413,34 @@
         Dim seleccionado As String
 
         seleccionado = dg_viewItems.CurrentRow.Cells(0).Value.ToString
-        seleccionado = Strings.right(seleccionado, (len(seleccionado)-InStr(seleccionado, "-")))
+        seleccionado = Strings.Right(seleccionado, (Len(seleccionado) - InStr(seleccionado, "-")))
+    End Sub
 
+    Private Sub pic_searchCondicionCompra_Click(sender As Object, e As EventArgs) Handles pic_searchCondicionCompra.Click
+        'busqueda
+        Dim tmp As String
+        tmp = tabla
+        tabla = "BY"
+        Me.Enabled = False
+        search.ShowDialog()
+        tabla = tmp
 
+        'Establezco la opción del combo, si es 0 elijo el cliente default
+        If id = 0 Then id = id_cliente_pedido_default
+        updateform(id.ToString, cmb_proveedor)
+    End Sub
+
+    Private Sub pic_searchTipoComprobante_Click(sender As Object, e As EventArgs) Handles pic_searchTipoComprobante.Click
+        'busqueda
+        Dim tmp As String
+        tmp = tabla
+        tabla = "tipos_Comprobantes"
+        Me.Enabled = False
+        search.ShowDialog()
+        tabla = tmp
+
+        'Establezco la opción del combo, si es 0 elijo el cliente default
+        If id = 0 Then id = id_cliente_pedido_default
+        updateform(id.ToString, cmb_proveedor)
     End Sub
 End Class

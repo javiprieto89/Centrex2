@@ -22,6 +22,7 @@ Partial Class add_comprobantes_compras
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.lbl_tipoComprobante = New System.Windows.Forms.Label()
         Me.cmb_tipoComprobante = New System.Windows.Forms.ComboBox()
         Me.cmb_cc = New System.Windows.Forms.ComboBox()
@@ -35,6 +36,9 @@ Partial Class add_comprobantes_compras
         Me.tbl_comprobantesCompras = New System.Windows.Forms.TabControl()
         Me.productos = New System.Windows.Forms.TabPage()
         Me.dg_viewItems = New System.Windows.Forms.DataGridView()
+        Me.cms_general = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.editar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.eliminar = New System.Windows.Forms.ToolStripMenuItem()
         Me.impuestos = New System.Windows.Forms.TabPage()
         Me.dg_viewImpuestos = New System.Windows.Forms.DataGridView()
         Me.conceptos = New System.Windows.Forms.TabPage()
@@ -69,9 +73,13 @@ Partial Class add_comprobantes_compras
         Me.pic_searchCondicionCompra = New System.Windows.Forms.PictureBox()
         Me.pic_searchCCProveedor = New System.Windows.Forms.PictureBox()
         Me.pic_searchProveedor = New System.Windows.Forms.PictureBox()
+        Me.txt_totalOriginal = New System.Windows.Forms.TextBox()
+        Me.lbl_total = New System.Windows.Forms.Label()
+        Me.pic_searchTipoComprobante = New System.Windows.Forms.PictureBox()
         Me.tbl_comprobantesCompras.SuspendLayout()
         Me.productos.SuspendLayout()
         CType(Me.dg_viewItems, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cms_general.SuspendLayout()
         Me.impuestos.SuspendLayout()
         CType(Me.dg_viewImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.conceptos.SuspendLayout()
@@ -80,6 +88,7 @@ Partial Class add_comprobantes_compras
         CType(Me.pic_searchCondicionCompra, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic_searchCCProveedor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic_searchProveedor, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pic_searchTipoComprobante, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lbl_tipoComprobante
@@ -205,6 +214,7 @@ Partial Class add_comprobantes_compras
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_viewItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dg_viewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dg_viewItems.ContextMenuStrip = Me.cms_general
         Me.dg_viewItems.Location = New System.Drawing.Point(6, 6)
         Me.dg_viewItems.MultiSelect = False
         Me.dg_viewItems.Name = "dg_viewItems"
@@ -213,6 +223,24 @@ Partial Class add_comprobantes_compras
         Me.dg_viewItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dg_viewItems.Size = New System.Drawing.Size(791, 253)
         Me.dg_viewItems.TabIndex = 694
+        '
+        'cms_general
+        '
+        Me.cms_general.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.editar, Me.eliminar})
+        Me.cms_general.Name = "cms_general"
+        Me.cms_general.Size = New System.Drawing.Size(118, 48)
+        '
+        'editar
+        '
+        Me.editar.Name = "editar"
+        Me.editar.Size = New System.Drawing.Size(117, 22)
+        Me.editar.Text = "Editar"
+        '
+        'eliminar
+        '
+        Me.eliminar.Name = "eliminar"
+        Me.eliminar.Size = New System.Drawing.Size(117, 22)
+        Me.eliminar.Text = "Eliminar"
         '
         'impuestos
         '
@@ -403,7 +431,7 @@ Partial Class add_comprobantes_compras
         Me.cmb_moneda.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmb_moneda.Enabled = False
         Me.cmb_moneda.FormattingEnabled = True
-        Me.cmb_moneda.Location = New System.Drawing.Point(533, 90)
+        Me.cmb_moneda.Location = New System.Drawing.Point(530, 90)
         Me.cmb_moneda.Name = "cmb_moneda"
         Me.cmb_moneda.Size = New System.Drawing.Size(54, 21)
         Me.cmb_moneda.TabIndex = 679
@@ -453,7 +481,7 @@ Partial Class add_comprobantes_compras
         '
         'txt_puntoVenta
         '
-        Me.txt_puntoVenta.Location = New System.Drawing.Point(533, 135)
+        Me.txt_puntoVenta.Location = New System.Drawing.Point(530, 136)
         Me.txt_puntoVenta.Name = "txt_puntoVenta"
         Me.txt_puntoVenta.Size = New System.Drawing.Size(54, 20)
         Me.txt_puntoVenta.TabIndex = 686
@@ -538,11 +566,40 @@ Partial Class add_comprobantes_compras
         Me.pic_searchProveedor.TabIndex = 662
         Me.pic_searchProveedor.TabStop = False
         '
+        'txt_totalOriginal
+        '
+        Me.txt_totalOriginal.Location = New System.Drawing.Point(530, 175)
+        Me.txt_totalOriginal.Name = "txt_totalOriginal"
+        Me.txt_totalOriginal.Size = New System.Drawing.Size(215, 20)
+        Me.txt_totalOriginal.TabIndex = 694
+        '
+        'lbl_total
+        '
+        Me.lbl_total.AutoSize = True
+        Me.lbl_total.Location = New System.Drawing.Point(430, 175)
+        Me.lbl_total.Name = "lbl_total"
+        Me.lbl_total.Size = New System.Drawing.Size(31, 13)
+        Me.lbl_total.TabIndex = 693
+        Me.lbl_total.Text = "Total"
+        '
+        'pic_searchTipoComprobante
+        '
+        Me.pic_searchTipoComprobante.Image = Global.Centrex.My.Resources.Resources.iconoLupa
+        Me.pic_searchTipoComprobante.Location = New System.Drawing.Point(386, 122)
+        Me.pic_searchTipoComprobante.Name = "pic_searchTipoComprobante"
+        Me.pic_searchTipoComprobante.Size = New System.Drawing.Size(22, 22)
+        Me.pic_searchTipoComprobante.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.pic_searchTipoComprobante.TabIndex = 695
+        Me.pic_searchTipoComprobante.TabStop = False
+        '
         'add_comprobantes_compras
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(850, 741)
+        Me.Controls.Add(Me.pic_searchTipoComprobante)
+        Me.Controls.Add(Me.txt_totalOriginal)
+        Me.Controls.Add(Me.lbl_total)
         Me.Controls.Add(Me.cmd_editar)
         Me.Controls.Add(Me.txt_CAE)
         Me.Controls.Add(Me.lbl_CAE)
@@ -584,10 +641,11 @@ Partial Class add_comprobantes_compras
         Me.Controls.Add(Me.lbl_tipoComprobante)
         Me.Name = "add_comprobantes_compras"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Agregar comprobantes de compras"
+        Me.Text = " "
         Me.tbl_comprobantesCompras.ResumeLayout(False)
         Me.productos.ResumeLayout(False)
         CType(Me.dg_viewItems, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cms_general.ResumeLayout(False)
         Me.impuestos.ResumeLayout(False)
         CType(Me.dg_viewImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.conceptos.ResumeLayout(False)
@@ -597,6 +655,7 @@ Partial Class add_comprobantes_compras
         CType(Me.pic_searchCondicionCompra, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic_searchCCProveedor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic_searchProveedor, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pic_searchTipoComprobante, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -649,4 +708,10 @@ Partial Class add_comprobantes_compras
     Friend WithEvents dg_viewItems As DataGridView
     Friend WithEvents dg_viewImpuestos As DataGridView
     Friend WithEvents dg_viewConceptos As DataGridView
+    Friend WithEvents cms_general As ContextMenuStrip
+    Friend WithEvents editar As ToolStripMenuItem
+    Friend WithEvents eliminar As ToolStripMenuItem
+    Friend WithEvents txt_totalOriginal As TextBox
+    Friend WithEvents lbl_total As Label
+    Friend WithEvents pic_searchTipoComprobante As PictureBox
 End Class

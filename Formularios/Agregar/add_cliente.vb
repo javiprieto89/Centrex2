@@ -5,6 +5,7 @@
             With edita_cliente
                 .razon_social = Trim(txt_razonSocial.Text)
                 .nombre_fantasia = Trim(txt_nombreFantasia.Text)
+                .id_claseFiscal = cmb_claseFiscal.SelectedValue
                 .id_tipoDocumento = cmb_tipoDocumento.SelectedValue
                 .contacto = Trim(txt_contacto.Text)
                 .taxNumber = txt_taxNumber.Text
@@ -38,6 +39,7 @@
         With cl
             .razon_social = Trim(txt_razonSocial.Text)
             .nombre_fantasia = Trim(txt_nombreFantasia.Text)
+            .id_claseFiscal = cmb_claseFiscal.SelectedValue
             .id_tipoDocumento = cmb_tipoDocumento.SelectedValue
             .contacto = Trim(txt_contacto.Text)
             .taxNumber = txt_taxNumber.Text
@@ -84,6 +86,7 @@
         If chk_secuencia.Checked = True Then
             txt_razonSocial.Text = ""
             txt_nombreFantasia.Text = ""
+            cmb_claseFiscal.Text = "Seleccione una clase fiscal...."
             cmb_tipoDocumento.SelectedValue = id_tipoDocumento_default
             txt_taxNumber.Text = ""
             txt_contacto.Text = ""
@@ -134,6 +137,10 @@
         cargar_combo(cmb_provinciaEntrega, "SELECT id_provincia, provincia FROM provincias WHERE id_pais = '" + cmb_paisEntrega.SelectedValue.ToString + "' ORDER BY provincia ASC", basedb, "provincia", "id_provincia")
         cmb_provinciaEntrega.Text = ""
 
+        'Cargo todos las clases fiscales
+        cargar_combo(cmb_claseFiscal, "SELECT id_claseFiscal, descript FROM sys_ClasesFiscales ORDER BY descript ASC", basedb, "descript", "id_claseFiscal")
+        cmb_claseFiscal.Text = "Seleccione una clase fiscal..."
+
         'Cargo todos los tipos de documentos
         cargar_combo(cmb_tipoDocumento, "SELECT id_tipoDocumento, documento FROM tipos_documentos ORDER BY documento ASC", basedb, "documento", "id_tipoDocumento")
         cmb_tipoDocumento.SelectedValue = id_tipoDocumento_default
@@ -155,6 +162,7 @@
             chk_secuencia.Enabled = False
             txt_razonSocial.Text = edita_cliente.razon_social
             txt_nombreFantasia.Text = edita_cliente.nombre_fantasia
+            cmb_claseFiscal.SelectedValue = edita_cliente.id_claseFiscal
             cmb_tipoDocumento.SelectedValue = edita_cliente.id_tipoDocumento
             txt_taxNumber.Text = edita_cliente.taxNumber
             txt_contacto.Text = edita_cliente.contacto

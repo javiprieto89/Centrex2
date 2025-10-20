@@ -1,4 +1,14 @@
 ﻿Public Class infoccClientes
+    Dim desde As Integer
+    Dim pagina As Integer
+    Dim nRegs As Integer
+    Dim tPaginas As Integer
+
+    Dim fechaDesde As Date
+    Dim fechaHasta As Date
+
+    Dim orderCol As ColumnClickEventArgs = Nothing
+
     Private Sub ccClientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sqlstr As String
 
@@ -8,20 +18,8 @@
         sqlstr = "SELECT c.id_cliente AS 'id_cliente', c.razon_social AS 'razon_social' FROM clientes AS c WHERE c.activo = '1' ORDER BY c.razon_social ASC"
         cargar_combo(cmb_cliente, sqlstr, basedb, "razon_social", "id_cliente")
         cmb_cliente.Text = "Seleccione un cliente..."
-    End Sub
 
-    Private Sub psearch_cliente_Click(sender As Object, e As EventArgs)
-        Dim tmp As String
-        tmp = tabla
-        tabla = "clientes"
-        Me.Enabled = False
-        form = Me
-        search.ShowDialog()
-        tabla = tmp
-
-        'Establezco la opción del combo
-        cmb_cliente.SelectedValue = id 'cmb_clientes.FindString(info_cliente(id).nombre)
-        id = 0
+        pExportXLS.Enabled = False
     End Sub
 
     Private Sub ccClientes_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -39,13 +37,7 @@
         ElseIf cmb_cc.Text = "Seleccione una cuenta corriente..." Then
             MsgBox("Debe elegir una cuenta corriente del cliente seleccionado para poder realizar la consulta.", MsgBoxStyle.Exclamation + vbOKOnly, "Centrex")
             Exit Sub
-        ElseIf cmb_tipoDocs.Text = "Seleccione un tipo de documento..." Then
-            MsgBox("Debe elegir que tipos de documentos desea consultar para poder realizar la consulta.", MsgBoxStyle.Exclamation + vbOKOnly, "Centrex")
-            Exit Sub
         End If
-
-        Dim fechaDesde As Date
-        Dim fechaHasta As Date
 
         If chk_desdeSiempre.Checked Then
             fechaDesde = dtp_desde.MinDate
@@ -59,10 +51,22 @@
             fechaHasta = dtp_hasta.Value.Date
         End If
 
+        desde = 0
+        pagina = 1
 
-        dg_view.DataSource = consultaCcCliente(cmb_cliente.SelectedValue, cmb_cc.SelectedValue, fechaDesde, fechaHasta, cmb_tipoDocs.SelectedIndex)
+        actualizarDatagrid()
 
-        total = consultaTotalCcCliente(cmb_cliente.SelectedValue, fechaDesde, fechaHasta, cmb_tipoDocs.SelectedIndex)
+        cmd_first.Enabled = True
+        cmd_prev.Enabled = True
+        cmd_next.Enabled = True
+        cmd_last.Enabled = True
+        txt_nPage.Enabled = True
+        cmd_go.Enabled = True
+        pExportXLS.Enabled = True
+
+        'cmd_last_Click(Nothing, Nothing) 'Bush quiere que aparezca en la última página
+
+        total = consultaTotalCcCliente(cmb_cliente.SelectedValue, fechaDesde, fechaHasta)
 
         lbl_total.Text = "$ " + total
 
@@ -80,16 +84,25 @@
     End Sub
 
     Private Sub dg_view_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dg_view.CellMouseDoubleClick
-        If borrado = False Then edicion = True
+        Dim seleccionado As String
+        'Dim p As New pedido
+        Dim frmPrn As New frm_prnCmp(True)
+        'If borrado = False Then edicion = True
 
-        If dg_view.Rows.Count = 0 Then Exit Sub
+        'If dg_view.Rows.Count = 0 Then Exit Sub
 
-        Dim seleccionado As String = dg_view.CurrentRow.Cells(0).Value.ToString
-        edita_pedido = info_pedido(seleccionado)
-        pedido_a_pedidoTmp(seleccionado)
-        add_pedido.ShowDialog()
 
-        If borrado = False Then edicion = False
+        'edita_pedido = info_pedido(seleccionado)
+        'pedido_a_pedidoTmp(seleccionado)
+        'add_pedido.ShowDialog()
+
+        'If borrado = False Then edicion = False
+        seleccionado = dg_view.CurrentRow.Cells(0).Value.ToString
+
+        id = InfoTransaccion(seleccionado).id_pedido
+        'id = p.id_pedido
+
+        frmPrn.ShowDialog()
     End Sub
 
     Private Sub cmb_cliente_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmb_cliente.SelectionChangeCommitted
@@ -103,9 +116,13 @@
         cmb_cc.Enabled = True
         Me.ActiveControl = Me.cmb_cc
 
+        If cmb_cc.Items.Count = 1 Then
+            cmb_cc.SelectedIndex = 0
+            cmb_cc.Text = info_ccCliente(cmb_cc.SelectedValue).nombre
+        End If
     End Sub
 
-    Private Sub psearch_cliente_Click_1(sender As Object, e As EventArgs) Handles psearch_cliente.Click
+    Private Sub psearch_cliente_Click(sender As Object, e As EventArgs) Handles psearch_cliente.Click
         'busqueda
         Dim tmp As String
         tmp = tabla
@@ -139,5 +156,67 @@
 
     Private Sub chk_hastaSiempre_CheckedChanged(sender As Object, e As EventArgs) Handles chk_hastaSiempre.CheckedChanged
         dtp_hasta.Enabled = Not chk_hastaSiempre.Checked
+    End Sub
+
+    Private Sub pExportXLS_Click(sender As Object, e As EventArgs) Handles pExportXLS.Click
+        Dim rutaArchivo As String
+
+        With SaveFileDialog1
+            .AddExtension = True
+            .CheckFileExists = False
+            .CheckPathExists = True
+            .Filter = "Excel Worksheets 2007 (*.xlsx)|*.xlsx"
+            .DefaultExt = "xls"
+            .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            .FileName = cmb_cliente.Text + " - " + cmb_cc.Text
+            .ShowDialog()
+            rutaArchivo = .FileName
+            If rutaArchivo = "" Then
+                MsgBox("Exportación cancelada.", vbInformation + vbOKOnly, "Centrex")
+                Exit Sub
+            End If
+        End With
+
+        consultaCcCliente(dgView_paraExportar, cmb_cliente.SelectedValue, cmb_cc.SelectedValue, fechaDesde, fechaHasta, desde, nRegs, tPaginas, pagina, txt_nPage, 1)
+
+        exportarExcel(dgView_paraExportar, rutaArchivo)
+        MsgBox("Archivo exportado a: " + SaveFileDialog1.FileName, vbInformation + vbOKOnly, "Centrex")
+    End Sub
+
+    Private Sub actualizarDatagrid()
+        consultaCcCliente(dg_view, cmb_cliente.SelectedValue, cmb_cc.SelectedValue, fechaDesde, fechaHasta, desde, nRegs, tPaginas, pagina, txt_nPage, 0)
+    End Sub
+
+    Private Sub cmd_next_Click(sender As Object, e As EventArgs) Handles cmd_next.Click
+        If pagina = Math.Ceiling(nRegs / itXPage) Then Exit Sub
+        desde += itXPage
+        pagina += 1
+        actualizarDatagrid()
+    End Sub
+
+    Private Sub cmd_prev_Click(sender As Object, e As EventArgs) Handles cmd_prev.Click
+        If pagina = 1 Then Exit Sub
+        desde -= itXPage
+        pagina -= 1
+        actualizarDatagrid()
+    End Sub
+
+    Private Sub cmd_first_Click(sender As Object, e As EventArgs) Handles cmd_first.Click
+        desde = 0
+        pagina = 1
+        actualizarDatagrid()
+    End Sub
+
+    Private Sub cmd_last_Click(sender As Object, e As EventArgs) Handles cmd_last.Click
+        pagina = tPaginas
+        desde = nRegs - itXPage
+        actualizarDatagrid()
+    End Sub
+
+    Private Sub cmd_go_Click(sender As Object, e As EventArgs) Handles cmd_go.Click
+        pagina = txt_nPage.Text
+        If pagina > tPaginas Then pagina = tPaginas
+        desde = (pagina - 1) * itXPage
+        actualizarDatagrid()
     End Sub
 End Class

@@ -1,5 +1,7 @@
 ﻿Public Class cobro
     Public id_cobro As Integer
+    Public id_cobro_oficial As Integer
+    Public id_cobro_no_oficial As Integer
     Public fecha_carga As String
     Public fecha_cobro As String
     Public id_cliente As Integer
@@ -13,7 +15,6 @@
     Public hayCheque As Boolean
     Public hayTransferencia As Boolean
     Public hayRetencion As Boolean
-    Public aplicaFc As String
     Public activo As Boolean
     Public id_anulaCobro As Integer
     Public notas As String

@@ -87,6 +87,7 @@ Module cheques
 
         Try
             With ch
+                sqlstr = ""
                 sqlstr = "SET DATEFORMAT dmy; INSERT INTO cheques (fecha_emision, "
                 If .id_cliente <> Nothing Then
                     sqlstr += "id_cliente, "
@@ -345,7 +346,7 @@ Module cheques
         Dim c As New Integer
         Dim sqlstr As String
 
-        sqlstr = "SELECT MAX(nCheque2) FROM cheques"
+        sqlstr = "SELECT ISNULL(MAX(nCheque2), 0) FROM cheques"
 
         Try
             'Crea y abre una nueva conexión

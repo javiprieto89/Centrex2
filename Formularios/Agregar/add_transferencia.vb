@@ -1,5 +1,26 @@
 ﻿Public Class add_transferencia
     Private formViejo As Form
+    Private esCobro As Boolean
+    Private esPago As Boolean
+
+    Public Sub New()
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+
+    End Sub
+
+    Public Sub New(ByVal _esCobro As Boolean, ByVal _esPago As Boolean)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        esCobro = _esCobro
+        esPago = _esPago
+    End Sub
 
     Private Sub add_transferencia_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim cb As New cuenta_bancaria

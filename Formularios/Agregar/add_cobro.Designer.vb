@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class add_cobro
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class add_cobro
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.lbl_fechaCarga1 = New System.Windows.Forms.Label()
@@ -29,17 +29,17 @@ Partial Class add_cobro
         Me.cmd_ok = New System.Windows.Forms.Button()
         Me.lbl_importePago = New System.Windows.Forms.Label()
         Me.lbl_pago = New System.Windows.Forms.Label()
-        Me.txt_aplicaFc = New System.Windows.Forms.TextBox()
         Me.lbl_aplicaFc = New System.Windows.Forms.Label()
         Me.tbControl = New System.Windows.Forms.TabControl()
         Me.tb_cobro = New System.Windows.Forms.TabPage()
+        Me.chk_cobro_no_oficial = New System.Windows.Forms.CheckBox()
         Me.lblpeso1 = New System.Windows.Forms.Label()
         Me.cmb_cc = New System.Windows.Forms.ComboBox()
         Me.pic_searchCCCliente = New System.Windows.Forms.PictureBox()
         Me.lbl_ccc = New System.Windows.Forms.Label()
         Me.txt_efectivo = New System.Windows.Forms.TextBox()
-        Me.lbl_dineroCuenta = New System.Windows.Forms.Label()
-        Me.lbl_dineroCuenta1 = New System.Windows.Forms.Label()
+        Me.lbl_saldo = New System.Windows.Forms.Label()
+        Me.lbl_saldo1 = New System.Windows.Forms.Label()
         Me.lbl_comoPaga = New System.Windows.Forms.Label()
         Me.chk_efectivo = New System.Windows.Forms.CheckBox()
         Me.cmb_cliente = New System.Windows.Forms.ComboBox()
@@ -79,11 +79,15 @@ Partial Class add_cobro
         Me.dg_viewRetencion = New System.Windows.Forms.DataGridView()
         Me.cmd_addRetencion = New System.Windows.Forms.Button()
         Me.chk_retenciones = New System.Windows.Forms.CheckBox()
-        Me.tb_otros = New System.Windows.Forms.TabPage()
+        Me.tb_nFC_importe = New System.Windows.Forms.TabPage()
+        Me.dg_view_nFC_importes = New System.Windows.Forms.DataGridView()
+        Me.fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.factura = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tb_notas = New System.Windows.Forms.TabPage()
         Me.txt_notas = New System.Windows.Forms.TextBox()
         Me.lbl_notas = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txt_firmante = New System.Windows.Forms.TextBox()
         Me.lbl_firmante = New System.Windows.Forms.Label()
         Me.tbControl.SuspendLayout()
         Me.tb_cobro.SuspendLayout()
@@ -96,7 +100,8 @@ Partial Class add_cobro
         CType(Me.dg_viewTransferencia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tb_retenciones.SuspendLayout()
         CType(Me.dg_viewRetencion, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tb_otros.SuspendLayout()
+        Me.tb_nFC_importe.SuspendLayout()
+        CType(Me.dg_view_nFC_importes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tb_notas.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -134,7 +139,7 @@ Partial Class add_cobro
         Me.cmd_ok.Name = "cmd_ok"
         Me.cmd_ok.Size = New System.Drawing.Size(75, 23)
         Me.cmd_ok.TabIndex = 5
-        Me.cmd_ok.Text = "Guardar"
+        Me.cmd_ok.Text = "Emitir"
         Me.cmd_ok.UseVisualStyleBackColor = True
         '
         'lbl_importePago
@@ -159,23 +164,14 @@ Partial Class add_cobro
         Me.lbl_pago.TabIndex = 661
         Me.lbl_pago.Text = "Importe total del pago"
         '
-        'txt_aplicaFc
-        '
-        Me.txt_aplicaFc.Enabled = False
-        Me.txt_aplicaFc.Location = New System.Drawing.Point(20, 49)
-        Me.txt_aplicaFc.Multiline = True
-        Me.txt_aplicaFc.Name = "txt_aplicaFc"
-        Me.txt_aplicaFc.Size = New System.Drawing.Size(533, 98)
-        Me.txt_aplicaFc.TabIndex = 12
-        '
         'lbl_aplicaFc
         '
         Me.lbl_aplicaFc.AutoSize = True
         Me.lbl_aplicaFc.Location = New System.Drawing.Point(20, 20)
         Me.lbl_aplicaFc.Name = "lbl_aplicaFc"
-        Me.lbl_aplicaFc.Size = New System.Drawing.Size(125, 13)
+        Me.lbl_aplicaFc.Size = New System.Drawing.Size(194, 13)
         Me.lbl_aplicaFc.TabIndex = 674
-        Me.lbl_aplicaFc.Text = "Facturas a las que aplica"
+        Me.lbl_aplicaFc.Text = "Facturas a las que aplica y sus importes"
         '
         'tbControl
         '
@@ -183,7 +179,7 @@ Partial Class add_cobro
         Me.tbControl.Controls.Add(Me.tb_cheques)
         Me.tbControl.Controls.Add(Me.tb_transferencias)
         Me.tbControl.Controls.Add(Me.tb_retenciones)
-        Me.tbControl.Controls.Add(Me.tb_otros)
+        Me.tbControl.Controls.Add(Me.tb_nFC_importe)
         Me.tbControl.Controls.Add(Me.tb_notas)
         Me.tbControl.Location = New System.Drawing.Point(30, 50)
         Me.tbControl.Name = "tbControl"
@@ -194,13 +190,14 @@ Partial Class add_cobro
         'tb_cobro
         '
         Me.tb_cobro.BackColor = System.Drawing.SystemColors.Control
+        Me.tb_cobro.Controls.Add(Me.chk_cobro_no_oficial)
         Me.tb_cobro.Controls.Add(Me.lblpeso1)
         Me.tb_cobro.Controls.Add(Me.cmb_cc)
         Me.tb_cobro.Controls.Add(Me.pic_searchCCCliente)
         Me.tb_cobro.Controls.Add(Me.lbl_ccc)
         Me.tb_cobro.Controls.Add(Me.txt_efectivo)
-        Me.tb_cobro.Controls.Add(Me.lbl_dineroCuenta)
-        Me.tb_cobro.Controls.Add(Me.lbl_dineroCuenta1)
+        Me.tb_cobro.Controls.Add(Me.lbl_saldo)
+        Me.tb_cobro.Controls.Add(Me.lbl_saldo1)
         Me.tb_cobro.Controls.Add(Me.lbl_comoPaga)
         Me.tb_cobro.Controls.Add(Me.chk_efectivo)
         Me.tb_cobro.Controls.Add(Me.cmb_cliente)
@@ -215,10 +212,21 @@ Partial Class add_cobro
         Me.tb_cobro.TabIndex = 0
         Me.tb_cobro.Text = "Cobro"
         '
+        'chk_cobro_no_oficial
+        '
+        Me.chk_cobro_no_oficial.AutoSize = True
+        Me.chk_cobro_no_oficial.Enabled = False
+        Me.chk_cobro_no_oficial.Location = New System.Drawing.Point(268, 138)
+        Me.chk_cobro_no_oficial.Name = "chk_cobro_no_oficial"
+        Me.chk_cobro_no_oficial.Size = New System.Drawing.Size(99, 17)
+        Me.chk_cobro_no_oficial.TabIndex = 692
+        Me.chk_cobro_no_oficial.Text = "Cobro no oficial"
+        Me.chk_cobro_no_oficial.UseVisualStyleBackColor = True
+        '
         'lblpeso1
         '
         Me.lblpeso1.AutoSize = True
-        Me.lblpeso1.Location = New System.Drawing.Point(230, 221)
+        Me.lblpeso1.Location = New System.Drawing.Point(230, 225)
         Me.lblpeso1.Name = "lblpeso1"
         Me.lblpeso1.Size = New System.Drawing.Size(13, 13)
         Me.lblpeso1.TabIndex = 675
@@ -256,38 +264,38 @@ Partial Class add_cobro
         'txt_efectivo
         '
         Me.txt_efectivo.Enabled = False
-        Me.txt_efectivo.Location = New System.Drawing.Point(249, 221)
+        Me.txt_efectivo.Location = New System.Drawing.Point(249, 225)
         Me.txt_efectivo.Name = "txt_efectivo"
         Me.txt_efectivo.Size = New System.Drawing.Size(285, 20)
         Me.txt_efectivo.TabIndex = 4
         '
-        'lbl_dineroCuenta
+        'lbl_saldo
         '
-        Me.lbl_dineroCuenta.AutoSize = True
-        Me.lbl_dineroCuenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_dineroCuenta.ForeColor = System.Drawing.Color.Green
-        Me.lbl_dineroCuenta.Location = New System.Drawing.Point(155, 173)
-        Me.lbl_dineroCuenta.Name = "lbl_dineroCuenta"
-        Me.lbl_dineroCuenta.Size = New System.Drawing.Size(24, 16)
-        Me.lbl_dineroCuenta.TabIndex = 689
-        Me.lbl_dineroCuenta.Text = "$$"
+        Me.lbl_saldo.AutoSize = True
+        Me.lbl_saldo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_saldo.ForeColor = System.Drawing.Color.Green
+        Me.lbl_saldo.Location = New System.Drawing.Point(155, 177)
+        Me.lbl_saldo.Name = "lbl_saldo"
+        Me.lbl_saldo.Size = New System.Drawing.Size(24, 16)
+        Me.lbl_saldo.TabIndex = 689
+        Me.lbl_saldo.Text = "$$"
         '
-        'lbl_dineroCuenta1
+        'lbl_saldo1
         '
-        Me.lbl_dineroCuenta1.AutoSize = True
-        Me.lbl_dineroCuenta1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_dineroCuenta1.ForeColor = System.Drawing.Color.Black
-        Me.lbl_dineroCuenta1.Location = New System.Drawing.Point(20, 173)
-        Me.lbl_dineroCuenta1.Name = "lbl_dineroCuenta1"
-        Me.lbl_dineroCuenta1.Size = New System.Drawing.Size(117, 15)
-        Me.lbl_dineroCuenta1.TabIndex = 688
-        Me.lbl_dineroCuenta1.Text = "Dinero en cuenta"
+        Me.lbl_saldo1.AutoSize = True
+        Me.lbl_saldo1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_saldo1.ForeColor = System.Drawing.Color.Black
+        Me.lbl_saldo1.Location = New System.Drawing.Point(20, 177)
+        Me.lbl_saldo1.Name = "lbl_saldo1"
+        Me.lbl_saldo1.Size = New System.Drawing.Size(44, 15)
+        Me.lbl_saldo1.TabIndex = 688
+        Me.lbl_saldo1.Text = "Saldo"
         '
         'lbl_comoPaga
         '
         Me.lbl_comoPaga.AutoSize = True
         Me.lbl_comoPaga.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_comoPaga.Location = New System.Drawing.Point(20, 133)
+        Me.lbl_comoPaga.Location = New System.Drawing.Point(20, 137)
         Me.lbl_comoPaga.Name = "lbl_comoPaga"
         Me.lbl_comoPaga.Size = New System.Drawing.Size(210, 16)
         Me.lbl_comoPaga.TabIndex = 687
@@ -297,7 +305,7 @@ Partial Class add_cobro
         '
         Me.chk_efectivo.AutoSize = True
         Me.chk_efectivo.Enabled = False
-        Me.chk_efectivo.Location = New System.Drawing.Point(23, 224)
+        Me.chk_efectivo.Location = New System.Drawing.Point(23, 228)
         Me.chk_efectivo.Name = "chk_efectivo"
         Me.chk_efectivo.Size = New System.Drawing.Size(65, 17)
         Me.chk_efectivo.TabIndex = 3
@@ -699,17 +707,42 @@ Partial Class add_cobro
         Me.chk_retenciones.Text = "Retenciones"
         Me.chk_retenciones.UseVisualStyleBackColor = True
         '
-        'tb_otros
+        'tb_nFC_importe
         '
-        Me.tb_otros.BackColor = System.Drawing.SystemColors.Control
-        Me.tb_otros.Controls.Add(Me.txt_aplicaFc)
-        Me.tb_otros.Controls.Add(Me.lbl_aplicaFc)
-        Me.tb_otros.Location = New System.Drawing.Point(4, 22)
-        Me.tb_otros.Name = "tb_otros"
-        Me.tb_otros.Padding = New System.Windows.Forms.Padding(3)
-        Me.tb_otros.Size = New System.Drawing.Size(576, 404)
-        Me.tb_otros.TabIndex = 1
-        Me.tb_otros.Text = "Otros"
+        Me.tb_nFC_importe.BackColor = System.Drawing.SystemColors.Control
+        Me.tb_nFC_importe.Controls.Add(Me.dg_view_nFC_importes)
+        Me.tb_nFC_importe.Controls.Add(Me.lbl_aplicaFc)
+        Me.tb_nFC_importe.Location = New System.Drawing.Point(4, 22)
+        Me.tb_nFC_importe.Name = "tb_nFC_importe"
+        Me.tb_nFC_importe.Padding = New System.Windows.Forms.Padding(3)
+        Me.tb_nFC_importe.Size = New System.Drawing.Size(576, 404)
+        Me.tb_nFC_importe.TabIndex = 1
+        Me.tb_nFC_importe.Text = "Nº FC / Importe"
+        '
+        'dg_view_nFC_importes
+        '
+        Me.dg_view_nFC_importes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dg_view_nFC_importes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.fecha, Me.factura, Me.importe})
+        Me.dg_view_nFC_importes.Enabled = False
+        Me.dg_view_nFC_importes.Location = New System.Drawing.Point(23, 47)
+        Me.dg_view_nFC_importes.Name = "dg_view_nFC_importes"
+        Me.dg_view_nFC_importes.Size = New System.Drawing.Size(514, 112)
+        Me.dg_view_nFC_importes.TabIndex = 675
+        '
+        'fecha
+        '
+        Me.fecha.HeaderText = "Fecha"
+        Me.fecha.Name = "fecha"
+        '
+        'factura
+        '
+        Me.factura.HeaderText = "Factura"
+        Me.factura.Name = "factura"
+        '
+        'importe
+        '
+        Me.importe.HeaderText = "Importe"
+        Me.importe.Name = "importe"
         '
         'tb_notas
         '
@@ -740,13 +773,13 @@ Partial Class add_cobro
         Me.lbl_notas.TabIndex = 676
         Me.lbl_notas.Text = "Notas"
         '
-        'TextBox1
+        'txt_firmante
         '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(88, 554)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(137, 20)
-        Me.TextBox1.TabIndex = 663
+        Me.txt_firmante.Location = New System.Drawing.Point(88, 554)
+        Me.txt_firmante.Name = "txt_firmante"
+        Me.txt_firmante.Size = New System.Drawing.Size(137, 20)
+        Me.txt_firmante.TabIndex = 663
+        Me.txt_firmante.Text = "Bruno Tolfo"
         '
         'lbl_firmante
         '
@@ -763,7 +796,7 @@ Partial Class add_cobro
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(645, 646)
         Me.Controls.Add(Me.lbl_firmante)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txt_firmante)
         Me.Controls.Add(Me.tbControl)
         Me.Controls.Add(Me.lbl_importePago)
         Me.Controls.Add(Me.lbl_pago)
@@ -790,8 +823,9 @@ Partial Class add_cobro
         Me.tb_retenciones.ResumeLayout(False)
         Me.tb_retenciones.PerformLayout()
         CType(Me.dg_viewRetencion, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tb_otros.ResumeLayout(False)
-        Me.tb_otros.PerformLayout()
+        Me.tb_nFC_importe.ResumeLayout(False)
+        Me.tb_nFC_importe.PerformLayout()
+        CType(Me.dg_view_nFC_importes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tb_notas.ResumeLayout(False)
         Me.tb_notas.PerformLayout()
         Me.ResumeLayout(False)
@@ -805,7 +839,6 @@ Partial Class add_cobro
     Friend WithEvents cmd_ok As Button
     Friend WithEvents lbl_importePago As Label
     Friend WithEvents lbl_pago As Label
-    Friend WithEvents txt_aplicaFc As TextBox
     Friend WithEvents lbl_aplicaFc As Label
     Friend WithEvents tbControl As TabControl
     Friend WithEvents tb_cobro As TabPage
@@ -814,8 +847,8 @@ Partial Class add_cobro
     Friend WithEvents pic_searchCCCliente As PictureBox
     Friend WithEvents lbl_ccc As Label
     Friend WithEvents txt_efectivo As TextBox
-    Friend WithEvents lbl_dineroCuenta As Label
-    Friend WithEvents lbl_dineroCuenta1 As Label
+    Friend WithEvents lbl_saldo As Label
+    Friend WithEvents lbl_saldo1 As Label
     Friend WithEvents lbl_comoPaga As Label
     Friend WithEvents chk_efectivo As CheckBox
     Friend WithEvents cmb_cliente As ComboBox
@@ -823,7 +856,7 @@ Partial Class add_cobro
     Friend WithEvents lbl_cliente As Label
     Friend WithEvents dtp_fechaCobro As DateTimePicker
     Friend WithEvents lbl_fechaCobro As Label
-    Friend WithEvents tb_otros As TabPage
+    Friend WithEvents tb_nFC_importe As TabPage
     Friend WithEvents tb_cheques As TabPage
     Friend WithEvents lbl_totalCh As Label
     Friend WithEvents lbl_totalCheques As Label
@@ -859,6 +892,11 @@ Partial Class add_cobro
     Friend WithEvents dg_viewRetencion As DataGridView
     Friend WithEvents cmd_addRetencion As Button
     Friend WithEvents chk_retenciones As CheckBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txt_firmante As TextBox
     Friend WithEvents lbl_firmante As Label
+    Friend WithEvents dg_view_nFC_importes As DataGridView
+    Friend WithEvents fecha As DataGridViewTextBoxColumn
+    Friend WithEvents factura As DataGridViewTextBoxColumn
+    Friend WithEvents importe As DataGridViewTextBoxColumn
+    Friend WithEvents chk_cobro_no_oficial As CheckBox
 End Class

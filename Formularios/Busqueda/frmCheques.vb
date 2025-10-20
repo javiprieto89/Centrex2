@@ -37,8 +37,11 @@
                         "FROM tmpSelCH AS tmpch " &
                         "INNER JOIN cheques AS ch ON tmpch.id_cheque = ch.id_cheque " &
                         "INNER JOIN bancos AS b ON ch.id_banco = b.id_banco " &
-                        "WHERE ch.id_cliente = '" + cl.id_cliente.ToString + "'"
-            cargar_datagrid(dg_view, sqlstr, basedb, , True)
+                        "WHERE ch.id_cliente = '" + cl.id_cliente.ToString + "' "
+            Dim nRegs As Integer = 0
+            Dim tPaginas As Integer = 0
+            Dim txtnPage As New TextBox()
+            cargar_datagrid(dg_view, sqlstr, basedb, 0, nRegs, tPaginas, 1, txtnPage, "cheques", "cheques")
 
             dg_view.ReadOnly = False
             dg_view.Columns("ID").ReadOnly = True

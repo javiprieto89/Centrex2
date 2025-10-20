@@ -128,5 +128,43 @@ Module ccProveedores
     End Function
 
 
+    Public Function consultaTotalCcProveedor(ByVal id_proveedor As Integer, ByVal fecha_desde As Date, ByVal fecha_hasta As Date) As String
+        Dim sqlstr As String = ""
+        Dim where As String = ""
+        Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
+        Dim dt As New DataTable 'Crear nuevo dataset
+
+        Try
+            'Crea y abre una nueva conexión
+            abrirdb(serversql, basedb, usuariodb, passdb)
+
+            sqlstr = "SELECT DISTINCT SUM(t.total) AS 'Total' " &
+                        "FROM transacciones As t " &
+                        "INNER JOIN tipos_comprobantes AS tc ON t.id_tipoComprobante = tc.id_tipoComprobante " &
+                        "WHERE t.fecha BETWEEN '" + fecha_desde.ToString("MM/dd/yyyy") + "' AND '" + fecha_hasta.ToString("MM/dd/yyyy") + "' " &
+                        "AND t.id_proveedor = " + id_proveedor.ToString + " " &
+                        "AND tc.contabilizar = 1"
+
+
+            'Propiedades del SqlCommand
+            Dim comando As New SqlCommand
+            With comando
+                .CommandType = CommandType.Text
+                .CommandText = sqlstr
+                .Connection = CN
+            End With
+
+            da.SelectCommand = comando
+
+            'llenar el dataset
+            da.Fill(dt)
+            Return dt.Rows(0).Item(0).ToString
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString)
+            Return ""
+        Finally
+            cerrardb()
+        End Try
+    End Function
     ' ************************************ FUNCIONES DE CUENTAS CORRIENTES DE PROVEEDORES **********************
 End Module

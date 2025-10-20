@@ -33,6 +33,13 @@ Partial Class frm_depositarCH
         Me.dg_view_chDepositados = New System.Windows.Forms.DataGridView()
         Me.cmd_filtrarCH_cartera = New System.Windows.Forms.Button()
         Me.group_chCartera = New System.Windows.Forms.GroupBox()
+        Me.gp_cartera = New System.Windows.Forms.GroupBox()
+        Me.lbl_desde_cartera = New System.Windows.Forms.Label()
+        Me.dtp_desde_cartera = New System.Windows.Forms.DateTimePicker()
+        Me.lbl_hasta_cartera = New System.Windows.Forms.Label()
+        Me.dtp_hasta_cartera = New System.Windows.Forms.DateTimePicker()
+        Me.chk_hastaSiempre_cartera = New System.Windows.Forms.CheckBox()
+        Me.chk_desdeSiempre_cartera = New System.Windows.Forms.CheckBox()
         Me.cmd_go_cartera = New System.Windows.Forms.Button()
         Me.txt_nPage_cartera = New System.Windows.Forms.TextBox()
         Me.cmd_last_cartera = New System.Windows.Forms.Button()
@@ -40,6 +47,13 @@ Partial Class frm_depositarCH
         Me.cmd_prev_cartera = New System.Windows.Forms.Button()
         Me.cmd_first_cartera = New System.Windows.Forms.Button()
         Me.group_chDepositados = New System.Windows.Forms.GroupBox()
+        Me.gp_depositado = New System.Windows.Forms.GroupBox()
+        Me.lbl_desde_depositado = New System.Windows.Forms.Label()
+        Me.chk_hastaSiempre_depositado = New System.Windows.Forms.CheckBox()
+        Me.dtp_hasta_depositado = New System.Windows.Forms.DateTimePicker()
+        Me.chk_desdeSiempre_depositado = New System.Windows.Forms.CheckBox()
+        Me.lbl_hasta_depositado = New System.Windows.Forms.Label()
+        Me.dtp_desde_depositado = New System.Windows.Forms.DateTimePicker()
         Me.cmb_cuentaBancaria = New System.Windows.Forms.ComboBox()
         Me.lbl_CuentaBancaria = New System.Windows.Forms.Label()
         Me.cmd_go_depositado = New System.Windows.Forms.Button()
@@ -48,32 +62,18 @@ Partial Class frm_depositarCH
         Me.cmd_next_depositado = New System.Windows.Forms.Button()
         Me.cmd_prev_depositado = New System.Windows.Forms.Button()
         Me.cmd_first_depositado = New System.Windows.Forms.Button()
-        Me.dtp_desde_depositado = New System.Windows.Forms.DateTimePicker()
         Me.cmd_filtrarCH_depositado = New System.Windows.Forms.Button()
         Me.txt_nCH_depositado = New System.Windows.Forms.TextBox()
-        Me.lbl_desde_depositado = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lbl_importeCH_depositado = New System.Windows.Forms.Label()
-        Me.lbl_hasta_depositado = New System.Windows.Forms.Label()
-        Me.chk_desdeSiempre_depositado = New System.Windows.Forms.CheckBox()
-        Me.dtp_hasta_depositado = New System.Windows.Forms.DateTimePicker()
         Me.txt_importeCH_depositado = New System.Windows.Forms.TextBox()
-        Me.chk_hastaSiempre_depositado = New System.Windows.Forms.CheckBox()
         Me.cmd_acreditar = New System.Windows.Forms.Button()
         Me.cmd_anularDeposito = New System.Windows.Forms.Button()
-        Me.gp_cartera = New System.Windows.Forms.GroupBox()
-        Me.lbl_desde_cartera = New System.Windows.Forms.Label()
-        Me.dtp_desde_cartera = New System.Windows.Forms.DateTimePicker()
-        Me.lbl_hasta_cartera = New System.Windows.Forms.Label()
-        Me.dtp_hasta_cartera = New System.Windows.Forms.DateTimePicker()
-        Me.chk_hastaSiempre_cartera = New System.Windows.Forms.CheckBox()
-        Me.chk_desdeSiempre_cartera = New System.Windows.Forms.CheckBox()
-        Me.gp_depositado = New System.Windows.Forms.GroupBox()
         CType(Me.dg_view_chCartera, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_view_chDepositados, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.group_chCartera.SuspendLayout()
-        Me.group_chDepositados.SuspendLayout()
         Me.gp_cartera.SuspendLayout()
+        Me.group_chDepositados.SuspendLayout()
         Me.gp_depositado.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -196,6 +196,73 @@ Partial Class frm_depositarCH
         Me.group_chCartera.TabStop = False
         Me.group_chCartera.Text = "Cheques en cartera"
         '
+        'gp_cartera
+        '
+        Me.gp_cartera.Controls.Add(Me.lbl_desde_cartera)
+        Me.gp_cartera.Controls.Add(Me.dtp_desde_cartera)
+        Me.gp_cartera.Controls.Add(Me.lbl_hasta_cartera)
+        Me.gp_cartera.Controls.Add(Me.dtp_hasta_cartera)
+        Me.gp_cartera.Controls.Add(Me.chk_hastaSiempre_cartera)
+        Me.gp_cartera.Controls.Add(Me.chk_desdeSiempre_cartera)
+        Me.gp_cartera.Location = New System.Drawing.Point(6, 30)
+        Me.gp_cartera.Name = "gp_cartera"
+        Me.gp_cartera.Size = New System.Drawing.Size(406, 117)
+        Me.gp_cartera.TabIndex = 145
+        Me.gp_cartera.TabStop = False
+        Me.gp_cartera.Text = "Fecha de cobro"
+        '
+        'lbl_desde_cartera
+        '
+        Me.lbl_desde_cartera.AutoSize = True
+        Me.lbl_desde_cartera.Location = New System.Drawing.Point(55, 27)
+        Me.lbl_desde_cartera.Name = "lbl_desde_cartera"
+        Me.lbl_desde_cartera.Size = New System.Drawing.Size(38, 13)
+        Me.lbl_desde_cartera.TabIndex = 130
+        Me.lbl_desde_cartera.Text = "Desde"
+        '
+        'dtp_desde_cartera
+        '
+        Me.dtp_desde_cartera.Enabled = False
+        Me.dtp_desde_cartera.Location = New System.Drawing.Point(122, 26)
+        Me.dtp_desde_cartera.Name = "dtp_desde_cartera"
+        Me.dtp_desde_cartera.Size = New System.Drawing.Size(263, 20)
+        Me.dtp_desde_cartera.TabIndex = 129
+        '
+        'lbl_hasta_cartera
+        '
+        Me.lbl_hasta_cartera.AutoSize = True
+        Me.lbl_hasta_cartera.Location = New System.Drawing.Point(55, 79)
+        Me.lbl_hasta_cartera.Name = "lbl_hasta_cartera"
+        Me.lbl_hasta_cartera.Size = New System.Drawing.Size(35, 13)
+        Me.lbl_hasta_cartera.TabIndex = 132
+        Me.lbl_hasta_cartera.Text = "Hasta"
+        '
+        'dtp_hasta_cartera
+        '
+        Me.dtp_hasta_cartera.Enabled = False
+        Me.dtp_hasta_cartera.Location = New System.Drawing.Point(122, 78)
+        Me.dtp_hasta_cartera.Name = "dtp_hasta_cartera"
+        Me.dtp_hasta_cartera.Size = New System.Drawing.Size(263, 20)
+        Me.dtp_hasta_cartera.TabIndex = 131
+        '
+        'chk_hastaSiempre_cartera
+        '
+        Me.chk_hastaSiempre_cartera.AutoSize = True
+        Me.chk_hastaSiempre_cartera.Location = New System.Drawing.Point(13, 76)
+        Me.chk_hastaSiempre_cartera.Name = "chk_hastaSiempre_cartera"
+        Me.chk_hastaSiempre_cartera.Size = New System.Drawing.Size(15, 14)
+        Me.chk_hastaSiempre_cartera.TabIndex = 133
+        Me.chk_hastaSiempre_cartera.UseVisualStyleBackColor = True
+        '
+        'chk_desdeSiempre_cartera
+        '
+        Me.chk_desdeSiempre_cartera.AutoSize = True
+        Me.chk_desdeSiempre_cartera.Location = New System.Drawing.Point(13, 26)
+        Me.chk_desdeSiempre_cartera.Name = "chk_desdeSiempre_cartera"
+        Me.chk_desdeSiempre_cartera.Size = New System.Drawing.Size(15, 14)
+        Me.chk_desdeSiempre_cartera.TabIndex = 134
+        Me.chk_desdeSiempre_cartera.UseVisualStyleBackColor = True
+        '
         'cmd_go_cartera
         '
         Me.cmd_go_cartera.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -280,6 +347,73 @@ Partial Class frm_depositarCH
         Me.group_chDepositados.TabStop = False
         Me.group_chDepositados.Text = "Cheques depositados"
         '
+        'gp_depositado
+        '
+        Me.gp_depositado.Controls.Add(Me.lbl_desde_depositado)
+        Me.gp_depositado.Controls.Add(Me.chk_hastaSiempre_depositado)
+        Me.gp_depositado.Controls.Add(Me.dtp_hasta_depositado)
+        Me.gp_depositado.Controls.Add(Me.chk_desdeSiempre_depositado)
+        Me.gp_depositado.Controls.Add(Me.lbl_hasta_depositado)
+        Me.gp_depositado.Controls.Add(Me.dtp_desde_depositado)
+        Me.gp_depositado.Location = New System.Drawing.Point(4, 108)
+        Me.gp_depositado.Name = "gp_depositado"
+        Me.gp_depositado.Size = New System.Drawing.Size(412, 109)
+        Me.gp_depositado.TabIndex = 143
+        Me.gp_depositado.TabStop = False
+        Me.gp_depositado.Text = "Fecha de depósito"
+        '
+        'lbl_desde_depositado
+        '
+        Me.lbl_desde_depositado.AutoSize = True
+        Me.lbl_desde_depositado.Location = New System.Drawing.Point(56, 30)
+        Me.lbl_desde_depositado.Name = "lbl_desde_depositado"
+        Me.lbl_desde_depositado.Size = New System.Drawing.Size(38, 13)
+        Me.lbl_desde_depositado.TabIndex = 146
+        Me.lbl_desde_depositado.Text = "Desde"
+        '
+        'chk_hastaSiempre_depositado
+        '
+        Me.chk_hastaSiempre_depositado.AutoSize = True
+        Me.chk_hastaSiempre_depositado.Location = New System.Drawing.Point(28, 67)
+        Me.chk_hastaSiempre_depositado.Name = "chk_hastaSiempre_depositado"
+        Me.chk_hastaSiempre_depositado.Size = New System.Drawing.Size(15, 14)
+        Me.chk_hastaSiempre_depositado.TabIndex = 149
+        Me.chk_hastaSiempre_depositado.UseVisualStyleBackColor = True
+        '
+        'dtp_hasta_depositado
+        '
+        Me.dtp_hasta_depositado.Enabled = False
+        Me.dtp_hasta_depositado.Location = New System.Drawing.Point(137, 70)
+        Me.dtp_hasta_depositado.Name = "dtp_hasta_depositado"
+        Me.dtp_hasta_depositado.Size = New System.Drawing.Size(263, 20)
+        Me.dtp_hasta_depositado.TabIndex = 147
+        '
+        'chk_desdeSiempre_depositado
+        '
+        Me.chk_desdeSiempre_depositado.AutoSize = True
+        Me.chk_desdeSiempre_depositado.Location = New System.Drawing.Point(28, 29)
+        Me.chk_desdeSiempre_depositado.Name = "chk_desdeSiempre_depositado"
+        Me.chk_desdeSiempre_depositado.Size = New System.Drawing.Size(15, 14)
+        Me.chk_desdeSiempre_depositado.TabIndex = 150
+        Me.chk_desdeSiempre_depositado.UseVisualStyleBackColor = True
+        '
+        'lbl_hasta_depositado
+        '
+        Me.lbl_hasta_depositado.AutoSize = True
+        Me.lbl_hasta_depositado.Location = New System.Drawing.Point(62, 70)
+        Me.lbl_hasta_depositado.Name = "lbl_hasta_depositado"
+        Me.lbl_hasta_depositado.Size = New System.Drawing.Size(35, 13)
+        Me.lbl_hasta_depositado.TabIndex = 148
+        Me.lbl_hasta_depositado.Text = "Hasta"
+        '
+        'dtp_desde_depositado
+        '
+        Me.dtp_desde_depositado.Enabled = False
+        Me.dtp_desde_depositado.Location = New System.Drawing.Point(137, 29)
+        Me.dtp_desde_depositado.Name = "dtp_desde_depositado"
+        Me.dtp_desde_depositado.Size = New System.Drawing.Size(263, 20)
+        Me.dtp_desde_depositado.TabIndex = 145
+        '
         'cmb_cuentaBancaria
         '
         Me.cmb_cuentaBancaria.FormattingEnabled = True
@@ -355,14 +489,6 @@ Partial Class frm_depositarCH
         Me.cmd_first_depositado.Text = "|<<"
         Me.cmd_first_depositado.UseVisualStyleBackColor = True
         '
-        'dtp_desde_depositado
-        '
-        Me.dtp_desde_depositado.Enabled = False
-        Me.dtp_desde_depositado.Location = New System.Drawing.Point(137, 29)
-        Me.dtp_desde_depositado.Name = "dtp_desde_depositado"
-        Me.dtp_desde_depositado.Size = New System.Drawing.Size(263, 20)
-        Me.dtp_desde_depositado.TabIndex = 145
-        '
         'cmd_filtrarCH_depositado
         '
         Me.cmd_filtrarCH_depositado.Location = New System.Drawing.Point(15, 312)
@@ -378,15 +504,6 @@ Partial Class frm_depositarCH
         Me.txt_nCH_depositado.Name = "txt_nCH_depositado"
         Me.txt_nCH_depositado.Size = New System.Drawing.Size(263, 20)
         Me.txt_nCH_depositado.TabIndex = 152
-        '
-        'lbl_desde_depositado
-        '
-        Me.lbl_desde_depositado.AutoSize = True
-        Me.lbl_desde_depositado.Location = New System.Drawing.Point(56, 30)
-        Me.lbl_desde_depositado.Name = "lbl_desde_depositado"
-        Me.lbl_desde_depositado.Size = New System.Drawing.Size(38, 13)
-        Me.lbl_desde_depositado.TabIndex = 146
-        Me.lbl_desde_depositado.Text = "Desde"
         '
         'Label4
         '
@@ -406,47 +523,12 @@ Partial Class frm_depositarCH
         Me.lbl_importeCH_depositado.TabIndex = 153
         Me.lbl_importeCH_depositado.Text = "Importe del cheque"
         '
-        'lbl_hasta_depositado
-        '
-        Me.lbl_hasta_depositado.AutoSize = True
-        Me.lbl_hasta_depositado.Location = New System.Drawing.Point(62, 70)
-        Me.lbl_hasta_depositado.Name = "lbl_hasta_depositado"
-        Me.lbl_hasta_depositado.Size = New System.Drawing.Size(35, 13)
-        Me.lbl_hasta_depositado.TabIndex = 148
-        Me.lbl_hasta_depositado.Text = "Hasta"
-        '
-        'chk_desdeSiempre_depositado
-        '
-        Me.chk_desdeSiempre_depositado.AutoSize = True
-        Me.chk_desdeSiempre_depositado.Location = New System.Drawing.Point(28, 29)
-        Me.chk_desdeSiempre_depositado.Name = "chk_desdeSiempre_depositado"
-        Me.chk_desdeSiempre_depositado.Size = New System.Drawing.Size(15, 14)
-        Me.chk_desdeSiempre_depositado.TabIndex = 150
-        Me.chk_desdeSiempre_depositado.UseVisualStyleBackColor = True
-        '
-        'dtp_hasta_depositado
-        '
-        Me.dtp_hasta_depositado.Enabled = False
-        Me.dtp_hasta_depositado.Location = New System.Drawing.Point(137, 70)
-        Me.dtp_hasta_depositado.Name = "dtp_hasta_depositado"
-        Me.dtp_hasta_depositado.Size = New System.Drawing.Size(263, 20)
-        Me.dtp_hasta_depositado.TabIndex = 147
-        '
         'txt_importeCH_depositado
         '
         Me.txt_importeCH_depositado.Location = New System.Drawing.Point(141, 273)
         Me.txt_importeCH_depositado.Name = "txt_importeCH_depositado"
         Me.txt_importeCH_depositado.Size = New System.Drawing.Size(263, 20)
         Me.txt_importeCH_depositado.TabIndex = 154
-        '
-        'chk_hastaSiempre_depositado
-        '
-        Me.chk_hastaSiempre_depositado.AutoSize = True
-        Me.chk_hastaSiempre_depositado.Location = New System.Drawing.Point(28, 67)
-        Me.chk_hastaSiempre_depositado.Name = "chk_hastaSiempre_depositado"
-        Me.chk_hastaSiempre_depositado.Size = New System.Drawing.Size(15, 14)
-        Me.chk_hastaSiempre_depositado.TabIndex = 149
-        Me.chk_hastaSiempre_depositado.UseVisualStyleBackColor = True
         '
         'cmd_acreditar
         '
@@ -466,88 +548,6 @@ Partial Class frm_depositarCH
         Me.cmd_anularDeposito.Text = "Anular depósito"
         Me.cmd_anularDeposito.UseVisualStyleBackColor = True
         '
-        'gp_cartera
-        '
-        Me.gp_cartera.Controls.Add(Me.lbl_desde_cartera)
-        Me.gp_cartera.Controls.Add(Me.dtp_desde_cartera)
-        Me.gp_cartera.Controls.Add(Me.lbl_hasta_cartera)
-        Me.gp_cartera.Controls.Add(Me.dtp_hasta_cartera)
-        Me.gp_cartera.Controls.Add(Me.chk_hastaSiempre_cartera)
-        Me.gp_cartera.Controls.Add(Me.chk_desdeSiempre_cartera)
-        Me.gp_cartera.Location = New System.Drawing.Point(6, 30)
-        Me.gp_cartera.Name = "gp_cartera"
-        Me.gp_cartera.Size = New System.Drawing.Size(406, 117)
-        Me.gp_cartera.TabIndex = 145
-        Me.gp_cartera.TabStop = False
-        Me.gp_cartera.Text = "Fecha de cobro"
-        '
-        'lbl_desde_cartera
-        '
-        Me.lbl_desde_cartera.AutoSize = True
-        Me.lbl_desde_cartera.Location = New System.Drawing.Point(55, 27)
-        Me.lbl_desde_cartera.Name = "lbl_desde_cartera"
-        Me.lbl_desde_cartera.Size = New System.Drawing.Size(38, 13)
-        Me.lbl_desde_cartera.TabIndex = 130
-        Me.lbl_desde_cartera.Text = "Desde"
-        '
-        'dtp_desde_cartera
-        '
-        Me.dtp_desde_cartera.Enabled = False
-        Me.dtp_desde_cartera.Location = New System.Drawing.Point(122, 26)
-        Me.dtp_desde_cartera.Name = "dtp_desde_cartera"
-        Me.dtp_desde_cartera.Size = New System.Drawing.Size(263, 20)
-        Me.dtp_desde_cartera.TabIndex = 129
-        '
-        'lbl_hasta_cartera
-        '
-        Me.lbl_hasta_cartera.AutoSize = True
-        Me.lbl_hasta_cartera.Location = New System.Drawing.Point(55, 79)
-        Me.lbl_hasta_cartera.Name = "lbl_hasta_cartera"
-        Me.lbl_hasta_cartera.Size = New System.Drawing.Size(35, 13)
-        Me.lbl_hasta_cartera.TabIndex = 132
-        Me.lbl_hasta_cartera.Text = "Hasta"
-        '
-        'dtp_hasta_cartera
-        '
-        Me.dtp_hasta_cartera.Enabled = False
-        Me.dtp_hasta_cartera.Location = New System.Drawing.Point(122, 78)
-        Me.dtp_hasta_cartera.Name = "dtp_hasta_cartera"
-        Me.dtp_hasta_cartera.Size = New System.Drawing.Size(263, 20)
-        Me.dtp_hasta_cartera.TabIndex = 131
-        '
-        'chk_hastaSiempre_cartera
-        '
-        Me.chk_hastaSiempre_cartera.AutoSize = True
-        Me.chk_hastaSiempre_cartera.Location = New System.Drawing.Point(13, 76)
-        Me.chk_hastaSiempre_cartera.Name = "chk_hastaSiempre_cartera"
-        Me.chk_hastaSiempre_cartera.Size = New System.Drawing.Size(15, 14)
-        Me.chk_hastaSiempre_cartera.TabIndex = 133
-        Me.chk_hastaSiempre_cartera.UseVisualStyleBackColor = True
-        '
-        'chk_desdeSiempre_cartera
-        '
-        Me.chk_desdeSiempre_cartera.AutoSize = True
-        Me.chk_desdeSiempre_cartera.Location = New System.Drawing.Point(13, 26)
-        Me.chk_desdeSiempre_cartera.Name = "chk_desdeSiempre_cartera"
-        Me.chk_desdeSiempre_cartera.Size = New System.Drawing.Size(15, 14)
-        Me.chk_desdeSiempre_cartera.TabIndex = 134
-        Me.chk_desdeSiempre_cartera.UseVisualStyleBackColor = True
-        '
-        'gp_depositado
-        '
-        Me.gp_depositado.Controls.Add(Me.lbl_desde_depositado)
-        Me.gp_depositado.Controls.Add(Me.chk_hastaSiempre_depositado)
-        Me.gp_depositado.Controls.Add(Me.dtp_hasta_depositado)
-        Me.gp_depositado.Controls.Add(Me.chk_desdeSiempre_depositado)
-        Me.gp_depositado.Controls.Add(Me.lbl_hasta_depositado)
-        Me.gp_depositado.Controls.Add(Me.dtp_desde_depositado)
-        Me.gp_depositado.Location = New System.Drawing.Point(4, 108)
-        Me.gp_depositado.Name = "gp_depositado"
-        Me.gp_depositado.Size = New System.Drawing.Size(412, 109)
-        Me.gp_depositado.TabIndex = 143
-        Me.gp_depositado.TabStop = False
-        Me.gp_depositado.Text = "Fecha de depósito"
-        '
         'frm_depositarCH
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -565,10 +565,10 @@ Partial Class frm_depositarCH
         CType(Me.dg_view_chDepositados, System.ComponentModel.ISupportInitialize).EndInit()
         Me.group_chCartera.ResumeLayout(False)
         Me.group_chCartera.PerformLayout()
-        Me.group_chDepositados.ResumeLayout(False)
-        Me.group_chDepositados.PerformLayout()
         Me.gp_cartera.ResumeLayout(False)
         Me.gp_cartera.PerformLayout()
+        Me.group_chDepositados.ResumeLayout(False)
+        Me.group_chDepositados.PerformLayout()
         Me.gp_depositado.ResumeLayout(False)
         Me.gp_depositado.PerformLayout()
         Me.ResumeLayout(False)

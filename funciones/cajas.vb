@@ -53,9 +53,7 @@ Module cajas
         Try
             sqlstr = "INSERT INTO cajas (nombre, esCC, activo) VALUES ('" + c.nombre + "', '" + c.esCC.ToString + "', '" + c.activo.ToString + "')"
 
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -85,9 +83,7 @@ Module cajas
                                                "' WHERE id_caja = '" + c.id_caja.ToString + "'"
             End If
 
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -112,8 +108,7 @@ Module cajas
         Try
             sqlstr = "DELETE FROM cajas WHERE id_caja = '" + c.id_caja.ToString + "'"
 
-            Comando = New SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()

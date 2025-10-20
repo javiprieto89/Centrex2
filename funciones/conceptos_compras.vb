@@ -55,9 +55,7 @@ Module conceptos_compra
         Try
             sqlstr = "INSERT INTO conceptos_compra (concepto, activo) VALUES ('" +
                         concepto.concepto + "', '" + concepto.activo.ToString + "')"
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -86,9 +84,7 @@ Module conceptos_compra
                 sqlstr = "UPDATE conceptos_compra SET concepto = '" + concepto.concepto + "', activo = '" + concepto.activo.ToString +
                             "' WHERE id_concepto_compra = '" + concepto.id_concepto_compra.ToString + "'"
             End If
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -112,8 +108,7 @@ Module conceptos_compra
 
         Try
             sqlstr = "DELETE FROM conceptos_compra WHERE id_concepto_compra = '" + concepto.id_concepto_compra.ToString + "'"
-            Comando = New SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()

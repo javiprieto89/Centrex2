@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.InteropServices ' required imports
 
 Module mod_Gen
+    Public pc As String
     Public serversql As String
     Public basedb As String
     Public usuariodb As String
@@ -12,8 +13,8 @@ Module mod_Gen
     Public sepDecimal As Char
     Public sepdec As Char
     Public showrpt As Boolean
-    Public modificacionesDB As Boolean
     Public itXPage As Integer
+    Public modificacionesDB As Boolean
 
     Public edicion As Boolean
     Public edicion_item_registro_stock As Boolean
@@ -32,18 +33,18 @@ Module mod_Gen
     Public activo As Boolean = True
     Public editaStock As Boolean = False
 
-    Public edita_cliente As New cliente
+    Public edita_cliente As New ClienteEntity
     Public edita_ccCliente As New ccCliente
     Public edita_ccProveedor As New ccProveedor
     Public edita_marcai As New marca_item
     Public edita_condicion_venta As New condicion_venta
     Public edita_condicion_compra As New condicion_compra
     Public edita_concepto_compra As New concepto_compra
-    Public edita_item As New item
-    Public edita_comprobante As New comprobante
-    Public edita_proveedor As New proveedor
-    Public edita_tipoitem As New tipoitem
-    Public edita_pedido As New pedido
+    Public edita_item As New ItemEntity
+    Public edita_comprobante As New ComprobanteEntity
+    Public edita_proveedor As New ProveedorEntity
+    Public edita_tipoitem As New TipoItemEntity
+    Public edita_pedido As New PedidoEntity
     Public edita_registro_stock As New registro_stock
     Public edita_item_registro_stock As New registro_stock
     Public edita_consulta As New consultaP
@@ -58,6 +59,12 @@ Module mod_Gen
     Public edita_transferencia As New transferencia
     Public edita_cobroRetencion As New cobroRetencion
     Public edita_cheque As New cheque
+    Public edita_perfil As New perfil
+    Public edita_permiso As New permiso
+    Public edita_usuario As New usuario
+    Public edita_permiso_perfil As New perfil_permiso
+    Public edita_perfil_usuario As New usuario_perfil
+
 
     Public busca_cliente As New cliente
     Public busca_marcai As New marca_item
@@ -68,6 +75,9 @@ Module mod_Gen
     Public secuencia As Boolean = False
 
     Public intInputBoxCancel As Integer                    ' public variable
+    Public STR_COMPROBANTES_CONTABLES As String
+
+    Public usuario_logueado As usuario
 
 
     Public Function StrPtr(ByVal obj As Object) As Integer

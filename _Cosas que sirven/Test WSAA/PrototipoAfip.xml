@@ -1,0 +1,1760 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+PrototipoAfip
+</name>
+</assembly>
+<members>
+<member name="T:PrototipoAfip.My.Resources.Resources">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:PrototipoAfip.My.Resources.Resources.ResourceManager">
+<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member>
+<member name="P:PrototipoAfip.My.Resources.Resources.Culture">
+<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member>
+<member name="P:PrototipoAfip.DetalleFactura.Subtotal">
+ <summary>
+ SubTotal de Precios sin IVA
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:PrototipoAfip.DetalleFactura.SubTotalConIva">
+ <summary>
+ SubTotal del IVA + Precio Total
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:PrototipoAfip.DetalleFactura.getIvaUnitario">
+ <summary>
+ Valor de IVA por unidad
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:PrototipoAfip.DetalleFactura.getSubTotalIva">
+ <summary>
+ SubTotal del Iva Unicamente
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:PrototipoAfip.Factura.SubTotalPreDescuento">
+ <summary>
+ Sumarizacion de los subtotales (cantidad + pUnitario) sin iva ni descuentos
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:PrototipoAfip.Factura.Descuento">
+ <summary>
+ Valor Positivo que se substrae del neto
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:PrototipoAfip.Factura.SubTotalNeto">
+ <summary>
+ SubTotalPreDescuento incluido el descuento
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:PrototipoAfip.WSAA.LoginCMSService">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSAA.LoginCMSService.#ctor">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSAA.LoginCMSService.loginCmsCompleted">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSAA.LoginCMSService.loginCms(System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSAA.LoginCMSService.loginCmsAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSAA.LoginCMSService.loginCmsAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSAA.LoginCMSService.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSAA.loginCmsCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSAA.loginCmsCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSAA.loginCmsCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Service">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.#ctor">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAESolicitarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECompTotXRequestCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEDummyCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECompUltimoAutorizadoCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECompConsultarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAEARegInformativoCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAEASolicitarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoConsultarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoInformarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FECAEAConsultarCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetCotizacionCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposTributosCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposMonedasCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposIvaCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposOpcionalCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposConceptoCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetPtosVentaCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposCbteCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposDocCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposPaisesCompleted">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAESolicitar(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAERequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAESolicitarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAERequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAESolicitarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAERequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompTotXRequest(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompTotXRequestAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompTotXRequestAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEDummy">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEDummyAsync">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEDummyAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompUltimoAutorizado(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompUltimoAutorizadoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompUltimoAutorizadoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompConsultar(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECompConsultaReq)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECompConsultaReq)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECompConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECompConsultaReq,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEARegInformativo(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAEARequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEARegInformativoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAEARequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEARegInformativoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,PrototipoAfip.WSFEHOMO.FECAEARequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASolicitar(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASolicitarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASolicitarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoConsultar(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoInformar(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoInformarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEASinMovimientoInformarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEAConsultar(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEAConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FECAEAConsultarAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Int32,System.Int16,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetCotizacion(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetCotizacionAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetCotizacionAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposTributos(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposTributosAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposTributosAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposMonedas(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposMonedasAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposMonedasAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposIva(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposIvaAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposIvaAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposOpcional(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposOpcionalAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposOpcionalAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposConcepto(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposConceptoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposConceptoAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetPtosVenta(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetPtosVentaAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetPtosVentaAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposCbte(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposCbteAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposCbteAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposDoc(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposDocAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposDocAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposPaises(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposPaisesAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.FEParamGetTiposPaisesAsync(PrototipoAfip.WSFEHOMO.FEAuthRequest,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSFEHOMO.Service.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEAuthRequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEAuthRequest.Token">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEAuthRequest.Sign">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEAuthRequest.Cuit">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.PaisTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PaisTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PaisTipo.Desc">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEPaisResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPaisResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPaisResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPaisResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Err">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Err.Code">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Err.Msg">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Evt">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Evt.Code">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Evt.Msg">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.DocTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.DocTipoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DocTipoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.CbteTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.CbteTipoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteTipoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.PtoVenta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PtoVenta.Nro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PtoVenta.EmisionTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PtoVenta.Bloqueado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.PtoVenta.FchBaja">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEPtoVentaResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPtoVentaResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPtoVentaResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEPtoVentaResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.ConceptoTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.ConceptoTipoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.ConceptoTipoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.OpcionalTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.OpcionalTipoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.OpcionalTipoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.IvaTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.IvaTipoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.IvaTipoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Moneda">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Moneda.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Moneda.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Moneda.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Moneda.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.MonedaResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.MonedaResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.MonedaResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.MonedaResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.TributoTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.TributoTipo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.TributoTipo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.TributoTipo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.TributoTipo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FETributoResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FETributoResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FETributoResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FETributoResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Cotizacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Cotizacion.MonId">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Cotizacion.MonCotiz">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Cotizacion.FchCotiz">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECotizacionResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECotizacionResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECotizacionResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECotizacionResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMov">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMov.CAEA">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMov.FchProceso">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMov.PtoVta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovResponse.Resultado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovConsResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovConsResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovConsResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovConsResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEAGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.CAEA">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.Periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.Orden">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.FchVigDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.FchVigHasta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.FchTopeInf">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.FchProceso">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGet.Observaciones">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Obs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Obs.Code">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Obs.Msg">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEAGetResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGetResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGetResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAGetResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEAResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAResponse.FeCabResp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAResponse.FeDetResp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAResponse.Events">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAResponse.Errors">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEACabResponse">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECabResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.Cuit">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.PtoVta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.CbteTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.FchProceso">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.CantReg">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.Resultado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabResponse.Reproceso">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAECabResponse">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEADetResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEADetResponse.CAEA">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEDetResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.Concepto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.DocTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.DocNro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.CbteDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.CbteHasta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.CbteFch">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.Resultado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetResponse.Observaciones">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEDetResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEDetResponse.CAE">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEDetResponse.CAEFchVto">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEARequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEARequest.FeCabReq">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEARequest.FeDetReq">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEACabRequest">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECabRequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabRequest.CantReg">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabRequest.PtoVta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECabRequest.CbteTipo">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAECabRequest">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEADetRequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEADetRequest.CAEA">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEADetRequest.CbteFchHsGen">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEDetRequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.Concepto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.DocTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.DocNro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.CbteDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.CbteHasta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.CbteFch">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpTotal">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpTotConc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpNeto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpOpEx">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpTrib">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.ImpIVA">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.FchServDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.FchServHasta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.FchVtoPago">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.MonId">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.MonCotiz">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.CbtesAsoc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.Tributos">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.Iva">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.Opcionales">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.Compradores">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDetRequest.PeriodoAsoc">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.CbteAsoc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteAsoc.Tipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteAsoc.PtoVta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteAsoc.Nro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteAsoc.Cuit">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.CbteAsoc.CbteFch">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Tributo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Tributo.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Tributo.Desc">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Tributo.BaseImp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Tributo.Alic">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Tributo.Importe">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.AlicIva">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.AlicIva.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.AlicIva.BaseImp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.AlicIva.Importe">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Opcional">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Opcional.Id">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Opcional.Valor">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Comprador">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Comprador.DocTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Comprador.DocNro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Comprador.Porcentaje">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.Periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Periodo.FchDesde">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.Periodo.FchHasta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEDetRequest">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompConsResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.Resultado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.CodAutorizacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.EmisionTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.FchVto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.FchProceso">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.Observaciones">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.PtoVta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsResponse.CbteTipo">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompConsultaResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaResponse.ResultGet">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompConsultaReq">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaReq.CbteTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaReq.CbteNro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultaReq.PtoVta">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse.PtoVta">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse.CbteTipo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse.CbteNro">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERecuperaLastCbteResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.DummyResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DummyResponse.AppServer">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DummyResponse.DbServer">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.DummyResponse.AuthServer">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FERegXReqResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERegXReqResponse.RegXReq">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERegXReqResponse.Errors">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FERegXReqResponse.Events">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEResponse">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEResponse.FeCabResp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEResponse.FeDetResp">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEResponse.Events">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEResponse.Errors">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAERequest">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAERequest.FeCabReq">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAERequest.FeDetReq">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAESolicitarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAESolicitarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAESolicitarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompTotXRequestCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompTotXRequestCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompTotXRequestCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEDummyCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEDummyCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEDummyCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompUltimoAutorizadoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompUltimoAutorizadoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompUltimoAutorizadoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompConsultarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECompConsultarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECompConsultarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEARegInformativoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEARegInformativoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEARegInformativoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASolicitarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASolicitarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASolicitarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoConsultarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoConsultarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoConsultarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoInformarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoInformarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEASinMovimientoInformarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEAConsultarCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FECAEAConsultarCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FECAEAConsultarCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetCotizacionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetCotizacionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetCotizacionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposTributosCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposTributosCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposTributosCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposMonedasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposMonedasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposMonedasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposIvaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposIvaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposIvaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposOpcionalCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposOpcionalCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposOpcionalCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposConceptoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposConceptoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposConceptoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetPtosVentaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetPtosVentaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetPtosVentaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposCbteCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposCbteCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposCbteCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposDocCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposDocCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposDocCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposPaisesCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSFEHOMO.FEParamGetTiposPaisesCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSFEHOMO.FEParamGetTiposPaisesCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.PersonaServiceA4">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.#ctor">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSPSA4.PersonaServiceA4.dummyCompleted">
+<remarks/>
+</member>
+<member name="E:PrototipoAfip.WSPSA4.PersonaServiceA4.getPersonaCompleted">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.dummy">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.dummyAsync">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.dummyAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.getPersona(System.String,System.String,System.Int64,System.Int64)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.getPersonaAsync(System.String,System.String,System.Int64,System.Int64)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.getPersonaAsync(System.String,System.String,System.Int64,System.Int64,System.Object)">
+<remarks/>
+</member>
+<member name="M:PrototipoAfip.WSPSA4.PersonaServiceA4.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.dummyReturn">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dummyReturn.appserver">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dummyReturn.authserver">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dummyReturn.dbserver">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.telefono">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.telefono.numero">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.telefono.numeroSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.telefono.tipoLinea">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.telefono.tipoTelefono">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.relacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.ffRelacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.ffRelacionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.ffVencimiento">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.ffVencimientoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.idPersona">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.idPersonaSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.idPersonaAsociada">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.idPersonaAsociadaSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.subtipoRelacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.relacion.tipoRelacion">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.regimen">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.descripcionRegimen">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.diaPeriodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.diaPeriodoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.estado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.idImpuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.idImpuestoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.idRegimen">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.idRegimenSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.periodoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.regimen.tipoRegimen">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.impuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.descripcionImpuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.diaPeriodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.diaPeriodoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.estado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.ffInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.ffInscripcionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.idImpuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.idImpuestoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.impuesto.periodoSpecified">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.email">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.email.direccion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.email.estado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.email.tipoEmail">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.domicilio">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.codPostal">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.datoAdicional">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.descripcionProvincia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.direccion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.idProvincia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.idProvinciaSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.localidad">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.tipoDatoAdicional">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.domicilio.tipoDomicilio">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.dependencia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dependencia.descripcionDependencia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dependencia.idDependencia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dependencia.idDependenciaSpecified">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.categoria">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.descripcionCategoria">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.estado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.idCategoria">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.idCategoriaSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.idImpuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.idImpuestoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.categoria.periodoSpecified">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.actividad">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.descripcionActividad">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.idActividad">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.idActividadSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.nomenclador">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.nomencladorSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.orden">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.ordenSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.periodo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.actividad.periodoSpecified">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.persona">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.actividad">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.apellido">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.cantidadSociosEmpresaMono">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.cantidadSociosEmpresaMonoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.categoria">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.claveInactivaAsociada">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.dependencia">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.domicilio">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.email">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.estadoClave">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaContratoSocial">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaContratoSocialSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaFallecimiento">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaFallecimientoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaInscripcionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaJubilado">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaJubiladoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaNacimiento">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaNacimientoSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaVencimientoMigracion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.fechaVencimientoMigracionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.formaJuridica">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.idPersona">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.idPersonaSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.impuesto">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.leyJubilacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.leyJubilacionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.localidadInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.mesCierre">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.mesCierreSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.nombre">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.numeroDocumento">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.numeroInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.numeroInscripcionSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.organismoInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.organismoOriginante">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.porcentajeCapitalNacional">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.porcentajeCapitalNacionalSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.provinciaInscripcion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.razonSocial">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.regimen">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.relacion">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.sexo">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.telefono">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.tipoClave">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.tipoDocumento">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.tipoOrganismoOriginante">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.tipoPersona">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.persona.tipoResidencia">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.metadata">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.metadata.fechaHora">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.metadata.fechaHoraSpecified">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.metadata.servidor">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.personaReturn">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.personaReturn.metadata">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.personaReturn.persona">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.dummyCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.dummyCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.dummyCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.getPersonaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:PrototipoAfip.WSPSA4.getPersonaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:PrototipoAfip.WSPSA4.getPersonaCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

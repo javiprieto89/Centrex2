@@ -81,6 +81,8 @@ Module pagos
                     .AddWithValue("id_anulaPago", p.id_anulaPago)
                     If p.notas Is Nothing Then p.notas = ""
                     .AddWithValue("notas", p.notas)
+                    'If p.aplicaFc Is Nothing Then p.aplicaFc = ""
+                    '.AddWithValue("aplicaFC", p.aplicaFc)
                     .Add(New SqlParameter("@resultado", SqlDbType.Int)).Direction = ParameterDirection.Output
                 End With
                 .Connection = CN
@@ -98,7 +100,7 @@ Module pagos
         End Try
     End Function
 
-    Public Function borrarpago(ByVal p As pago) As Boolean
+    Public Function Anula_Pago(ByVal p As pago) As Boolean
         abrirdb(serversql, basedb, usuariodb, passdb)
         Dim ap As New pago
         Dim cc As New ccProveedor
@@ -111,10 +113,11 @@ Module pagos
             .totalch = .totalch * -1
             .total = .total * -1
             .id_anulaPago = p.id_pago
-            .notas += vbCr + "Anula pago: " + .id_pago.ToString
+            .notas += vbCr + "ANULA PAGO: " + .id_pago.ToString
+            '.aplicaFc = p.aplicaFc
         End With
 
-        'Agrego un cobro exactamente al revez, referenciando al cobro original
+        'Agrego un pago exactamente al revez, referenciando al cobro original
         ap.id_pago = addpago(ap)
 
         If ap.id_pago Then
@@ -183,6 +186,90 @@ Module pagos
             MsgBox(ex.Message.ToString)
             cerrardb()
             Return False
+        End Try
+    End Function
+
+    Public Function guardar_pagos_facturas_importes(ByVal id_pago As Integer, ByVal dg As DataGridView) As Boolean
+        abrirdb(serversql, basedb, usuariodb, passdb)
+
+        Dim mytrans As SqlTransaction
+        Dim Comando As New SqlClient.SqlCommand
+        Dim sqlstr As String = "SET NOCOUNT ON; SET DATEFORMAT dmy; "
+
+        mytrans = CN.BeginTransaction()
+
+        Try
+            If dg.Rows.Count > 0 Then
+                For Each row As DataGridViewRow In dg.Rows
+                    If Not row Is Nothing And Not row.IsNewRow Then
+                        sqlstr += "INSERT INTO pagos_nFacturas_importes (id_pago, fecha, nfactura, importe) " &
+                                "VALUES ('" + id_pago.ToString + "', '" + row.Cells("Fecha").Value.ToString _
+                                + "', '" + row.Cells("Factura").Value.ToString _
+                                + "', '" + row.Cells("Importe").Value.ToString + "'); "
+                    End If
+                Next
+
+                sqlstr = Left(Trim(sqlstr), (Len(Trim(sqlstr)) - 1))
+
+                Comando = New SqlClient.SqlCommand(sqlstr, CN)
+
+                Comando.Transaction = mytrans
+                Comando.ExecuteNonQuery()
+
+                mytrans.Commit()
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        Finally
+            cerrardb()
+        End Try
+    End Function
+
+    Public Function Pago_Ya_Anulado(ByVal id_pago As String) As Boolean
+        Dim tmp As Integer = -1
+        Dim sqlstr As String
+
+        sqlstr = "SELECT ISNULL(id_anulaPago, -1) " &
+                    "FROM pagos " &
+                    "WHERE id_anulaPago = '" + id_pago + "'"
+
+        Try
+            'Crea y abre una nueva conexión
+            abrirdb(serversql, basedb, usuariodb, passdb)
+
+            'Propiedades del SqlCommand
+            Dim comando As New SqlCommand
+            With comando
+                .CommandType = CommandType.Text
+                .CommandText = sqlstr
+                .Connection = CN
+            End With
+
+            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
+            Dim dataset As New DataSet 'Crear nuevo dataset
+
+            da.SelectCommand = comando
+
+            'llenar el dataset
+            da.Fill(dataset, "Tabla")
+            If dataset.Tables("Tabla").Rows.Count > 0 Then
+                tmp = dataset.Tables("tabla").Rows(0).Item(0).ToString
+            End If
+
+            If tmp <> -1 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message.ToString)
+            Return False
+        Finally
+            cerrardb()
         End Try
     End Function
     ' ************************************ FUNCIONES DE PAGOS ***************************

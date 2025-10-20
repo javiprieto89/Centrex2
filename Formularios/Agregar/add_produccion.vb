@@ -1,6 +1,10 @@
 ﻿Public Class add_produccion
 
     Private recibido As Boolean = False
+    Private idUsuario As Integer
+    Private idUnico As String
+
+
     Private Sub add_produccion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         form = Me
 
@@ -38,7 +42,7 @@
 
             actualizarDataGrid()
         Else
-            borrarTmpProduccion()
+            generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
             lbl_fechaCarga.Text = Hoy()
             lbl_fechaEnvio.Text = ""
             lbl_fechaRecepcion.Text = ""
@@ -67,7 +71,7 @@
             Me.Show()
             If MsgBox("¿Está seguro que desea borrar este pedido de producción?", vbYesNo + vbQuestion) = MsgBoxResult.Yes Then
                 'borrartbl("tmpproduccion_items", True)
-                borrarTmpProduccion()
+                generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
                 ejecutarSQL("DELETE FROM produccion_items WHERE id_produccion = '" + edita_produccion.id_produccion.ToString + "'")
                 If borrarProduccion(edita_produccion) = False Then
                     If (MsgBox("Ocurrió un error al realizar el borrado del pedido de producción, ¿desea intetar desactivarlo para que no aparezca en la búsqueda?" _
@@ -92,7 +96,7 @@
         edita_produccion = prod
         'borro la tabla temporal
         'borrartbl("tmpproduccion_items", True)
-        borrarTmpProduccion()
+        generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
         'restauro los que se borraron porque no se guardaron los cambios
         activaitems("produccion_items")
         edicion = False
@@ -188,7 +192,7 @@
                 ejecutarSQL(sqlstr)
             End If
             'borrartbl("tmpproduccion_items", True)
-            borrarTmpProduccion()
+            generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
         Else
             'Agrego el pedido de producción
             If addProduccion(p) Then
@@ -198,25 +202,25 @@
                     MsgBox("Hubo un problema al agregar el pedido de producción.", vbExclamation)
                     'borrartbl("tmpproduccion_asocItems")
                     'borrartbl("tmpproduccion_items", True)
-                    borrarTmpProduccion()
+                    generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
                     closeandupdate(Me)
                 Else
                     'borrartbl("tmpproduccion_asocItems")
                     'borrartbl("tmpproduccion_items", True)
-                    borrarTmpProduccion()
+                    generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
                 End If
             Else
                 MsgBox("Hubo un problema al agregar el pedido de producción.", vbExclamation)
                 'borrartbl("tmpproduccion_asocItems")
                 'borrartbl("tmpproduccion_items", True)
-                borrarTmpProduccion()
+                generales_multiUsuario.borrarTmpProduccion(usuario_logueado.id_usuario)
                 closeandupdate(Me)
             End If
         End If
 
         If chk_imprimir.Checked Then
             Dim frm As New frm_prnReportes("rpt_produccion", "datos_empresa", "produccion_cabecera", "produccion_detalle", "DS_empresa",
-                                            "DSProd_cabecera", "DSProd_detalle", ultimaProd.id_produccion)
+                                            "Produccion_cabecera", "Produccion_detalle", ultimaProd.id_produccion)
             frm.ShowDialog()
         End If
 
@@ -265,7 +269,7 @@
         seleccionado_b = dg_viewProduccion.CurrentRow.Cells(0).Value.ToString
         edita_item.id_item_temporal = Microsoft.VisualBasic.Left(seleccionado_b, (InStr(seleccionado_b, "-") - 1))
 
-        Dim agregaItemFrm As New infoagregaitem(True, False, True)
+        Dim agregaItemFrm As New infoagregaitem(True, False, True, idUsuario, idUnico)
         agregaItemFrm.ShowDialog()
 
         'Dim i As New item
@@ -397,7 +401,7 @@
         seleccionado = dg_viewProduccion.CurrentRow.Cells(0).Value.ToString
         edita_item.id_item_temporal = Microsoft.VisualBasic.Left(seleccionado, (InStr(seleccionado, "-") - 1))
 
-        Dim agregaItem As New infoagregaitem(True, False, False)
+        Dim agregaItem As New infoagregaitem(True, False, False, idUsuario, idUnico)
         agregaItem.ShowDialog()
         cantidad_recibida = agregaItem.cant
 

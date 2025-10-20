@@ -4,6 +4,8 @@
     Private subTotalOriginal As Double
     Public comprobanteSeleccionado As comprobante
     Private nOC As Integer = -1
+    Private idUsuario As Integer
+    Private idUnico As String
 
     Private Sub cmd_add_item_Click(sender As Object, e As EventArgs) Handles cmd_add_item.Click
         Dim tmpTabla As String
@@ -27,10 +29,10 @@
 
     Private Sub add_ordenCompra_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         id = 0
-        Dim pe As New pedido
-        edita_pedido = pe
+        Dim oc As New ordenCompra
+        edita_ordenCompra = oc
         'borro la tabla temporal
-        borrartbl("tmpOC_items")
+        generales_multiUsuario.Borrar_tabla_segun_usuario("tmpOC_items", usuario_logueado.id_usuario)
         'restauro los que se borraron porque no se guardaron los cambios
         activaitems("ordenesCompras_items")
         edicion = False
@@ -52,14 +54,15 @@
         RemoveHandler Me.txt_subTotal.TextChanged, New EventHandler(AddressOf Me.txt_subTotal_TextChanged)
         RemoveHandler Me.txt_impuestos.TextChanged, New EventHandler(AddressOf Me.txt_impuestos_TextChanged)
 
-        If edicion Or borrado Or terminarpedido Then
-            'cargo fecha de pedido
-            'cargo cliente del pedido 
+        If edicion Or borrado Then
+            'cargo fecha de la orden de compra
+            'cargo cliente de la orden de compra
             'cargo items
             'cargo total
             'inhabilito carga secuencial
 
             lbl_fechaCarga.Text = DateTime.Parse(edita_ordenCompra.fecha_carga)
+            dtp_fechaComprobante.Value = DateTime.Parse(edita_ordenCompra.fecha_comprobante)
 
             Dim p As New proveedor
             p = info_proveedor(edita_ordenCompra.id_proveedor)
@@ -82,6 +85,7 @@
             dg_viewOC.ContextMenuStrip = cms_enviado
         Else
             lbl_fechaCarga.Text = Hoy()
+            dtp_fechaComprobante.Value = Hoy_DateFormat()
             txt_total.Text = "0,00"
             txt_subTotal.Text = "0,00"
             txt_impuestos.Text = "0,00"
@@ -97,7 +101,7 @@
             cmd_ok.Enabled = False
         End If
 
-        If edita_pedido.activo = False Or borrado = True Then
+        If edita_ordenCompra.id_ordenCompra <> 0 Or borrado = True Then
             pic_searchProveedor.Enabled = False
             dg_viewOC.Enabled = False
             txt_subTotal.Enabled = False
@@ -112,11 +116,11 @@
             cmd_exit.Enabled = False
             Me.Show()
             If MsgBox("¿Está seguro que desea borrar esta orden de compra?", vbYesNo + vbQuestion) = MsgBoxResult.Yes Then
-                If borrarpedido(edita_pedido) = False Then
+                If borrarOrdenCompra(edita_ordenCompra) = False Then
                     If (MsgBox("Ocurrió un error al realizar el borrado de la orden de compra, ¿desea intetar desactivarla para que no aparezca en la búsqueda?" _
                      , MsgBoxStyle.Question + MsgBoxStyle.YesNo)) = vbYes Then
                         'Realizo un borrado lógico
-                        If updatepedido(edita_pedido, True) = True Then
+                        If updateOrdenCompra(edita_ordenCompra, True) = True Then
                             MsgBox("Se ha podido realizar un borrado lógico, pero la orden de compra no se borró definitivamente." + Chr(13) +
                                 "Esto posiblemente se deba a que la orden de compra, tiene operaciones realizadas y por lo tanto no podrá borrarse", vbInformation)
                         Else
@@ -150,6 +154,7 @@
         With oc
             .id_proveedor = cmb_proveedor.SelectedValue
             .fecha_carga = lbl_fechaCarga.Text
+            .fecha_comprobante = dtp_fechaComprobante.Value.Date
             If lbl_fechaRecepcion.Text <> "%fecha_recepcion%" Then .fecha_recepcion = lbl_fechaRecepcion.Text
             .subtotal = txt_subTotal.Text
             .iva = txt_impuestos.Text
@@ -166,25 +171,25 @@
                 MsgBox("Hubo un problema al actualizar la orden de compra.", vbExclamation)
                 closeandupdate(Me)
             End If
-            'actualizar pedido (items)            
-            'actualizo, agrego y borro los items del pedido
+            'actualizar orde de compra (items)            
+            'actualizo, agrego y borro los items de la orden de compra
             guardarOrdenCompra(edita_ordenCompra.id_ordenCompra)
-            borrartbl("tmpOC_items")
+            generales_multiUsuario.Borrar_tabla_segun_usuario("tmpOC_items", usuario_logueado.id_usuario)
         Else
             'Agrego la orden de compra
             If addOrdenCompra(oc) Then
                 ultimaOC = info_ordenCompra()
-                'Agrego los items al pedido
+                'Agrego los items a la orden de compra
                 If Not guardarOrdenCompra() Then
                     MsgBox("Hubo un problema al agregar la orden de compra.", vbExclamation)
-                    borrartbl("tmpOC_items")
+                    generales_multiUsuario.Borrar_tabla_segun_usuario("tmpOC_items", usuario_logueado.id_usuario)
                     closeandupdate(Me)
                 Else
-                    borrartbl("tmpOC_items")
+                    generales_multiUsuario.Borrar_tabla_segun_usuario("tmpOC_items", usuario_logueado.id_usuario)
                 End If
             Else
                 MsgBox("Hubo un problema al agregar la orden de compra.", vbExclamation)
-                borrartbl("tmpOC_items")
+                generales_multiUsuario.Borrar_tabla_segun_usuario("tmpOC_items", usuario_logueado.id_usuario)
                 closeandupdate(Me)
             End If
             edicion = True
@@ -194,6 +199,7 @@
         'oc_a_ocTmp(edita_ordenCompra.id_ordenCompra)
 
         If chk_secuencia.Checked = True Then
+            edicion = False
             actualizarDataGrid()
         Else
             closeandupdate(Me)
@@ -230,7 +236,8 @@
         seleccionado = dg_viewOC.CurrentRow.Cells(0).Value.ToString
         edita_item.id_item_temporal = Microsoft.VisualBasic.Left(seleccionado, (InStr(seleccionado, "-") - 1))
 
-        infoagregaitem.ShowDialog()
+        Dim frm_infoAgregaItem As New infoagregaitem(False, True, True, idUsuario, idUnico)
+        frm_infoAgregaItem.ShowDialog()
 
         Dim i As New item
         edita_item = i
@@ -250,7 +257,7 @@
         Dim id_tmpOCItem_seleccionado As String
         seleccionado = dg_viewOC.CurrentRow.Cells(0).Value.ToString()
 
-        'Obtengo el ID interno de la tabla tmppedidos_items
+        'Obtengo el ID interno de la tabla tmpOC_items
         id_tmpOCItem_seleccionado = Microsoft.VisualBasic.Left(seleccionado, (InStr(seleccionado, "-") - 1))
 
         borraritemCargadoOC(id_tmpOCItem_seleccionado)
@@ -363,7 +370,7 @@
         seleccionado = dg_viewOC.CurrentRow.Cells(0).Value.ToString
         edita_item.id_item_temporal = Microsoft.VisualBasic.Left(seleccionado, (InStr(seleccionado, "-") - 1))
 
-        Dim agregaItem As New infoagregaitem(False, True, False)
+        Dim agregaItem As New infoagregaitem(False, True, False, idUsuario, idUnico)
         agregaItem.ShowDialog()
         cantidad_recibida = agregaItem.cant
 

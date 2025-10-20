@@ -11,6 +11,10 @@ Public Class search
     Dim id_comprobanteCompra As Integer = -1
     Dim addItem As Boolean = True
     Dim id_banco As Integer = -1
+    Dim cli As cliente
+    Dim cmp As comprobante
+    Dim idUsuario As Integer
+    Dim idUnico As String
 
     Public Overridable Property SelectedIndex As Integer
 
@@ -43,6 +47,16 @@ Public Class search
         id_banco = _id_banco
     End Sub
 
+    Public Sub New(ByVal _cliente As cliente, ByVal _cmp As comprobante)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        cli = _cliente
+        cmp = _cmp
+    End Sub
+
     Public Sub New(ByVal _comprobanteCompra As Boolean, ByVal _id_comprobanteCompra As Integer)
 
         ' Esta llamada es exigida por el diseñador.
@@ -52,6 +66,16 @@ Public Class search
         comprobanteCompra = _comprobanteCompra
         id_comprobanteCompra = _id_comprobanteCompra
         addItem = False
+    End Sub
+
+    Sub New(ByVal _idUsuario As Integer, ByVal _idUnico As String)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        idUsuario = _idUsuario
+        idUnico = _idUnico
     End Sub
 
     Private Sub search_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
@@ -80,7 +104,28 @@ Public Class search
             Case Is = "pedidos"
                 sqlstr = updateDataGrid(activo)
             Case Is = "cuentas_bancarias"
-                sqlstr = updateDataGrid(1, id_banco)
+                sqlstr = updateDataGrid(1)
+            Case Is = "anulaComprobanteAFIP"
+                Dim whereCmp As String = ""
+                Select Case cmp.id_tipoComprobante
+                    Case Is = 3, 8, 13, 53, 201, 203, 206, 208, 211, 213 'Si eligió Notas de crédito, tengo que mostrar facturas y notas de débito
+                        whereCmp = "WHERE tc.id_tipoComprobante IN (1, 2, 6, 7, 11, 12, 51, 52, 201, 202, 206, 207, 211, 212) " &
+                                    "AND cae <> '' " &
+                                    "AND p.id_cliente = " + cli.id_cliente.ToString + " "
+                    Case Is = 2, 7, 12, 52, 202, 207, 212 'Si eligió Notas de débito, tengo que mostrar notas de crédito y facturas
+                        whereCmp = "WHERE tc.id_tipoComprobante IN (3, 8, 13, 53, 201, 203, 206, 208, 211, 213, 1, 6, 11, 51, 201, 206, 211) " &
+                                    "AND cae <> '' " &
+                                    "AND p.id_cliente = " + cli.id_cliente.ToString + " "
+                End Select
+                sqlstr = "SELECT p.id_pedido AS 'ID', CAST(P.fecha_edicion AS VARCHAR(50)) AS 'Fecha', c.razon_social AS 'Razón social', " &
+                                        "cp.comprobante AS 'Comprobante', CASE WHEN cp.id_tipoComprobante = 99 THEN p.idPresupuesto " &
+                                        "ELSE p.numeroComprobante END AS 'Nº comprobante', p.total AS 'Total', p.activo AS 'Activo' " &
+                                        "FROM pedidos AS p " &
+                                        "INNER JOIN clientes AS c ON p.id_cliente = c.id_cliente " &
+                                        "INNER JOIN comprobantes AS cp ON p.id_comprobante = cp.id_comprobante " &
+                                        "INNER JOIN tipos_comprobantes AS tc ON cp.id_tipoComprobante = tc.id_tipoComprobante "
+                sqlstr += whereCmp &
+                                        "ORDER BY p.fecha_edicion DESC, p.id_pedido DESC"
             Case Else
                 If tabla = "items_sinDescuento" Then cmd_addItem.Visible = True
                 sqlstr = updateDataGrid(1)
@@ -107,9 +152,42 @@ Public Class search
     Private Sub txt_search_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt_search.KeyPress
         If e.KeyChar = ChrW(Keys.Return) Then
             Dim txtsearch As String = Microsoft.VisualBasic.Replace(txt_search.Text, " ", "%")
-            Dim sqlstr As String = sqlstrbuscar(txtsearch)
+            Dim sqlstr As String
 
-            cargar_datagrid(dg_view, sqlstr, basedb)
+            If tabla = "anulaComprobanteAFIP" Then
+                Dim whereCmp As String = ""
+                Select Case cmp.id_tipoComprobante
+                    Case Is = 3, 8, 13, 53, 201, 203, 206, 208, 211, 213 'Si eligió Notas de crédito, tengo que mostrar facturas y notas de débito
+                        whereCmp = "WHERE tc.id_tipoComprobante IN (1, 2, 6, 7, 11, 12, 51, 52, 201, 202, 206, 207, 211, 212) " &
+                                    "AND cae <> '' " &
+                                    "AND p.id_cliente = " + cli.id_cliente.ToString + " "
+                    Case Is = 2, 7, 12, 52, 202, 207, 212 'Si eligió Notas de débito, tengo que mostrar notas de crédito y facturas
+                        whereCmp = "WHERE tc.id_tipoComprobante IN (3, 8, 13, 53, 201, 203, 206, 208, 211, 213, 1, 6, 11, 51, 201, 206, 211) " &
+                                    "AND cae <> '' " &
+                                    "AND p.id_cliente = " + cli.id_cliente.ToString + " "
+                End Select
+                sqlstr = "SELECT p.id_pedido AS 'ID', CAST(P.fecha_edicion AS VARCHAR(50)) AS 'Fecha', c.razon_social AS 'Razón social', " &
+                                        "cp.comprobante AS 'Comprobante', CASE WHEN cp.id_tipoComprobante = 99 THEN p.idPresupuesto " &
+                                        "ELSE p.numeroComprobante END AS 'Nº comprobante', p.total AS 'Total', p.activo AS 'Activo' " &
+                                        "FROM pedidos AS p " &
+                                        "INNER JOIN clientes AS c ON p.id_cliente = c.id_cliente " &
+                                        "INNER JOIN comprobantes AS cp ON p.id_comprobante = cp.id_comprobante " &
+                                        "INNER JOIN tipos_comprobantes AS tc ON cp.id_tipoComprobante = tc.id_tipoComprobante "
+                sqlstr += whereCmp &
+                                "AND (p.id_pedido LIKE '%" + txtsearch + "%'" &
+                                "OR p.fecha LIKE '%" + txtsearch + "%' " &
+                                "OR c.razon_social LIKE '%" + txtsearch + "%' " &
+                                "OR p.idPresupuesto LIKE '%" + txtsearch + "%' " &
+                                "OR p.numeroComprobante LIKE '%" + txtsearch + "%')" &
+                                "ORDER BY p.fecha_edicion DESC, p.id_pedido DESC"
+            Else
+                sqlstr = sqlstrbuscar(txtsearch)
+            End If
+
+            desde = 0
+            pagina = 1
+            'cargar_datagrid(dg_view, sqlstr, basedb)
+            cargar_datagrid(dg_view, sqlstr, basedb, desde, nRegs, tPaginas, pagina, txt_nPage, tabla, tabla_vieja) 'Carga el datagrid con los nuevos datos
 
             'If tabla = "items" Or tabla = "registros_stock" Then resaltarcolumna(dg_view, 4, Color.Red)
             dg_view.Focus()
@@ -129,15 +207,24 @@ Public Class search
             Dim i As New item
             edita_item = info_item(seleccionado)
 
-            If edita_item.esDescuento Or edita_item.esMarkup Then
+            If edita_item.esDescuento Then
                 'Verificar que ya haya items antes
                 'addItemPedidotmp(edita_item.id_item, 1, edita_item.factor, True)
+                '''''PARA QUE FUNCIONE MARKUP ESTO TIENE QUE ESTAR
+                'Dim id_item As Integer
+                'id_item = ExisteDescuentoMarkupTmp(edita_item.id_item)
+                'addItemPedidotmp(edita_item, 1, edita_item.factor, id_item)
+                '''''PARA QUE FUNCIONE MARKUP ESTO TIENE QUE ESTAR
+                addItemPedidotmp(edita_item, 1, edita_item.factor, idUsuario, idUnico) 'PRUEBAS
+            ElseIf edita_item.esMarkup Then
+                '''''PARA QUE FUNCIONE MARKUP ESTO TIENE QUE ESTAR
                 Dim id_item As Integer
-                id_item = existe_Descuento_Markup_Tmp(edita_item.id_item)
-                addItemPedidotmp(edita_item, 1, edita_item.factor, id_item)
+                id_item = ExisteDescuentoMarkupTmp(edita_item.id_item)
+                AddItemPedidoTmp(edita_item, 1, edita_item.factor, idUsuario, idUnico, id_item)
+                '''''PARA QUE FUNCIONE MARKUP ESTO TIENE QUE ESTAR
             Else
                 If addItem Then
-                    Dim agregaItemFrm As New infoagregaitem(produccion, ordenCompra, True)
+                    Dim agregaItemFrm As New infoagregaitem(produccion, ordenCompra, True, idUsuario, idUnico)
                     agregaItemFrm.ShowDialog()
                 ElseIf comprobanteCompra Then
                     Dim agregaitemfrm As New infoagregaitem(comprobanteCompra, id_comprobanteCompra)
@@ -190,7 +277,18 @@ Public Class search
     End Sub
 
     Private Sub dg_view_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dg_view.CellDoubleClick
-        cmd_ok_Click(Nothing, Nothing)
+        Dim seleccionado As String = dg_view.CurrentRow.Cells(0).Value.ToString
+
+        If tabla = "anulaComprobanteAFIP" Then
+            id = seleccionado
+
+            Dim frmPrn As New frm_prnCmp(True)
+
+            frmPrn.ShowDialog()
+        Else
+            cmd_ok_Click(Nothing, Nothing)
+        End If
+
     End Sub
 
     Private Sub dg_view_KeyDown(sender As Object, e As KeyEventArgs) Handles dg_view.KeyDown

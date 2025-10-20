@@ -66,22 +66,41 @@ Partial Class main
         Dim TreeNode41 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Pedidos")
         Dim TreeNode42 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Cobros")
         Dim TreeNode43 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Ventas", New System.Windows.Forms.TreeNode() {TreeNode40, TreeNode41, TreeNode42})
-        Dim TreeNode44 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Stock")
-        Dim TreeNode45 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Movimientos de stock")
-        Dim TreeNode46 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Productos", New System.Windows.Forms.TreeNode() {TreeNode44, TreeNode45})
-        Dim TreeNode47 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("CC. Proveedores")
-        Dim TreeNode48 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Proveedores", New System.Windows.Forms.TreeNode() {TreeNode47})
-        Dim TreeNode49 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("CC. Clientes")
-        Dim TreeNode50 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Clientes", New System.Windows.Forms.TreeNode() {TreeNode49})
-        Dim TreeNode51 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Último comprobante")
-        Dim TreeNode52 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Factura electrónica", New System.Windows.Forms.TreeNode() {TreeNode51})
-        Dim TreeNode53 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Personalizadas")
-        Dim TreeNode54 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Consultas", New System.Windows.Forms.TreeNode() {TreeNode46, TreeNode48, TreeNode50, TreeNode52, TreeNode53})
-        Dim TreeNode55 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Configuración")
-        Dim TreeNode56 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Acerca de...")
-        Dim TreeNode57 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Centrex", New System.Windows.Forms.TreeNode() {TreeNode31, TreeNode35, TreeNode38, TreeNode39, TreeNode43, TreeNode54, TreeNode55, TreeNode56})
+        Dim TreeNode44 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Exportaciones S.I.A.p")
+        Dim TreeNode45 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Stock")
+        Dim TreeNode46 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Movimientos de stock")
+        Dim TreeNode47 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Productos", New System.Windows.Forms.TreeNode() {TreeNode45, TreeNode46})
+        Dim TreeNode48 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("CC. Proveedores")
+        Dim TreeNode49 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Proveedores", New System.Windows.Forms.TreeNode() {TreeNode48})
+        Dim TreeNode50 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("CC. Clientes")
+        Dim TreeNode51 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Clientes", New System.Windows.Forms.TreeNode() {TreeNode50})
+        Dim TreeNode52 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Último comprobante")
+        Dim TreeNode53 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Información factura")
+        Dim TreeNode54 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Pruebas AFIP")
+        Dim TreeNode55 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("MercadoPago QR")
+        Dim TreeNode56 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Factura electrónica", New System.Windows.Forms.TreeNode() {TreeNode52, TreeNode53, TreeNode54, TreeNode55})
+        Dim TreeNode57 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Personalizadas")
+        Dim TreeNode58 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Exportaciones S.I.A.p")
+        Dim TreeNode59 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Consultas", New System.Windows.Forms.TreeNode() {TreeNode47, TreeNode49, TreeNode51, TreeNode56, TreeNode57, TreeNode58})
+        Dim TreeNode60 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Configuración")
+        Dim TreeNode61 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Permisos")
+        Dim TreeNode62 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Perfiles")
+        Dim TreeNode63 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Usuarios")
+        Dim TreeNode64 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Asignar permisos a perfiles")
+        Dim TreeNode65 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Asignar perfiles a usuarios")
+        Dim TreeNode66 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Seguridad", New System.Windows.Forms.TreeNode() {TreeNode60, TreeNode61, TreeNode62, TreeNode63, TreeNode64, TreeNode65})
+        Dim TreeNode67 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Configuración", New System.Windows.Forms.TreeNode() {TreeNode66})
+        Dim TreeNode68 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Acerca de...")
+        Dim TreeNode69 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Centrex", New System.Windows.Forms.TreeNode() {TreeNode31, TreeNode35, TreeNode38, TreeNode39, TreeNode43, TreeNode44, TreeNode59, TreeNode67, TreeNode68})
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.cmd_add = New System.Windows.Forms.Button()
+        Me.lbl_clientes = New System.Windows.Forms.Label()
+        Me.lbl_proveedores = New System.Windows.Forms.Label()
+        Me.lbl_items = New System.Windows.Forms.Label()
+        Me.lbl_pedidos = New System.Windows.Forms.Label()
+        Me.lbl_usuarios = New System.Windows.Forms.Label()
+        Me.cmd_search = New System.Windows.Forms.Button()
+        Me.cmd_refresh = New System.Windows.Forms.Button()
         Me.lblbusqueda = New System.Windows.Forms.Label()
         Me.chk_historicos = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -102,11 +121,14 @@ Partial Class main
         Me.MostrarFacturaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DuplicarPedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MostrarInformaciónDeAFIPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AnularToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.tss_version = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tss_separador1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tss_dbInfo = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tss_separador2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tss_usuario_logueado = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tss_separador3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tss_hora = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.chk_test = New System.Windows.Forms.CheckBox()
@@ -121,6 +143,7 @@ Partial Class main
         Me.pic_search = New System.Windows.Forms.PictureBox()
         Me.pic = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.tick_closeProgram = New System.Windows.Forms.Timer(Me.components)
         Me.cmsPreciosMasivo.SuspendLayout()
         CType(Me.dg_view, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsGeneral.SuspendLayout()
@@ -132,30 +155,88 @@ Partial Class main
         'cmd_add
         '
         Me.cmd_add.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmd_add.Location = New System.Drawing.Point(20, 705)
+        Me.cmd_add.Location = New System.Drawing.Point(27, 868)
+        Me.cmd_add.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_add.Name = "cmd_add"
-        Me.cmd_add.Size = New System.Drawing.Size(213, 42)
+        Me.cmd_add.Size = New System.Drawing.Size(284, 52)
         Me.cmd_add.TabIndex = 3
         Me.cmd_add.Text = "Agregar"
         Me.cmd_add.UseVisualStyleBackColor = True
+        '
+        'lbl_clientes
+        '
+        Me.lbl_clientes.Location = New System.Drawing.Point(0, 0)
+        Me.lbl_clientes.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_clientes.Name = "lbl_clientes"
+        Me.lbl_clientes.Size = New System.Drawing.Size(133, 28)
+        Me.lbl_clientes.TabIndex = 71
+        '
+        'lbl_proveedores
+        '
+        Me.lbl_proveedores.Location = New System.Drawing.Point(0, 0)
+        Me.lbl_proveedores.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_proveedores.Name = "lbl_proveedores"
+        Me.lbl_proveedores.Size = New System.Drawing.Size(133, 28)
+        Me.lbl_proveedores.TabIndex = 72
+        '
+        'lbl_items
+        '
+        Me.lbl_items.Location = New System.Drawing.Point(0, 0)
+        Me.lbl_items.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_items.Name = "lbl_items"
+        Me.lbl_items.Size = New System.Drawing.Size(133, 28)
+        Me.lbl_items.TabIndex = 73
+        '
+        'lbl_pedidos
+        '
+        Me.lbl_pedidos.Location = New System.Drawing.Point(0, 0)
+        Me.lbl_pedidos.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_pedidos.Name = "lbl_pedidos"
+        Me.lbl_pedidos.Size = New System.Drawing.Size(133, 28)
+        Me.lbl_pedidos.TabIndex = 74
+        '
+        'lbl_usuarios
+        '
+        Me.lbl_usuarios.Location = New System.Drawing.Point(0, 0)
+        Me.lbl_usuarios.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbl_usuarios.Name = "lbl_usuarios"
+        Me.lbl_usuarios.Size = New System.Drawing.Size(133, 28)
+        Me.lbl_usuarios.TabIndex = 75
+        '
+        'cmd_search
+        '
+        Me.cmd_search.Location = New System.Drawing.Point(0, 0)
+        Me.cmd_search.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmd_search.Name = "cmd_search"
+        Me.cmd_search.Size = New System.Drawing.Size(100, 28)
+        Me.cmd_search.TabIndex = 76
+        '
+        'cmd_refresh
+        '
+        Me.cmd_refresh.Location = New System.Drawing.Point(0, 0)
+        Me.cmd_refresh.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmd_refresh.Name = "cmd_refresh"
+        Me.cmd_refresh.Size = New System.Drawing.Size(100, 28)
+        Me.cmd_refresh.TabIndex = 77
         '
         'lblbusqueda
         '
         Me.lblbusqueda.AutoSize = True
         Me.lblbusqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblbusqueda.Location = New System.Drawing.Point(13, 29)
+        Me.lblbusqueda.Location = New System.Drawing.Point(17, 36)
+        Me.lblbusqueda.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblbusqueda.Name = "lblbusqueda"
-        Me.lblbusqueda.Size = New System.Drawing.Size(63, 13)
+        Me.lblbusqueda.Size = New System.Drawing.Size(80, 17)
         Me.lblbusqueda.TabIndex = 18
         Me.lblbusqueda.Text = "Búsqueda"
         '
         'chk_historicos
         '
         Me.chk_historicos.AutoSize = True
-        Me.chk_historicos.Location = New System.Drawing.Point(11, 67)
-        Me.chk_historicos.Margin = New System.Windows.Forms.Padding(2)
+        Me.chk_historicos.Location = New System.Drawing.Point(15, 82)
+        Me.chk_historicos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chk_historicos.Name = "chk_historicos"
-        Me.chk_historicos.Size = New System.Drawing.Size(136, 17)
+        Me.chk_historicos.Size = New System.Drawing.Size(175, 21)
         Me.chk_historicos.TabIndex = 20
         Me.chk_historicos.Text = "Ver históricos/inactivos"
         Me.chk_historicos.UseVisualStyleBackColor = True
@@ -164,10 +245,9 @@ Partial Class main
         '
         Me.lbl_borrarbusqueda.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbl_borrarbusqueda.AutoSize = True
-        Me.lbl_borrarbusqueda.Location = New System.Drawing.Point(1073, 29)
-        Me.lbl_borrarbusqueda.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lbl_borrarbusqueda.Location = New System.Drawing.Point(1431, 36)
         Me.lbl_borrarbusqueda.Name = "lbl_borrarbusqueda"
-        Me.lbl_borrarbusqueda.Size = New System.Drawing.Size(12, 13)
+        Me.lbl_borrarbusqueda.Size = New System.Drawing.Size(14, 17)
         Me.lbl_borrarbusqueda.TabIndex = 68
         Me.lbl_borrarbusqueda.Text = "x"
         Me.ToolTip1.SetToolTip(Me.lbl_borrarbusqueda, "Borrar búsqueda")
@@ -177,8 +257,8 @@ Partial Class main
         Me.Treev.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Treev.ContextMenuStrip = Me.cmsPreciosMasivo
-        Me.Treev.Location = New System.Drawing.Point(11, 88)
-        Me.Treev.Margin = New System.Windows.Forms.Padding(2)
+        Me.Treev.Location = New System.Drawing.Point(15, 108)
+        Me.Treev.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Treev.Name = "Treev"
         TreeNode1.Name = "condiciones_venta"
         TreeNode1.Text = "Condiciones de venta"
@@ -269,56 +349,82 @@ Partial Class main
         TreeNode42.Text = "Cobros"
         TreeNode43.Name = "ventas"
         TreeNode43.Text = "Ventas"
-        TreeNode44.Name = "stock"
-        TreeNode44.Text = "Stock"
-        TreeNode45.Name = "movStock"
-        TreeNode45.Text = "Movimientos de stock"
-        TreeNode46.Name = "consultasProductos"
-        TreeNode46.Text = "Productos"
-        TreeNode47.Name = "ccProveedores"
-        TreeNode47.Text = "CC. Proveedores"
-        TreeNode48.Name = "consultasProveedores"
-        TreeNode48.Text = "Proveedores"
-        TreeNode49.Name = "ccClientes"
-        TreeNode49.Text = "CC. Clientes"
-        TreeNode50.Name = "consultasClientes"
-        TreeNode50.Text = "Clientes"
-        TreeNode51.Name = "ultimoComprobante"
-        TreeNode51.Text = "Último comprobante"
-        TreeNode52.Name = "consultasFE"
-        TreeNode52.Text = "Factura electrónica"
-        TreeNode53.Name = "cpersonalizadas"
-        TreeNode53.Text = "Personalizadas"
-        TreeNode54.Name = "consultas"
-        TreeNode54.Text = "Consultas"
-        TreeNode55.Name = "configuracion"
-        TreeNode55.Text = "Configuración"
-        TreeNode56.Name = "acercade"
-        TreeNode56.Text = "Acerca de..."
-        TreeNode57.Name = "root"
-        TreeNode57.Text = "Centrex"
-        Me.Treev.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode57})
-        Me.Treev.Size = New System.Drawing.Size(222, 600)
+        TreeNode44.Name = "exportSiap"
+        TreeNode44.Text = "Exportaciones S.I.A.p"
+        TreeNode45.Name = "stock"
+        TreeNode45.Text = "Stock"
+        TreeNode46.Name = "movStock"
+        TreeNode46.Text = "Movimientos de stock"
+        TreeNode47.Name = "consultasProductos"
+        TreeNode47.Text = "Productos"
+        TreeNode48.Name = "ccProveedores"
+        TreeNode48.Text = "CC. Proveedores"
+        TreeNode49.Name = "consultasProveedores"
+        TreeNode49.Text = "Proveedores"
+        TreeNode50.Name = "ccClientes"
+        TreeNode50.Text = "CC. Clientes"
+        TreeNode51.Name = "consultasClientes"
+        TreeNode51.Text = "Clientes"
+        TreeNode52.Name = "ultimoComprobante"
+        TreeNode52.Text = "Último comprobante"
+        TreeNode53.Name = "info_fc"
+        TreeNode53.Text = "Información factura"
+        TreeNode54.Name = "pruebasAFIP"
+        TreeNode54.Text = "Pruebas AFIP"
+        TreeNode55.Name = "mercadopagoQR"
+        TreeNode55.Text = "MercadoPago QR"
+        TreeNode56.Name = "consultasFE"
+        TreeNode56.Text = "Factura electrónica"
+        TreeNode57.Name = "cpersonalizadas"
+        TreeNode57.Text = "Personalizadas"
+        TreeNode58.Name = "exportSiap"
+        TreeNode58.Text = "Exportaciones S.I.A.p"
+        TreeNode59.Name = "consultas"
+        TreeNode59.Text = "Consultas"
+        TreeNode60.Name = "configuracion"
+        TreeNode60.Text = "Configuración"
+        TreeNode61.Name = "permisos"
+        TreeNode61.Text = "Permisos"
+        TreeNode62.Name = "perfiles"
+        TreeNode62.Text = "Perfiles"
+        TreeNode63.Name = "usuarios"
+        TreeNode63.Text = "Usuarios"
+        TreeNode64.Name = "permisos_a_perfiles"
+        TreeNode64.Text = "Asignar permisos a perfiles"
+        TreeNode65.Name = "perfiles_a_usuarios"
+        TreeNode65.Text = "Asignar perfiles a usuarios"
+        TreeNode66.Name = "seguridad"
+        TreeNode66.Text = "Seguridad"
+        TreeNode67.Name = "cfg_menu"
+        TreeNode67.Text = "Configuración"
+        TreeNode68.Name = "acercade"
+        TreeNode68.Text = "Acerca de..."
+        TreeNode69.Name = "root"
+        TreeNode69.Text = "Centrex"
+        Me.Treev.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode69})
+        Me.Treev.Size = New System.Drawing.Size(295, 738)
         Me.Treev.TabIndex = 23
         '
         'cmsPreciosMasivo
         '
+        Me.cmsPreciosMasivo.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.cmsPreciosMasivo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActualizaciónMasivaDePreciosToolStripMenuItem})
         Me.cmsPreciosMasivo.Name = "ContextMenuStrip1"
-        Me.cmsPreciosMasivo.Size = New System.Drawing.Size(243, 26)
+        Me.cmsPreciosMasivo.Size = New System.Drawing.Size(291, 28)
         '
         'ActualizaciónMasivaDePreciosToolStripMenuItem
         '
         Me.ActualizaciónMasivaDePreciosToolStripMenuItem.Name = "ActualizaciónMasivaDePreciosToolStripMenuItem"
-        Me.ActualizaciónMasivaDePreciosToolStripMenuItem.Size = New System.Drawing.Size(242, 22)
+        Me.ActualizaciónMasivaDePreciosToolStripMenuItem.Size = New System.Drawing.Size(290, 24)
         Me.ActualizaciónMasivaDePreciosToolStripMenuItem.Text = "Actualización masiva de precios"
         '
         'cmd_pedido
         '
         Me.cmd_pedido.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmd_pedido.Location = New System.Drawing.Point(238, 705)
+        Me.cmd_pedido.Location = New System.Drawing.Point(317, 868)
+        Me.cmd_pedido.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_pedido.Name = "cmd_pedido"
-        Me.cmd_pedido.Size = New System.Drawing.Size(213, 42)
+        Me.cmd_pedido.Size = New System.Drawing.Size(284, 52)
         Me.cmd_pedido.TabIndex = 25
         Me.cmd_pedido.Text = "Nuevo pedido"
         Me.cmd_pedido.UseVisualStyleBackColor = True
@@ -326,9 +432,10 @@ Partial Class main
         'cmd_addcliente
         '
         Me.cmd_addcliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmd_addcliente.Location = New System.Drawing.Point(456, 705)
+        Me.cmd_addcliente.Location = New System.Drawing.Point(608, 868)
+        Me.cmd_addcliente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_addcliente.Name = "cmd_addcliente"
-        Me.cmd_addcliente.Size = New System.Drawing.Size(213, 42)
+        Me.cmd_addcliente.Size = New System.Drawing.Size(284, 52)
         Me.cmd_addcliente.TabIndex = 28
         Me.cmd_addcliente.Text = "Nuevo cliente"
         Me.cmd_addcliente.UseVisualStyleBackColor = True
@@ -338,9 +445,10 @@ Partial Class main
         Me.chk_rpt.AutoSize = True
         Me.chk_rpt.Checked = True
         Me.chk_rpt.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk_rpt.Location = New System.Drawing.Point(152, 67)
+        Me.chk_rpt.Location = New System.Drawing.Point(203, 82)
+        Me.chk_rpt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chk_rpt.Name = "chk_rpt"
-        Me.chk_rpt.Size = New System.Drawing.Size(108, 17)
+        Me.chk_rpt.Size = New System.Drawing.Size(143, 21)
         Me.chk_rpt.TabIndex = 50
         Me.chk_rpt.Text = "Mostrar impresión"
         Me.chk_rpt.UseVisualStyleBackColor = True
@@ -360,105 +468,127 @@ Partial Class main
         Me.dg_view.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dg_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_view.ContextMenuStrip = Me.cmsGeneral
-        Me.dg_view.Location = New System.Drawing.Point(238, 90)
+        Me.dg_view.Location = New System.Drawing.Point(317, 111)
+        Me.dg_view.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dg_view.MultiSelect = False
         Me.dg_view.Name = "dg_view"
         Me.dg_view.ReadOnly = True
         Me.dg_view.RowHeadersVisible = False
         Me.dg_view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dg_view.Size = New System.Drawing.Size(891, 598)
+        Me.dg_view.Size = New System.Drawing.Size(1188, 736)
         Me.dg_view.TabIndex = 53
         '
         'cmsGeneral
         '
         Me.cmsGeneral.ImageScalingSize = New System.Drawing.Size(28, 28)
-        Me.cmsGeneral.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditarToolStripMenuItem, Me.BorrarToolStripMenuItem, Me.TerminarPedidoToolStripMenuItem, Me.DeshabilitarItemToolStripMenuItem, Me.MostrarFacturaToolStripMenuItem, Me.DuplicarPedidoToolStripMenuItem, Me.MostrarInformaciónDeAFIPToolStripMenuItem})
+        Me.cmsGeneral.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditarToolStripMenuItem, Me.BorrarToolStripMenuItem, Me.TerminarPedidoToolStripMenuItem, Me.DeshabilitarItemToolStripMenuItem, Me.MostrarFacturaToolStripMenuItem, Me.DuplicarPedidoToolStripMenuItem, Me.MostrarInformaciónDeAFIPToolStripMenuItem, Me.AnularToolStripMenuItem})
         Me.cmsGeneral.Name = "ContextMenuStrip"
-        Me.cmsGeneral.Size = New System.Drawing.Size(227, 158)
+        Me.cmsGeneral.Size = New System.Drawing.Size(268, 196)
         '
         'EditarToolStripMenuItem
         '
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.EditarToolStripMenuItem.Text = "Editar"
         Me.EditarToolStripMenuItem.Visible = False
         '
         'BorrarToolStripMenuItem
         '
         Me.BorrarToolStripMenuItem.Name = "BorrarToolStripMenuItem"
-        Me.BorrarToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.BorrarToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.BorrarToolStripMenuItem.Text = "Borrar"
         '
         'TerminarPedidoToolStripMenuItem
         '
         Me.TerminarPedidoToolStripMenuItem.Name = "TerminarPedidoToolStripMenuItem"
-        Me.TerminarPedidoToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.TerminarPedidoToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.TerminarPedidoToolStripMenuItem.Text = "Cerrar pedido"
         '
         'DeshabilitarItemToolStripMenuItem
         '
         Me.DeshabilitarItemToolStripMenuItem.Name = "DeshabilitarItemToolStripMenuItem"
-        Me.DeshabilitarItemToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.DeshabilitarItemToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.DeshabilitarItemToolStripMenuItem.Text = "Desactivar item"
         '
         'MostrarFacturaToolStripMenuItem
         '
         Me.MostrarFacturaToolStripMenuItem.Name = "MostrarFacturaToolStripMenuItem"
-        Me.MostrarFacturaToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.MostrarFacturaToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.MostrarFacturaToolStripMenuItem.Text = "Ver pedido"
         '
         'DuplicarPedidoToolStripMenuItem
         '
         Me.DuplicarPedidoToolStripMenuItem.Name = "DuplicarPedidoToolStripMenuItem"
-        Me.DuplicarPedidoToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.DuplicarPedidoToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.DuplicarPedidoToolStripMenuItem.Text = "Duplicar pedido"
         '
         'MostrarInformaciónDeAFIPToolStripMenuItem
         '
         Me.MostrarInformaciónDeAFIPToolStripMenuItem.Name = "MostrarInformaciónDeAFIPToolStripMenuItem"
-        Me.MostrarInformaciónDeAFIPToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.MostrarInformaciónDeAFIPToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
         Me.MostrarInformaciónDeAFIPToolStripMenuItem.Text = "Mostrar información de AFIP"
         Me.MostrarInformaciónDeAFIPToolStripMenuItem.Visible = False
         '
+        'AnularToolStripMenuItem
+        '
+        Me.AnularToolStripMenuItem.Name = "AnularToolStripMenuItem"
+        Me.AnularToolStripMenuItem.Size = New System.Drawing.Size(267, 24)
+        Me.AnularToolStripMenuItem.Text = "Anular"
+        '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tss_version, Me.ToolStripStatusLabel2, Me.tss_dbInfo, Me.ToolStripStatusLabel1, Me.tss_hora})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 768)
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tss_version, Me.tss_separador1, Me.tss_dbInfo, Me.tss_separador2, Me.tss_usuario_logueado, Me.tss_separador3, Me.tss_hora})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 947)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1136, 22)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1515, 25)
         Me.StatusStrip1.TabIndex = 54
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'tss_version
         '
         Me.tss_version.Name = "tss_version"
-        Me.tss_version.Size = New System.Drawing.Size(65, 17)
+        Me.tss_version.Size = New System.Drawing.Size(80, 20)
         Me.tss_version.Text = "%versión%"
         '
-        'ToolStripStatusLabel2
+        'tss_separador1
         '
-        Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
-        Me.ToolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(4, 17)
+        Me.tss_separador1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.tss_separador1.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
+        Me.tss_separador1.Name = "tss_separador1"
+        Me.tss_separador1.Size = New System.Drawing.Size(4, 20)
         '
         'tss_dbInfo
         '
         Me.tss_dbInfo.Name = "tss_dbInfo"
-        Me.tss_dbInfo.Size = New System.Drawing.Size(62, 17)
+        Me.tss_dbInfo.Size = New System.Drawing.Size(77, 20)
         Me.tss_dbInfo.Text = "%dbInfo%"
         '
-        'ToolStripStatusLabel1
+        'tss_separador2
         '
-        Me.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
-        Me.ToolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(4, 17)
+        Me.tss_separador2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.tss_separador2.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
+        Me.tss_separador2.Name = "tss_separador2"
+        Me.tss_separador2.Size = New System.Drawing.Size(4, 20)
+        '
+        'tss_usuario_logueado
+        '
+        Me.tss_usuario_logueado.Name = "tss_usuario_logueado"
+        Me.tss_usuario_logueado.Size = New System.Drawing.Size(151, 20)
+        Me.tss_usuario_logueado.Text = "%usuario_logueado%"
+        '
+        'tss_separador3
+        '
+        Me.tss_separador3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.tss_separador3.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
+        Me.tss_separador3.Name = "tss_separador3"
+        Me.tss_separador3.Size = New System.Drawing.Size(4, 20)
         '
         'tss_hora
         '
         Me.tss_hora.Name = "tss_hora"
-        Me.tss_hora.Size = New System.Drawing.Size(51, 17)
+        Me.tss_hora.Size = New System.Drawing.Size(63, 20)
         Me.tss_hora.Text = "%hora%"
         '
         'Timer1
@@ -469,9 +599,10 @@ Partial Class main
         'chk_test
         '
         Me.chk_test.AutoSize = True
-        Me.chk_test.Location = New System.Drawing.Point(266, 67)
+        Me.chk_test.Location = New System.Drawing.Point(355, 82)
+        Me.chk_test.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chk_test.Name = "chk_test"
-        Me.chk_test.Size = New System.Drawing.Size(73, 17)
+        Me.chk_test.Size = New System.Drawing.Size(92, 21)
         Me.chk_test.TabIndex = 55
         Me.chk_test.Text = "Modo test"
         Me.chk_test.UseVisualStyleBackColor = True
@@ -485,9 +616,10 @@ Partial Class main
         '
         Me.cmd_go.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmd_go.Enabled = False
-        Me.cmd_go.Location = New System.Drawing.Point(1100, 64)
+        Me.cmd_go.Location = New System.Drawing.Point(1467, 79)
+        Me.cmd_go.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_go.Name = "cmd_go"
-        Me.cmd_go.Size = New System.Drawing.Size(29, 20)
+        Me.cmd_go.Size = New System.Drawing.Size(39, 25)
         Me.cmd_go.TabIndex = 66
         Me.cmd_go.Text = "Ir"
         Me.cmd_go.UseVisualStyleBackColor = True
@@ -496,18 +628,20 @@ Partial Class main
         '
         Me.txt_nPage.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txt_nPage.Enabled = False
-        Me.txt_nPage.Location = New System.Drawing.Point(1031, 64)
+        Me.txt_nPage.Location = New System.Drawing.Point(1375, 79)
+        Me.txt_nPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txt_nPage.Name = "txt_nPage"
-        Me.txt_nPage.Size = New System.Drawing.Size(63, 20)
+        Me.txt_nPage.Size = New System.Drawing.Size(83, 22)
         Me.txt_nPage.TabIndex = 65
         '
         'cmd_last
         '
         Me.cmd_last.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmd_last.Enabled = False
-        Me.cmd_last.Location = New System.Drawing.Point(996, 64)
+        Me.cmd_last.Location = New System.Drawing.Point(1328, 79)
+        Me.cmd_last.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_last.Name = "cmd_last"
-        Me.cmd_last.Size = New System.Drawing.Size(29, 20)
+        Me.cmd_last.Size = New System.Drawing.Size(39, 25)
         Me.cmd_last.TabIndex = 64
         Me.cmd_last.Text = ">>|"
         Me.cmd_last.UseVisualStyleBackColor = True
@@ -516,9 +650,10 @@ Partial Class main
         '
         Me.cmd_next.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmd_next.Enabled = False
-        Me.cmd_next.Location = New System.Drawing.Point(950, 64)
+        Me.cmd_next.Location = New System.Drawing.Point(1267, 79)
+        Me.cmd_next.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_next.Name = "cmd_next"
-        Me.cmd_next.Size = New System.Drawing.Size(40, 20)
+        Me.cmd_next.Size = New System.Drawing.Size(53, 25)
         Me.cmd_next.TabIndex = 63
         Me.cmd_next.Text = ">>"
         Me.cmd_next.UseVisualStyleBackColor = True
@@ -527,9 +662,10 @@ Partial Class main
         '
         Me.cmd_prev.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmd_prev.Enabled = False
-        Me.cmd_prev.Location = New System.Drawing.Point(904, 64)
+        Me.cmd_prev.Location = New System.Drawing.Point(1205, 79)
+        Me.cmd_prev.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_prev.Name = "cmd_prev"
-        Me.cmd_prev.Size = New System.Drawing.Size(40, 20)
+        Me.cmd_prev.Size = New System.Drawing.Size(53, 25)
         Me.cmd_prev.TabIndex = 62
         Me.cmd_prev.Text = "<<"
         Me.cmd_prev.UseVisualStyleBackColor = True
@@ -538,9 +674,10 @@ Partial Class main
         '
         Me.cmd_first.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmd_first.Enabled = False
-        Me.cmd_first.Location = New System.Drawing.Point(869, 64)
+        Me.cmd_first.Location = New System.Drawing.Point(1159, 79)
+        Me.cmd_first.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmd_first.Name = "cmd_first"
-        Me.cmd_first.Size = New System.Drawing.Size(29, 20)
+        Me.cmd_first.Size = New System.Drawing.Size(39, 25)
         Me.cmd_first.TabIndex = 61
         Me.cmd_first.Text = "|<<"
         Me.cmd_first.UseVisualStyleBackColor = True
@@ -549,16 +686,18 @@ Partial Class main
         '
         Me.txt_search.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt_search.Location = New System.Drawing.Point(82, 22)
+        Me.txt_search.Location = New System.Drawing.Point(109, 27)
+        Me.txt_search.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txt_search.Name = "txt_search"
-        Me.txt_search.Size = New System.Drawing.Size(986, 20)
+        Me.txt_search.Size = New System.Drawing.Size(1313, 22)
         Me.txt_search.TabIndex = 67
         '
         'pic_search
         '
         Me.pic_search.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pic_search.Image = Global.Centrex.My.Resources.Resources.iconoLupa
-        Me.pic_search.Location = New System.Drawing.Point(1091, 22)
+        Me.pic_search.Location = New System.Drawing.Point(1455, 27)
+        Me.pic_search.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pic_search.Name = "pic_search"
         Me.pic_search.Size = New System.Drawing.Size(22, 22)
         Me.pic_search.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -568,28 +707,33 @@ Partial Class main
         'pic
         '
         Me.pic.Image = Global.Centrex.My.Resources.Resources.centrexlogo
-        Me.pic.Location = New System.Drawing.Point(289, 222)
-        Me.pic.Margin = New System.Windows.Forms.Padding(2)
+        Me.pic.Location = New System.Drawing.Point(385, 273)
+        Me.pic.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pic.Name = "pic"
-        Me.pic.Size = New System.Drawing.Size(747, 341)
+        Me.pic.Size = New System.Drawing.Size(996, 420)
         Me.pic.TabIndex = 24
         Me.pic.TabStop = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(404, 60)
+        Me.Button1.Location = New System.Drawing.Point(561, 74)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(103, 24)
+        Me.Button1.Size = New System.Drawing.Size(137, 30)
         Me.Button1.TabIndex = 70
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
+        'tick_closeProgram
+        '
+        Me.tick_closeProgram.Interval = 600000
+        '
         'main
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1136, 790)
+        Me.ClientSize = New System.Drawing.Size(1515, 972)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.txt_search)
         Me.Controls.Add(Me.pic_search)
@@ -610,11 +754,20 @@ Partial Class main
         Me.Controls.Add(Me.chk_historicos)
         Me.Controls.Add(Me.lblbusqueda)
         Me.Controls.Add(Me.cmd_add)
+        Me.Controls.Add(Me.lbl_clientes)
+        Me.Controls.Add(Me.lbl_proveedores)
+        Me.Controls.Add(Me.lbl_items)
+        Me.Controls.Add(Me.lbl_pedidos)
+        Me.Controls.Add(Me.lbl_usuarios)
+        Me.Controls.Add(Me.cmd_search)
+        Me.Controls.Add(Me.cmd_refresh)
         Me.Controls.Add(Me.dg_view)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "main"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Centrex"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.cmsPreciosMasivo.ResumeLayout(False)
         CType(Me.dg_view, System.ComponentModel.ISupportInitialize).EndInit()
         Me.cmsGeneral.ResumeLayout(False)
@@ -630,6 +783,13 @@ Partial Class main
     Friend WithEvents cmd_add As System.Windows.Forms.Button
     'Friend WithEvents ClienteTableAdapter1 As WindowsApplication1.Database1DataSetTableAdapters.clienteTableAdapter
     'Friend WithEvents Database1DataSet As WindowsApplication1.Database1DataSet
+    Friend WithEvents lbl_clientes As System.Windows.Forms.Label
+    Friend WithEvents lbl_proveedores As System.Windows.Forms.Label
+    Friend WithEvents lbl_items As System.Windows.Forms.Label
+    Friend WithEvents lbl_pedidos As System.Windows.Forms.Label
+    Friend WithEvents lbl_usuarios As System.Windows.Forms.Label
+    Friend WithEvents cmd_search As System.Windows.Forms.Button
+    Friend WithEvents cmd_refresh As System.Windows.Forms.Button
     Friend WithEvents lblbusqueda As System.Windows.Forms.Label
     Friend WithEvents chk_historicos As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
@@ -644,7 +804,7 @@ Partial Class main
     Friend WithEvents ActualizaciónMasivaDePreciosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents tss_version As ToolStripStatusLabel
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents tss_separador3 As ToolStripStatusLabel
     Friend WithEvents tss_hora As ToolStripStatusLabel
     Friend WithEvents Timer1 As Timer
     Friend WithEvents chk_test As System.Windows.Forms.CheckBox
@@ -667,6 +827,10 @@ Partial Class main
     Friend WithEvents pic_search As PictureBox
     Friend WithEvents lbl_borrarbusqueda As Label
     Friend WithEvents Button1 As Button
-    Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents tss_separador1 As ToolStripStatusLabel
     Friend WithEvents tss_dbInfo As ToolStripStatusLabel
+    Friend WithEvents tick_closeProgram As Timer
+    Friend WithEvents AnularToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents tss_separador2 As ToolStripStatusLabel
+    Friend WithEvents tss_usuario_logueado As ToolStripStatusLabel
 End Class

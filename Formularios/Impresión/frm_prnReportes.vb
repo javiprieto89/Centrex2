@@ -17,6 +17,8 @@ Public Class frm_prnReportes
 
     'Para cobros
     Dim esCobro As Boolean
+    'Para pagos
+    Dim esPago As Boolean
 
     Dim spCheque As String
     Dim spTransferencia As String
@@ -77,6 +79,28 @@ Public Class frm_prnReportes
         dsRetencion = _dsRetencion
         rptID = _id
         esCobro = _esCobro
+    End Sub
+
+    Sub New(ByVal _archivoRpt As String, ByVal _spEmpresa As String, ByVal _spCabecera As String,
+                ByVal _spCheque As String, ByVal _spTransferencia As String, ByVal _dsEmpresa As String,
+                ByVal _dsCabecera As String, ByVal _dsCheque As String, ByVal _dsTransferencia As String,
+                _id As Integer, ByVal _esPago As Boolean)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        archivoRpt = _archivoRpt
+        spEmpresa = _spEmpresa
+        spCabecera = _spCabecera
+        spCheque = _spCheque
+        spTransferencia = _spTransferencia
+        dsEmpresa = _dsEmpresa
+        dsCabecera = _dsCabecera
+        dsCheque = _dsCheque
+        dsTransferencia = _dsTransferencia
+        rptID = _id
+        esPago = _esPago
     End Sub
 
     Private Sub frm_prnReportes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -157,6 +181,66 @@ Public Class frm_prnReportes
                 .LocalReport.DataSources.Add(New ReportDataSource(dsCheque, DT_Cheque))
                 .LocalReport.DataSources.Add(New ReportDataSource(dsTransferencia, DT_Transferencia))
                 .LocalReport.DataSources.Add(New ReportDataSource(dsRetencion, DT_Retencion))
+            End With
+        ElseIf esPago Then
+            Dim DS_Empresa As DataSet = New DataSet(dsEmpresa)
+            Dim DS_Cabecera As DataSet = New DataSet(dsCabecera)
+
+            Dim DS_Cheque As DataSet = New DataSet(dsCheque)
+            Dim DS_Transferencia As DataSet = New DataSet(dsTransferencia)
+
+            Dim DT_Empresa As New DataTable
+            Dim DT_Cabecera As New DataTable
+
+            Dim DT_Cheque As New DataTable
+            Dim DT_Transferencia As New DataTable
+
+            Dim da As New SqlDataAdapter
+
+            Try
+                abrirdb(serversql, basedb, usuariodb, passdb)
+
+                comando.CommandType = CommandType.Text
+                comando.Connection = CN
+
+                sqlstr = "EXEC	[dbo].[" + spEmpresa + "]"
+                comando.CommandText = sqlstr
+                da.SelectCommand = comando
+                da.Fill(DS_Empresa, "Tabla")
+
+                sqlstr = "EXEC	[dbo].[" + spCabecera + "]	@id = " & rptID.ToString
+                comando.CommandText = sqlstr
+                da.SelectCommand = comando
+                da.Fill(DS_Cabecera, "Tabla")
+
+                sqlstr = "EXEC	[dbo].[" + spCheque + "]	@id = " & rptID.ToString
+                comando.CommandText = sqlstr
+                da.SelectCommand = comando
+                da.Fill(DS_Cheque, "Tabla")
+
+                sqlstr = "EXEC	[dbo].[" + spTransferencia + "]	@id = " & rptID.ToString
+                comando.CommandText = sqlstr
+                da.SelectCommand = comando
+                da.Fill(DS_Transferencia, "Tabla")
+
+                DT_Empresa = DS_Empresa.Tables(0)
+                DT_Cabecera = DS_Cabecera.Tables(0)
+
+                DT_Cheque = DS_Cheque.Tables(0)
+                DT_Transferencia = DS_Transferencia.Tables(0)
+            Catch ex As Exception
+                MsgBox(ex.Message.ToString)
+                Exit Sub
+            Finally
+                cerrardb()
+            End Try
+
+            With rpt_view
+                .LocalReport.DataSources.Add(New ReportDataSource(dsEmpresa, DT_Empresa))
+                .LocalReport.DataSources.Add(New ReportDataSource(dsCabecera, DT_Cabecera))
+
+                .LocalReport.DataSources.Add(New ReportDataSource(dsCheque, DT_Cheque))
+                .LocalReport.DataSources.Add(New ReportDataSource(dsTransferencia, DT_Transferencia))
             End With
         Else
             Dim DS_Empresa As DataSet = New DataSet(dsEmpresa)

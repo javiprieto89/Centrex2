@@ -15,12 +15,12 @@ Module producciones
                 .CommandType = CommandType.Text
                 If id_produccion = "" Then
                     sqlstr = "SET DATEFORMAT dmy; SELECT TOP 1 id_produccion, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), CONVERT(NVARCHAR(20), fecha_envio, 3), CONVERT(NVARCHAR(20), fecha_recepcion, 3), " &
-                        "enviado, recibido, notas, activo " &
+                        "enviado, recibido, notas, activo, id_usuario " &
                         "FROM produccion " &
                         "ORDER BY id_produccion DESC"
                 Else
                     sqlstr = "SET DATEFORMAT dmy; SELECT id_produccion, id_proveedor, CONVERT(NVARCHAR(20), fecha_carga, 3), CONVERT(NVARCHAR(20), fecha_envio, 3), CONVERT(NVARCHAR(20), fecha_recepcion, 3), " &
-                        "enviado, recibido, notas, activo " &
+                        "enviado, recibido, notas, activo, id_usuario " &
                         "FROM produccion WHERE id_produccion = '" + id_produccion + "'"
                 End If
                 .CommandText = sqlstr
@@ -43,6 +43,7 @@ Module producciones
             tmp.recibido = dataset.Tables("tabla").Rows(0).Item(6).ToString
             tmp.notas = dataset.Tables("tabla").Rows(0).Item(7).ToString
             tmp.activo = dataset.Tables("tabla").Rows(0).Item(8).ToString
+            tmp.id_usuario = dataset.Tables("tabla").Rows(0).Item(9).ToString
             cerrardb()
             Return tmp
         Catch ex As Exception
@@ -66,11 +67,11 @@ Module producciones
             sqlstr = "SET DATEFORMAT dmy; INSERT INTO produccion (id_proveedor, fecha_carga, "
             If Not p.fecha_envio Is Nothing Then sqlstr += "fecha_envio, "
             If Not p.fecha_recepcion Is Nothing Then sqlstr += "fecha_recepcion, "
-            sqlstr += "enviado, recibido, notas) VALUES " &
+            sqlstr += "enviado, recibido, notas, id_usuario) VALUES " &
             "('" + p.id_proveedor.ToString + "', '" + p.fecha_carga.ToString + "', '"
             If Not p.fecha_envio Is Nothing Then sqlstr += p.fecha_envio.ToString + "', '"
             If Not p.fecha_recepcion Is Nothing Then sqlstr += p.fecha_recepcion.ToString + "', "
-            sqlstr += p.enviado.ToString + "', '" + p.recibido.ToString + "', '" + p.notas + "')"
+            sqlstr += p.enviado.ToString + "', '" + p.recibido.ToString + "', '" + p.notas + "', '" + p.id_usuario.ToString + ")"
 
 
             ' ************* CON TRIGGER **********
@@ -181,6 +182,7 @@ Module producciones
                     .AddWithValue("id_item", i.id_item)
                     .AddWithValue("cantidad", cantidad)
                     .AddWithValue("descript", i.descript)
+                    .AddWithValue("id_usuario", usuario_logueado.id_usuario)
                     .Add(New SqlParameter("@resultado", SqlDbType.Int)).Direction = ParameterDirection.Output
                 End With
                 .Connection = CN
@@ -222,6 +224,7 @@ Module producciones
                     .AddWithValue("id_item", id_item)
                     .AddWithValue("id_item_asoc", id_item_asoc)
                     .AddWithValue("cantidad_item_asoc_enviada", cantidad_item_asoc_enviada)
+                    If sqlComm.CommandText = "SP_insertAsocItemsProduccionTMP" Then .AddWithValue("id_usuario", usuario_logueado.id_usuario)
                     .Add(New SqlParameter("@resultado", SqlDbType.Int)).Direction = ParameterDirection.Output
                 End With
                 .Connection = CN
@@ -377,8 +380,8 @@ Module producciones
         mytrans = CN.BeginTransaction()
 
         Try
-            sqlstr = "INSERT INTO tmpproduccion_items (id_produccionItem, id_produccion, id_item, cantidad, activo, descript, id_item_recibido, cantidad_recibida) " _
-                               + "SELECT id_produccionItem, id_produccion, id_item, cantidad, activo, descript, id_item_recibido, cantidad_recibida " _
+            sqlstr = "INSERT INTO tmpproduccion_items (id_produccionItem, id_produccion, id_item, cantidad, activo, descript, id_item_recibido, cantidad_recibida, id_usuario) " _
+                               + "SELECT id_produccionItem, id_produccion, id_item, cantidad, activo, descript, id_item_recibido, cantidad_recibida, '" + usuario_logueado.id_usuario.ToString + "' " _
                                + "FROM produccion_items " _
                                + "WHERE id_produccion = '" + id_produccion.ToString + "'"
             Comando = New SqlClient.SqlCommand(sqlstr, CN)
@@ -447,10 +450,10 @@ Module producciones
         End If
     End Sub
 
-    Public Sub borrarTmpProduccion()
-        borrartbl("tmpproduccion_asocItems")
-        borrartbl("tmpproduccion_items", True)
-    End Sub
+    'Public Sub borrarTmpProduccion()
+    'borrartbl("tmpproduccion_asocItems")
+    'borrartbl("tmpproduccion_items", True)
+    'End Sub
 
     'Public Function Items_Asociados_Produccion_A_TMP(ByVal id_produccion As Integer, ByVal id_item As Integer) As Boolean
     '    Dim sqlstr As String

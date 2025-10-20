@@ -9,7 +9,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!fecha_comprobante.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                <Value>=First(Fields!fecha_comprobante.Value, "DS_ComprobanteCompraCabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -75,7 +75,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!comprobante.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                <Value>=First(Fields!comprobante.Value, "DS_ComprobanteCompraCabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -172,7 +172,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!supp_taxNumber.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                <Value>=First(Fields!supp_taxNumber.Value, "DS_ComprobanteCompraCabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -333,7 +333,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!provincia.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!provincia.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -366,7 +366,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!localidad.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!localidad.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -399,7 +399,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!supp_address.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!supp_address.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -464,7 +464,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!inscripto.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!inscripto.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -530,7 +530,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!condicion_compra.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!condicion_compra.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -594,7 +594,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!nota.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!nota.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -625,21 +625,9 @@
           <Rectangle Name="Rectangle1">
             <ReportItems>
               <Line Name="Line7">
-                <Left>2.81121cm</Left>
-                <Height>15.65595cm</Height>
+                <Left>13.36545cm</Left>
+                <Height>15.5391cm</Height>
                 <Width>0cm</Width>
-                <Style>
-                  <Border>
-                    <Style>Solid</Style>
-                    <Width>1.5pt</Width>
-                  </Border>
-                </Style>
-              </Line>
-              <Line Name="Line10">
-                <Left>15.41472cm</Left>
-                <Height>15.69123cm</Height>
-                <Width>0cm</Width>
-                <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -648,11 +636,11 @@
                 </Style>
               </Line>
               <Line Name="Line9">
-                <Top>0cm</Top>
-                <Left>12.59281cm</Left>
-                <Height>15.69123cm</Height>
+                <Top>0.03528cm</Top>
+                <Left>15.82705cm</Left>
+                <Height>15.50382cm</Height>
                 <Width>0cm</Width>
-                <ZIndex>2</ZIndex>
+                <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -664,18 +652,18 @@
                 <TablixBody>
                   <TablixColumns>
                     <TablixColumn>
-                      <Width>4.73169cm</Width>
+                      <Width>13.33237cm</Width>
                     </TablixColumn>
                     <TablixColumn>
-                      <Width>4.73169cm</Width>
+                      <Width>2.4616cm</Width>
                     </TablixColumn>
                     <TablixColumn>
-                      <Width>4.73169cm</Width>
+                      <Width>2.2903cm</Width>
                     </TablixColumn>
                   </TablixColumns>
                   <TablixRows>
                     <TablixRow>
-                      <Height>0.89958cm</Height>
+                      <Height>1.01404cm</Height>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
@@ -746,7 +734,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>precio</Value>
+                                      <Value>Precio</Value>
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
@@ -770,7 +758,7 @@
                       </TablixCells>
                     </TablixRow>
                     <TablixRow>
-                      <Height>0.89958cm</Height>
+                      <Height>1.01404cm</Height>
                       <TablixCells>
                         <TablixCell>
                           <CellContents>
@@ -883,11 +871,12 @@
                     </TablixMember>
                   </TablixMembers>
                 </TablixRowHierarchy>
-                <DataSetName>DataSet_ComprobanteCompraDetalleItems</DataSetName>
+                <DataSetName>DS_ComprobanteCompraDetalleItems</DataSetName>
                 <Top>0.03528cm</Top>
-                <Height>1.79917cm</Height>
-                <Width>14.19508cm</Width>
-                <ZIndex>3</ZIndex>
+                <Left>0.03308cm</Left>
+                <Height>2.02808cm</Height>
+                <Width>18.08427cm</Width>
+                <ZIndex>2</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -897,7 +886,7 @@
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>4.97493cm</Top>
-            <Height>15.69123cm</Height>
+            <Height>15.5391cm</Height>
             <Width>18.14381cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
@@ -915,7 +904,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>4.71523cm</Top>
         <Left>1.39249cm</Left>
-        <Height>20.66616cm</Height>
+        <Height>20.51403cm</Height>
         <Width>18.14381cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
@@ -932,7 +921,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!razon_social.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                <Value>=First(Fields!razon_social.Value, "DS_ComprobanteCompraCabecera")</Value>
                 <Style>
                   <FontFamily>Helvetica LT Std Black</FontFamily>
                   <FontSize>12pt</FontSize>
@@ -1183,7 +1172,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!subtotal.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!subtotal.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -1218,7 +1207,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!impuestos.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!impuestos.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -1254,7 +1243,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!conceptos.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!conceptos.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -1290,7 +1279,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!total.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!total.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -1359,7 +1348,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!cae.Value, "DataSet_ComprobanteCompraCabecera")</Value>
+                    <Value>=First(Fields!cae.Value, "DS_ComprobanteCompraCabecera")</Value>
                     <Style>
                       <FontFamily>Helvetica LT Std</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -1430,7 +1419,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet_ComprobanteCompraDetalleItems">
+    <DataSet Name="DS_ComprobanteCompraDetalleItems">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1466,7 +1455,7 @@
         <rd:TableAdapterName>SP_comprobanteCompra_detalle_itemsTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="DataSet_ComprobanteCompraDetalleImpuestos">
+    <DataSet Name="DS_ComprobanteCompraDetalleImpuestos">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1494,7 +1483,7 @@
         <rd:TableAdapterName>SP_comprobanteCompra_detalle_impuestosTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="DataSet_ComprobanteCompraDetalleConceptos">
+    <DataSet Name="DS_ComprobanteCompraDetalleConceptos">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1530,7 +1519,47 @@
         <rd:TableAdapterName>SP_comprobanteCompra_detalle_conceptosTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="DataSet_ComprobanteCompraCabecera">
+    <DataSet Name="DS_Empresa">
+      <Query>
+        <DataSourceName>dbCentrexDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="nombre">
+          <DataField>nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="direccion">
+          <DataField>direccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cuit">
+          <DataField>cuit</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ingresos_brutos">
+          <DataField>ingresos_brutos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="inicio_actividades">
+          <DataField>inicio_actividades</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
+        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>datos_empresa</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>datos_empresaTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DS_ComprobanteCompraCabecera">
       <Query>
         <DataSourceName>dbCentrexDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1607,11 +1636,11 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dbCentrexDataSet</rd:DataSetName>
-        <rd:SchemaPath>Q:\J@V!\Docs\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>SP_comprobanteCompra</rd:TableName>
+        <rd:SchemaPath>C:\Users\javie\OneDrive\_Development\Centrex 2.0\dbCentrexDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>SP_comprobanteCompra_cabecera</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>SP_comprobanteCompraTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>SP_comprobanteCompra_cabeceraTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

@@ -125,8 +125,8 @@
         If dg_view.Rows.Count = 0 Then Exit Sub
 
         Dim seleccionado As String = dg_view.CurrentRow.Cells(0).Value.ToString
-        If MsgBox("¿Está seguro de borrar el item: " + info_item(info_registro_stocktmp(seleccionado).id_item).item + "?", vbYesNo + vbQuestion) = vbYes Then
-            borraritemregistrostocktmp(info_registro_stocktmp(seleccionado))
+        If MsgBox("¿Está seguro de borrar el item: " + info_item(InfoRegistroStockTmp(seleccionado).id_item).item + "?", vbYesNo + vbQuestion) = vbYes Then
+            BorrarItemRegistroStockTmp(InfoRegistroStockTmp(seleccionado))
         End If
         updateform()
     End Sub
@@ -146,7 +146,7 @@
         Dim seleccionado As String = dg_view.CurrentRow.Cells(0).Value.ToString
 
         edicion_item_registro_stock = True
-        edita_item_registro_stock = info_registro_stock(seleccionado)
+        edita_item_registro_stock = InfoRegistroStock(seleccionado)
         infoagregarstock.ShowDialog()
         updateform()
         edicion_item_registro_stock = False

@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.ComponentModel
 
 Module ccClientes
 
@@ -127,110 +128,96 @@ Module ccClientes
         End Try
     End Function
 
-    Public Function consultaCcCliente(ByVal id_cliente As Integer, ByVal id_Cc As Integer, ByVal fecha_desde As Date, ByVal fecha_hasta As Date, ByVal tipoDoc As Integer) As DataTable
-        Dim sqlstr As String
-        Dim where As String = ""
+    Public Sub consultaCcCliente(ByRef dataGrid As DataGridView, ByVal id_cliente As Integer, ByVal id_Cc As Integer, ByVal fecha_desde As Date, ByVal fecha_hasta As Date, ByVal desde As Integer,
+                                      ByRef nRegs As Integer, ByRef tPaginas As Integer, ByVal pagina As Integer, ByRef txtnPage As TextBox, ByVal traerTodo As Boolean)
+
         Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-        Dim dt As New DataTable 'Crear nuevo dataset
+        Dim datatable As New DataTable 'Crear nuevo dataset
+        Dim dataset As New DataSet 'Crear nuevo dataset
         Dim comando As New SqlCommand
+        'Guarda la columna por la cual está ordenado el control y la dirección en caso de existir
+        'para luego volver a ordenar la lista de la misma forma
+        Dim oldSortColumn As DataGridViewColumn = Nothing
+        Dim oldSortDir As ListSortDirection
+
+        oldSortColumn = dataGrid.SortedColumn
+        If dataGrid.SortedColumn IsNot Nothing Then
+            If dataGrid.SortOrder = SortOrder.Ascending Then
+                oldSortDir = ListSortDirection.Ascending
+            Else
+                oldSortDir = ListSortDirection.Descending
+            End If
+        End If
+
+        dataGrid.Columns.Clear()
 
         Try
-            'Select Case tipoDoc
-            '    Case 0 'Documentos contables
-            '        where += " AND c.id_tipoComprobante IN (1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 51, 52, 53, 54, 200, 201) AND c.testing = 0"
-            '    Case 1 'Presupuestos
-            '        where += "AND c.esPresupuesto = 1"
-            '    Case 2 'Documentos de prueba
-            '        where += "AND c.testing = 1"
-            '    Case 3 'Remitos
-            '        where += "AND c.id_tipoComprobante = 199"
-            '    Case 4 'Todos
-            'End Select
-
-            'sqlstr = "SELECT p.id_pedido AS 'ID', CAST(p.fecha AS VARCHAR(50)) AS 'Fecha', c.comprobante AS 'Comprobante', CONCAT('$ ', p.total) AS 'Total' " &
-            '            "FROM pedidos As p " &
-            '            "INNER JOIN comprobantes AS c ON p.id_comprobante = c.id_comprobante " &
-            '            "WHERE p.fecha BETWEEN '" + fecha_desde.ToString("MM/dd/yyyy") + "' AND '" + fecha_hasta.ToString("MM/dd/yyyy") + "' " &
-            '            "AND p.id_cliente = " + id_cliente.ToString + " AND c.activo = 1 " &
-            '            "AND p.activo = '0' AND p.cerrado = '1' "
-
-            'sqlstr = "" & vbc
-
-            'sqlstr += where
-
-            sqlstr = "DECLARE @id_cliente INTEGER; " & vbCr &
-            "DECLARE @fecha_inicio DATE; " & vbCr &
-            "DECLARE @fecha_fin DATE; " & vbCr &
-            "DECLARE @id_cc AS INTEGER; " & vbCr &
-            " " & vbCr &
-            "SET @id_cliente = '" & id_cliente.ToString & "'; " & vbCr &
-            "SET @fecha_inicio = '" & fecha_desde.ToString("MM/dd/yyyy") & "'; " & vbCr &
-            "SET @fecha_fin =  '" & fecha_hasta.ToString("MM/dd/yyyy") & "'; " & vbCr &
-            "SET @id_cc = '" & id_Cc.ToString & "'; " & vbCr &
-            " " & vbCr &
-            "WITH tbl " & vbCr &
-            "AS (SELECT t.id_pedido, " & vbCr &
-                    "t.id_cliente, " & vbCr &
-                    "t.numeroComprobante, " & vbCr &
-                    "t.puntoVenta, " & vbCr &
-                    "cmp.id_tipoComprobante, " & vbCr &
-                    "t.fecha, " & vbCr &
-                    "(CASE WHEN cmp.id_tipoComprobante IN (1, 2, 6, 7, 11, 12, 51, 52, 200) THEN T.total ELSE 0 END) AS 'debito', " & vbCr &
-                    "(CASE WHEN cmp.id_tipoComprobante IN (3, 4, 8, 9, 13, 15, 53, 54, 201) THEN T.total*-1 ELSE 0 END) AS 'credito', " & vbCr &
-                    "(CASE WHEN cmp.id_tipoComprobante IN (1, 2, 6, 7, 11, 12, 51, 52, 200) THEN T.total " & vbCr &
-                        "WHEN cmp.id_tipoComprobante IN (3, 4, 8, 9, 13, 15, 53, 54, 201) THEN T.TOTAL * -1 ELSE 0 END) AS 'total', " & vbCr &
-                    "t.activo, " & vbCr &
-                    "t.cerrado, " & vbCr &
-                    "t.esTest, " & vbCr &
-                    "t.esPresupuesto, " & vbCr &
-                    "t.id_cc " & vbCr &
-                    "FROM pedidos As t " & vbCr &
-                    "INNER JOIN comprobantes AS cmp ON t.id_comprobante = cmp.id_comprobante " & vbCr &
-                    "INNER JOIN tipos_comprobantes AS tc ON cmp.id_tipoComprobante = tc.id_tipoComprobante " & vbCr &
-                    "WHERE t.id_cliente = @id_cliente AND t.id_cc = @id_cc AND t.fecha BETWEEN @fecha_inicio AND @fecha_fin AND t.activo = 0 AND t.cerrado = 1 AND t.esTest = 0 AND t.esPresupuesto = 0 " & vbCr &
-                    "AND cmp.id_tipoComprobante IN (1, 2, 3, 4, 6, 7, 8, 9, 11 ,12, 13, 15, 51, 52, 53, 54, 200, 201)	" & vbCr &
-                ") " & vbCr &
-            "SELECT " & vbCr &
-                "tbl.id_pedido AS 'ID', " & vbCr &
-                "tbl.fecha AS 'Fecha', " & vbCr &
-                "ccc.nombre AS 'Cuenta corriente', " & vbCr &
-                "dbo.CalculoComprobante(tbl.id_tipoComprobante, tbl.puntoVenta, tbl.numeroComprobante) AS 'Comprobante', " & vbCr &
-                "tbl.debito AS 'Débito', " & vbCr &
-                "tbl.credito AS 'Crédito', " & vbCr &
-                "SUM(tbl.TOTAL) OVER (PARTITION BY tbl.id_cc " & vbCr &
-                "--ORDER BY tbl.fecha, tbl.numeroComprobante, tbl.id_pedido, tbl.id_cc ROWS UNBOUNDED PRECEDING ) AS 'Saldo' " & vbCr &
-                "ORDER BY tbl.numeroComprobante ROWS UNBOUNDED PRECEDING ) AS 'Saldo' " & vbCr &
-                "FROM tbl " & vbCr &
-                "INNER JOIN cc_clientes AS ccc ON tbl.id_cc = ccc.id_cc " & vbCr &
-                "WHERE tbl.id_cliente = @id_cliente AND tbl.id_cc = @id_cc AND tbl.fecha BETWEEN @fecha_inicio AND @fecha_fin AND tbl.activo = 0 AND tbl.cerrado = 1 AND tbl.esTest = 0 AND tbl.esPresupuesto = 0 " & vbCr &
-                "AND tbl.id_tipoComprobante IN (1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 51, 52, 53, 54, 200, 201) " & vbCr &
-                "ORDER BY tbl.numeroComprobante ASC "
-
             'Crea y abre una nueva conexión
             abrirdb(serversql, basedb, usuariodb, passdb)
 
             'Propiedades del SqlCommand
             With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
+                .CommandText = "SP_consulta_CC_Cliente"
+                .CommandType = CommandType.StoredProcedure
+
+                With .Parameters
+                    .AddWithValue("id_cliente", id_cliente)
+                    .AddWithValue("id_cc", id_Cc)
+                    .AddWithValue("fecha_desde", fecha_desde)
+                    .AddWithValue("fecha_hasta", fecha_hasta)
+                End With
                 .Connection = CN
             End With
 
             da.SelectCommand = comando
 
             'llenar el dataset
-            da.Fill(dt)
-            Return dt
+            'da.Fill(datatable)
+            'llenar el dataset
+            'da.Fill(dataset)
+            da.Fill(datatable) 'Obtengo todos los registros para poder saber cuantos tiene
+            If Not traerTodo Then
+                nRegs = datatable.Rows.Count
+                tPaginas = Math.Ceiling(nRegs / itXPage)
+                txtnPage.Text = pagina & " / " & tPaginas
+                datatable.Clear()
+                da.Fill(desde, itXPage, datatable) 'Cargo devuelta el datatable pero solo con los registros pedidos por página
+            End If
+
+            dataGrid.DataSource = datatable
+            dataGrid.RowsDefaultCellStyle.BackColor = Color.White
+            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+
+            'Inmovilizo las columnas
+            Dim i As Integer = 0
+            For Each columna As DataGridViewColumn In dataGrid.Columns
+                dataGrid.Columns(columna.Name.ToString).DisplayIndex = i
+                i = i + 1
+            Next
+
+            dataGrid.Height = dataGrid.Height + 1
+            dataGrid.Height = dataGrid.Height - 1
+
+            If dataGrid.Rows.Count > 0 Then
+                dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.AllCells
+            Else
+                dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+            End If
+
+            If oldSortColumn IsNot Nothing Then
+                dataGrid.Sort(dataGrid.Columns(oldSortColumn.Name), oldSortDir)
+            End If
+
+            dataGrid.Refresh()
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
-            Return dt
         Finally
             cerrardb()
         End Try
-    End Function
+    End Sub
 
-    Public Function consultaTotalCcCliente(ByVal id_cliente As Integer, ByVal fecha_desde As Date, ByVal fecha_hasta As Date, ByVal tipoDoc As Integer) As String
-        Dim sqlstr As String
+    Public Function consultaTotalCcCliente(ByVal id_cliente As Integer, ByVal fecha_desde As Date, ByVal fecha_hasta As Date) As String
+        Dim sqlstr As String = ""
         Dim where As String = ""
         Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
         Dim dt As New DataTable 'Crear nuevo dataset
@@ -239,26 +226,13 @@ Module ccClientes
             'Crea y abre una nueva conexión
             abrirdb(serversql, basedb, usuariodb, passdb)
 
-            Select Case tipoDoc
-                Case 0 'Documentos contables
-                    where += " AND c.id_tipoComprobante IN (1, 2, 3, 6, 7, 8, 4, 5, 9, 10, 63,64, 34, 35, 39, 40, 60, 61, 11, 12, 13, 15, 49, 51, 52, 53, 54) AND c.testing = 0"
-                Case 1 'Presupuestos
-                    where += "AND c.esPresupuesto = 1"
-                Case 2 'Documentos de prueba
-                    where += "AND c.testing = 1"
-                Case 3 'Remitos
-                    where += "AND c.id_tipoComprobante = 199"
-                Case 4 'Todos
-            End Select
-
-            sqlstr = "SELECT SUM(p.total) AS 'Total' " &
-                        "FROM pedidos As p " &
-                        "INNER JOIN comprobantes AS c ON p.id_comprobante = c.id_comprobante " &
-                        "WHERE p.fecha BETWEEN '" + fecha_desde.ToString("MM/dd/yyyy") + "' AND '" + fecha_hasta.ToString("MM/dd/yyyy") + "' " &
-                        "AND p.id_cliente = " + id_cliente.ToString + " AND c.activo = 1 " &
-                        "AND p.activo = '0' AND p.cerrado = '1' "
-
-            sqlstr += where
+            sqlstr = "SELECT DISTINCT SUM(t.total) AS 'Total' " &
+                        "FROM transacciones As t " &
+                        "INNER JOIN tipos_comprobantes AS tc ON t.id_tipoComprobante = tc.id_tipoComprobante " &
+                        "INNER JOIN comprobantes AS c ON tc.id_tipoComprobante = c.id_tipoComprobante " &
+                        "WHERE t.fecha BETWEEN '" + fecha_desde.ToString("MM/dd/yyyy") + "' AND '" + fecha_hasta.ToString("MM/dd/yyyy") + "' " &
+                        "AND t.id_cliente = " + id_cliente.ToString + " " &
+                        "AND c.contabilizar = 1"
 
 
             'Propiedades del SqlCommand

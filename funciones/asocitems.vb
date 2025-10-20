@@ -4,152 +4,81 @@ Module asocitems
     ' ************************************ FUNCIONES DE ITEMS ASOCIADOS ***************************
     Public Function info_asocItem(ByVal id_item As String, ByVal id_asocItem As String) As asocItem
         Dim tmp As New asocItem
-        Dim sqlstr As String = "SELECT * FROM asocItems WHERE id_item = '" + id_item + "' AND id_item_asoc = '" + id_asocItem + "'"
         Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-            tmp.id_item = dataset.Tables("tabla").Rows(0).Item(0).ToString
-            tmp.id_item_asoc = dataset.Tables("tabla").Rows(0).Item(1).ToString
-            tmp.cantidad = dataset.Tables("tabla").Rows(0).Item(2).ToString
-            cerrardb()
-            Return tmp
+            Using ctx As New CentrexDbContext()
+                Dim ent = ctx.AsocItems.AsNoTracking().FirstOrDefault(Function(a) a.IdItem = CInt(id_item) AndAlso a.IdItemAsociado = CInt(id_asocItem))
+                If ent Is Nothing Then
+                    tmp.id_item = -1
+                    Return tmp
+                End If
+                tmp.id_item = ent.IdItem
+                tmp.id_item_asoc = ent.IdItemAsociado
+                tmp.cantidad = ent.Cantidad
+                Return tmp
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
             tmp.id_item = -1
-            cerrardb()
             Return tmp
         End Try
     End Function
 
     Public Function addAsocItem(it As asocItem) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-        Dim sqlstr As String
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-
-        mytrans = CN.BeginTransaction()
-
         Try
-            sqlstr = "INSERT INTO asocItems (id_item, id_item_asoc, cantidad) VALUES " &
-                                                   "('" + it.id_item.ToString + "', '" + it.id_item_asoc.ToString + "', '" + it.cantidad.ToString + "')"
-
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
+            Using ctx As New CentrexDbContext()
+                Dim ent As New AsocItemEntity With {
+                    .IdItem = it.id_item,
+                    .IdItemAsociado = it.id_item_asoc,
+                    .Cantidad = it.cantidad
+                }
+                ctx.AsocItems.Add(ent)
+                ctx.SaveChanges()
+                Return True
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message)
-            cerrardb()
             Return False
         End Try
     End Function
 
     Public Function updateAsocItem(it As asocItem, Optional borra As Boolean = False) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
         Try
-            sqlstr = "UPDATE asocItems SET id_item = '" + it.id_item.ToString + "', id_item_asoc = '" + it.id_item_asoc.ToString + "', cantidad = '" + it.cantidad.ToString + "' " &
-                        "WHERE id_item = '" + it.id_item.ToString + "'"
-
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
+            Using ctx As New CentrexDbContext()
+                Dim ent = ctx.AsocItems.FirstOrDefault(Function(a) a.IdItem = it.id_item AndAlso a.IdItemAsociado = it.id_item_asoc)
+                If ent Is Nothing Then Return False
+                ent.Cantidad = it.cantidad
+                ctx.SaveChanges()
+                Return True
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message)
-            cerrardb()
             Return False
         End Try
     End Function
 
     Public Function borrarAsocItem(it As asocItem) As Boolean
-        abrirdb(serversql, basedb, usuariodb, passdb)
-
-        Dim mytrans As SqlTransaction
-        Dim Comando As New SqlClient.SqlCommand
-        Dim sqlstr As String
-
-        mytrans = CN.BeginTransaction()
-
         Try
-            sqlstr = "DELETE FROM asocITems WHERE id_item = '" + it.id_item.ToString + "' AND id_item_asoc = '" + it.id_item_asoc.ToString + "'"
-            Comando = New SqlClient.SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
-            Comando.ExecuteNonQuery()
-
-            mytrans.Commit()
-            cerrardb()
-            Return True
+            Using ctx As New CentrexDbContext()
+                Dim ent = ctx.AsocItems.FirstOrDefault(Function(a) a.IdItem = it.id_item AndAlso a.IdItemAsociado = it.id_item_asoc)
+                If ent Is Nothing Then Return False
+                ctx.AsocItems.Remove(ent)
+                ctx.SaveChanges()
+                Return True
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
-            cerrardb()
             Return False
         End Try
     End Function
 
     Public Function Tiene_Items_Asociados(ByVal id_item As String) As Boolean
-        Dim c As Integer
-        Dim sqlstr As String = "SELECT COUNT(id_item) FROM asocItems WHERE id_item = '" + id_item + "'"
         Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dataset As New DataSet 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dataset, "Tabla")
-            c = dataset.Tables("tabla").Rows(0).Item(0)
-            If c > 0 Then
-                Return True
-            Else
-                Return False
-            End If
+            Using ctx As New CentrexDbContext()
+                Return ctx.AsocItems.AsNoTracking().Any(Function(a) a.IdItem = CInt(id_item))
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
             Return False
-        Finally
-            cerrardb()
         End Try
     End Function
 
@@ -183,30 +112,30 @@ Module asocitems
                     "WHERE pai.id_item = '" + id_item + "' AND pai.id_produccion = '" + id_produccion.ToString + "'"
         End If
         Try
-            'Crea y abre una nueva conexión
-            abrirdb(serversql, basedb, usuariodb, passdb)
-
-            'Propiedades del SqlCommand
-            Dim comando As New SqlCommand
-            With comando
-                .CommandType = CommandType.Text
-                .CommandText = sqlstr
-                .Connection = CN
-            End With
-
-            Dim da As New SqlDataAdapter 'Crear nuevo SqlDataAdapter
-            Dim dt As New DataTable 'Crear nuevo dataset
-
-            da.SelectCommand = comando
-
-            'llenar el dataset
-            da.Fill(dt)
-            Return dt
+            Using ctx As New CentrexDbContext()
+                If id_produccion = -1 Then
+                    Dim query = From ai In ctx.AsocItems.AsNoTracking()
+                                Join tpi In ctx.TmpProduccionItems.AsNoTracking() On ai.IdItem Equals tpi.IdItem
+                                Join i In ctx.Items.AsNoTracking() On ai.IdItem Equals i.IdItem
+                                Join ii In ctx.Items.AsNoTracking() On ai.IdItemAsociado Equals ii.IdItem
+                                Where ai.IdItem = CInt(id_item)
+                                Select New With { .Producto = i.Item, .Cantidad = tpi.Cantidad, .Producto_asociado = ii.Descript, .Cantidad_enviada = ai.Cantidad * tpi.Cantidad,
+                                                  .id_tmpProduccionItem = tpi.IdTmpProduccionItem, .id_item = ai.IdItem, .id_item_asoc = ai.IdItemAsociado }
+                    Return ToDataTable(query)
+                Else
+                    Dim query2 = (From pai In ctx.ProduccionAsocItems.AsNoTracking()
+                                  Join pi In ctx.ProduccionItems.AsNoTracking() On pai.id_item Equals pi.id_item
+                                  Join i In ctx.Items.AsNoTracking() On pai.id_item Equals i.IdItem
+                                  Join ii In ctx.Items.AsNoTracking() On pai.id_item_asoc Equals ii.IdItem
+                                  Where pai.id_item = CInt(id_item) AndAlso pai.id_produccion = id_produccion
+                                  Select New With { .Producto = i.Item, .Cantidad = pi.Cantidad, .Producto_asociado = ii.Descript, .Cantidad_enviada = pai.cantidad,
+                                                    .id_item = pai.id_item, .id_item_asoc = pai.id_item_asoc }).Distinct()
+                    Return ToDataTable(query2)
+                End If
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message.ToString)
             Return Nothing
-        Finally
-            cerrardb()
         End Try
     End Function
 End Module

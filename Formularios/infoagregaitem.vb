@@ -6,6 +6,8 @@
     Dim comprobanteCompra As Boolean = False
     Dim id_comprobanteCompra As Integer = -1
     Dim actualiza As Boolean = True
+    Dim idUsuario As Integer
+    Dim idUnico As String
     Public cant As Integer
 
     Public Sub New()
@@ -17,7 +19,17 @@
 
     End Sub
 
-    Public Sub New(ByVal _produccion As Boolean, ByVal _ordenCompra As Boolean, ByVal _actualiza As Boolean)
+    Sub New(_idUsuario As Integer, _idUnico As String)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        idUsuario = _idUsuario
+        idUnico = _idUnico
+    End Sub
+
+    Public Sub New(ByVal _produccion As Boolean, ByVal _ordenCompra As Boolean, ByVal _actualiza As Boolean, ByVal _idUsuario As Integer, ByVal _idUnico As String)
 
         ' Esta llamada es exigida por el diseñador.
         InitializeComponent()
@@ -26,6 +38,8 @@
         produccion = _produccion
         ordenCompra = _ordenCompra
         actualiza = _actualiza
+        idUsuario = _idUsuario
+        idUnico = _idUnico
     End Sub
 
     Public Sub New(ByVal _comprobanteCompra As Boolean, ByVal _id_comprobanteCompra As Integer)
@@ -63,14 +77,15 @@
             ElseIf comprobanteCompra Then
 
             Else
-                txt_cantidad.Text = askCantidadCargada(edita_item.id_item,, edita_item.id_item_temporal)
-                txt_precio.Text = askPrecioCargado(edita_item.id_item,, edita_item.id_item_temporal)
+                txt_cantidad.Text = askCantidadCargada(edita_item.id_item, -1, "tmppedidos_items", idUsuario, idUnico)
+                txt_precio.Text = askPreciocargado(edita_item.id_item, -1, "tmppedidos_items", idUsuario, idUnico)
             End If
         End If
     End Sub
 
     Private Sub cmd_ok_Click(sender As Object, e As EventArgs) Handles cmd_ok.Click
-        If CInt(txt_cantidad.Text) = -1 Then
+        If txt_cantidad.Text = "" Then txt_cantidad.Text = 0
+        If CInt(txt_cantidad.Text) = -1 Or CInt(txt_cantidad.Text) = 0 Then
             closeandupdate(Me)
             Exit Sub
         End If
@@ -114,9 +129,9 @@
         Else
             'Pedido normal
             If Not agregaitem Then
-                addItemPedidotmp(edita_item, txt_cantidad.Text, txt_precio.Text, edita_item.id_item_temporal)
+                addItemPedidotmp(edita_item, txt_cantidad.Text, txt_precio.Text, idUsuario, idUnico, edita_item.id_item_temporal)
             Else
-                addItemPedidotmp(edita_item, txt_cantidad.Text, txt_precio.Text)
+                addItemPedidotmp(edita_item, txt_cantidad.Text, txt_precio.Text, idUsuario, idUnico)
             End If
         End If
 

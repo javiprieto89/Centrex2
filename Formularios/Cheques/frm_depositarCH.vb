@@ -86,7 +86,7 @@
         pagina_cartera = 1
 
 
-        cargar_datagrid(dg_view_chCartera, sqlstr, basedb, desde_cartera, nRegs_cartera, tPaginas_cartera, pagina_cartera, txt_nPage_cartera)
+        cargar_datagrid(dg_view_chCartera, sqlstr, basedb, desde_cartera, nRegs_cartera, tPaginas_cartera, pagina_cartera, txt_nPage_cartera, "cheques", "cheques")
         dg_view_chCartera.ClearSelection()
     End Sub
 
@@ -95,7 +95,7 @@
         pagina_cartera = 1
 
 
-        cargar_datagrid(dg_view_chCartera, sqlstr, basedb, desde_cartera, nRegs_cartera, tPaginas_cartera, pagina_cartera, txt_nPage_cartera)
+        cargar_datagrid(dg_view_chCartera, sqlstr, basedb, desde_cartera, nRegs_cartera, tPaginas_cartera, pagina_cartera, txt_nPage_cartera, "cheques", "cheques")
     End Sub
 
     Private Sub cmd_next_Click_cartera(sender As Object, e As EventArgs) Handles cmd_next_cartera.Click
@@ -437,5 +437,9 @@
 
         actualizarDatagrid_cartera()
         actualizarDatagrid_depositado()
+    End Sub
+
+    Private Sub cmd_filtrarCH_cartera_Click(sender As Object, e As EventArgs) Handles cmd_filtrarCH_cartera.Click
+
     End Sub
 End Class

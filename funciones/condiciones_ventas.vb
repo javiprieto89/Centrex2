@@ -58,9 +58,7 @@ Module condiciones_venta
             sqlstr = "INSERT INTO condiciones_venta (condicion, vencimiento, recargo, activo) VALUES ('" +
                         condicion.condicion + "', '" + condicion.vencimiento.ToString + "', '" + condicion.recargo.ToString +
                         "', '" + condicion.activo.ToString + "')"
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -90,9 +88,7 @@ Module condiciones_venta
                             "', recargo = '" + condicion.recargo.ToString + "', activo = '" + condicion.activo.ToString +
                             "' WHERE id_condicion_venta = '" + condicion.id_condicion_venta.ToString + "'"
             End If
-            Comando = New SqlCommand(sqlstr, CN)
-
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
@@ -116,8 +112,7 @@ Module condiciones_venta
 
         Try
             sqlstr = "DELETE FROM condiciones_venta WHERE id_condicion_venta = '" + condicion.id_condicion_venta.ToString + "'"
-            Comando = New SqlCommand(sqlstr, CN)
-            Comando.Transaction = mytrans
+            Comando = New SqlCommand(sqlstr, CN) With {.Transaction = mytrans}
             Comando.ExecuteNonQuery()
 
             mytrans.Commit()
